@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon.ico" sizes="48x48">
+<link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>Gunframe | Speakeasy photography by Kevin Ha</title>
+<meta name="description" content="Candid, handheld wedding photography by Kevin Ha. Candid. Composed.">
+<script>document.documentElement.classList.add('js');document.documentElement.setAttribute('data-theme','dark');   /* every visit starts in dark mode; the toggle only lasts for the visit */</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Caveat:wght@600&amp;family=Limelight&amp;family=Josefin+Sans:wght@300;400;600&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+:root{color-scheme:light;--bg:#EADFCB;--surface:#DCCDB0;--text:#1A1620;--body:#3A3446;--muted:#5E566B;--accent:#B3192B;--accent-text:#B3192B;--line:#CBB99A;--line-strong:#9A8662;--on-text:#EADFCB;--fill-text:#FBF1E0;--t1a:#DCCDB0;--t1b:#9A8662;--t2a:#DCCDB0;--t2b:#B8A685;--t3a:#E2D4BB;--t3b:#9A8662;--t4a:#DCCDB0;--t4b:#AA9876}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B1020;--surface:#131A2E;--text:#F4E8D4;--body:#DACDB6;--muted:#9FA8C4;--accent:#FF4D5E;--accent-text:#FF6B79;--line:#26304D;--line-strong:#44527E;--on-text:#0B1020;--fill-text:#0B1020;--t1a:#131A2E;--t1b:#44527E;--t2a:#131A2E;--t2b:#2E395A;--t3a:#101628;--t3b:#44527E;--t4a:#131A2E;--t4b:#38446A}
+body,.theme-fade{transition:background-color .25s ease,color .25s ease}
+.theme-toggle{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;background:transparent;border:0;cursor:pointer;font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.theme-toggle:hover{color:var(--text)}
+.theme-toggle .dot{width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+@media (prefers-reduced-motion:reduce){body,.theme-fade{transition:none}}
+body{margin:0;background:var(--bg)}
+a{color:var(--text);text-decoration:none}
+a:hover{color:var(--accent-text)}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.nav a{font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:12px 4px;color:var(--muted)}
+.nav a:hover{color:var(--text)}
+.ph{position:relative;overflow:hidden;background:var(--surface);border:none}
+.ph span{position:absolute;left:12px;bottom:10px;font-family:'Space Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tone1{background:linear-gradient(160deg,var(--t1a),var(--t1b))}
+.tone2{background:linear-gradient(200deg,var(--t2a),var(--t2b))}
+.tone3{background:linear-gradient(135deg,var(--t3a),var(--t3b))}
+.tone4{background:linear-gradient(180deg,var(--t4a),var(--t4b))}
+.ar1{aspect-ratio:3/2}.ar2{aspect-ratio:4/5}.ar3{aspect-ratio:1/1}.ar4{aspect-ratio:3/4}
+.chip{font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;min-height:44px;padding:0 18px;border:1px solid var(--line-strong);background:transparent;color:var(--body);cursor:pointer}
+.chip:hover{border-color:var(--text);color:var(--text)}
+.chip.on{background:var(--text);border-color:var(--text);color:var(--on-text)}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border:1px solid var(--text);color:var(--text);font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.btn:hover{background:var(--text);color:var(--on-text)}
+.btn-fill{background:var(--accent);border-color:var(--accent);color:var(--fill-text)}
+.btn-fill:hover{background:var(--text);border-color:var(--text);color:var(--on-text)}
+.card-link{font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);display:inline-flex;align-items:center;min-height:44px}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+/* ===== Motion (test phase) ===== */
+:root{--ease:cubic-bezier(.2,.7,.2,1)}
+.js [data-r]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s)}
+.js [data-r].in{opacity:1;transform:none}
+.js .ph[data-r="clip"]{opacity:1;transform:none;clip-path:inset(10% 8% 10% 8%);transition:clip-path 1.3s var(--ease) var(--d,0s)}
+.js .ph[data-r="clip"].in{clip-path:inset(0)}
+.js .ph[data-r="clip"] img{transform:scale(1.22);transition:transform 1.6s var(--ease) var(--d,0s)}
+.js .ph[data-r="clip"].in img{transform:scale(1.08)}
+#gf-progress{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;z-index:50;pointer-events:none}
+.nav a{position:relative}
+.nav a:not(.theme-toggle)::after{content:"";position:absolute;left:4px;right:4px;bottom:6px;height:1px;background:var(--text);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease)}
+.nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
+.nav a.active{color:var(--text)}
+.btn{position:relative;transition:background-color .25s,color .25s,border-color .25s,transform .25s var(--ease)}
+.btn:active{transform:scale(.96)!important}
+.card-link{transition:color .2s,gap .25s var(--ease);gap:6px}
+.card-link:hover{gap:14px;color:var(--accent-text)}
+article.tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .3s ease-out;will-change:transform}
+article .ph img,#frames .ph img{transition:transform .8s var(--ease)}
+article:hover .ph img,#frames a:hover .ph img{transform:scale(1.07)}
+#frames a .ph{transition:box-shadow .3s}
+#frames a:hover .ph{box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.chip{transition:background-color .25s,color .25s,border-color .25s,transform .2s var(--ease)}
+.chip:active{transform:scale(.94)}
+.theme-toggle .dot{transition:transform .5s var(--ease)}
+.theme-toggle.spin .dot{transform:rotate(180deg)}
+html.theming *{transition:background-color .4s,color .4s,border-color .4s!important}
+#gf-cam{position:fixed;left:0;top:0;width:44px;height:64px;margin:-22px 0 0 -22px;pointer-events:none;z-index:80;opacity:0;transition:opacity .25s;will-change:transform}
+#gf-cam{background:none!important}
+#gf-cam .glass{width:100%;height:100%;transform-origin:22px 22px;will-change:transform}
+#gf-cam svg.body{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4));transform-origin:22px 22px;transition:transform .18s var(--ease)}
+#gf-cam.hot svg.body{transform:scale(1.15)}
+.gf-drop{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:79;will-change:transform,opacity}
+#gf-bottle,.gf-w{position:fixed;left:0;top:0;pointer-events:none;z-index:79;display:none}
+#gf-bottle{width:0;height:0;opacity:0;transition:opacity .3s}
+#gf-bottle.show{opacity:1}
+#gf-bottle svg{position:absolute;left:-12px;top:-2px;width:24px;height:84px;overflow:visible;transform-origin:12px 2px;transform:rotate(var(--br,0deg)) scale(var(--bs,1));transition:transform .3s var(--ease);filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}
+#gf-bottle .stream{position:absolute;left:-1px;top:0;width:2px;height:0;background:linear-gradient(#B02450,#7A1230);border-radius:1px;opacity:0;transition:opacity .15s}
+#gf-bottle,.gf-w{background:none!important}
+.gf-w{width:80px;height:112px;color:#E7DCC2}
+:root[data-theme="light"] .gf-w{color:#1C1C1E}
+.gf-w .flip{transform:scaleX(var(--f,1));transform-origin:36px 0}
+.gf-w svg{display:block;overflow:visible;filter:drop-shadow(0 4px 5px rgba(0,0,0,.4));animation:gfBob calc(var(--leg,.42s) / 2) ease-in-out infinite alternate}
+.gf-w .legA,.gf-w .legB{transform-origin:36px 68px;animation:gfLeg var(--leg,.42s) ease-in-out infinite}
+.gf-w .legB{animation-delay:calc(var(--leg,.42s) / -2)}
+.gf-w .armB{transform-origin:36px 36px;animation:gfLeg var(--leg,.42s) ease-in-out infinite reverse}
+.gf-w .lean{transform:rotate(var(--lean,3deg));transform-origin:36px 100px;transition:transform .3s}
+.gf-w .lines{opacity:0;transition:opacity .2s}.gf-w.has .lines{opacity:1}
+.gf-w .l{display:none}
+.gf-w.look0 .l0,.gf-w.look1 .l1,.gf-w.look2 .l2,.gf-w.look3 .l3,.gf-w.look4 .l4,.gf-w.look5 .l5,.gf-w.look6 .l6,.gf-w.look7 .l7,.gf-w.look8 .l8,.gf-w.look9 .l9,.gf-w.look10 .l10,.gf-w.look11 .l11{display:inline}
+.gf-w .sp{transform-box:fill-box;transform-origin:center;animation:gfSpin .7s linear infinite}
+.gf-w.shout.stop .flip{animation:gfShake .09s linear infinite}
+.gf-w .say.shout{background:#FFE1DA;color:#A30F22;font-weight:700;animation:gfShake .09s linear infinite}
+@keyframes gfSpin{to{transform:rotate(360deg)}}
+@keyframes gfShake{0%,100%{translate:-1.6px 0}50%{translate:1.6px 0}}
+.gf-w.stop svg,.gf-w.stop .legA,.gf-w.stop .legB,.gf-w.stop .armB{animation:none}
+.gf-w .held{display:none}
+.gf-w.has .held{display:inline}
+.gf-w .say{position:absolute;left:36px;top:-34px;transform:translateX(-50%) scale(.5);opacity:0;white-space:nowrap;padding:5px 10px;border-radius:12px;background:#F4E8D4;color:#1A1620;font:400 12px/1 var(--hf),serif;letter-spacing:.04em;box-shadow:0 3px 8px rgba(0,0,0,.35);transition:opacity .15s,transform .25s var(--ease)}
+.gf-w .say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.gf-w.has .tray{display:none}
+.gf-w .armF{transform-origin:41px 36px}
+.gf-w.swing .armF{animation:gfSwing .4s ease-in-out}
+.gf-w.reach .armF{animation:gfReach .5s ease-in-out}
+.gf-w.hit .flip{animation:gfHit .5s ease-out}
+.gf-f .say{top:-62px;background:#FBE3E8}
+@keyframes gfSwing{0%{transform:rotate(0)}35%{transform:rotate(-85deg)}65%{transform:rotate(70deg)}100%{transform:rotate(0)}}
+@keyframes gfReach{0%,100%{transform:rotate(0)}30%,70%{transform:rotate(-28deg)}}
+@keyframes gfHit{0%{translate:0 0;rotate:0deg}20%{translate:-12px -3px;rotate:-12deg}60%{translate:6px 0;rotate:6deg}100%{translate:0 0;rotate:0deg}}
+@keyframes gfLeg{0%,100%{transform:rotate(calc(var(--amp,28deg) * -1))}50%{transform:rotate(var(--amp,28deg))}}
+@keyframes gfBob{to{transform:translateY(-4px)}}
+html.cam,html.cam *{cursor:none!important}
+@media (prefers-reduced-motion:reduce){
+  .js [data-r],.js .ph[data-r="clip"],.js .ph[data-r="clip"] img{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+  article.tilt,#gf-cam,#gf-progress{display:none}
+  article:hover .ph img,#frames a:hover .ph img{transform:none}
+}
+
+/* ===== Variant: Sepia Film ===== */
+:root{--hf:'Libre Baskerville',serif;--bf:'Inter',system-ui,sans-serif;--r:2px}
+body>div{font-family:var(--bf)!important}
+h1,h2,h3{font-family:var(--hf)!important}
+h1,h2,h3{font-weight:700!important;letter-spacing:-.01em!important}
+h1{font-size:clamp(40px,5vw,66px)!important}
+.ph img{filter:sepia(.28) contrast(1.04)}
+.ph:hover img{filter:sepia(0) contrast(1)}
+.ph img{transition:transform .8s var(--ease),filter .6s}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:70;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){body::after{display:none}}
+.js [data-r]{transform:translateY(14px);transition-duration:1.2s}
+
+/* ===== Music player ===== */
+#gf-player{position:fixed;left:20px;bottom:20px;z-index:60;font-family:'Space Mono',ui-monospace,monospace;color:var(--text)}
+#gf-player .shell{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 10px 30px rgba(0,0,0,.18);width:min(300px,calc(100vw - 40px));overflow:hidden}
+#gf-player .top{display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px}
+#gf-player button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+#gf-player button:hover{color:var(--accent-text)}
+#gf-player .play{background:var(--text);color:var(--on-text);border-radius:50%;width:44px;height:44px;flex:none}
+#gf-player .play:hover{background:var(--accent-text);color:var(--bg)}
+#gf-player svg{width:18px;height:18px;fill:currentColor;display:block}
+#gf-player .meta{flex:1;min-width:0;line-height:1.25}
+#gf-player .ttl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gf-player .sub{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#gf-player .eq{display:flex;align-items:flex-end;gap:2px;height:14px;flex:none}
+#gf-player .eq i{width:3px;height:30%;background:var(--accent-text);display:block}
+#gf-player.playing .eq i{animation:eq .9s ease-in-out infinite}
+#gf-player.playing .eq i:nth-child(2){animation-delay:.2s}#gf-player.playing .eq i:nth-child(3){animation-delay:.45s}
+@keyframes eq{0%,100%{height:25%}50%{height:100%}}
+#gf-player .more{display:none;flex-direction:column;gap:6px;padding:2px 14px 12px;border-top:1px solid var(--line)}
+#gf-player.open .more{display:flex}
+#gf-player .row{display:flex;align-items:center;gap:6px}
+#gf-player .row.ctr{justify-content:space-between}
+#gf-player .time{font-size:10px;letter-spacing:.06em;color:var(--muted);min-width:34px}
+#gf-player input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:22px;background:transparent;margin:0;cursor:pointer}
+#gf-player input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--line-strong)}
+#gf-player input[type=range]::-moz-range-track{height:3px;background:var(--line-strong)}
+#gf-player input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent-text);margin-top:-4.5px;border:0}
+#gf-player input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent-text);border:0}
+#gf-player input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#gf-player .msg{font-size:10px;letter-spacing:.06em;color:var(--accent-text);min-height:12px}
+#gf-player .chev svg{transition:transform .25s var(--ease)}#gf-player.open .chev svg{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){#gf-player.playing .eq i{animation:none;height:70%}}
+@media (max-width:520px){#gf-player{left:12px;bottom:12px}}
+
+/* ===== Polaroids on the bar top ===== */
+:root{--wood1:#B07C52;--wood2:#8F6140;--woodline:rgba(40,20,5,.32)}
+:root[data-theme="dark"]{--wood1:#5A3F2B;--wood2:#3F2B1C;--woodline:rgba(0,0,0,.5)}
+[aria-label="Wedding galleries"]{position:relative;overflow:visible!important;border:none!important;padding:72px 28px 80px!important;border-radius:6px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='.012 .55' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23w)'/></svg>"),repeating-linear-gradient(180deg,transparent 0 198px,var(--woodline) 198px 200px),linear-gradient(180deg,var(--wood1),var(--wood2));
+  box-shadow:inset 0 0 90px rgba(0,0,0,.45),0 2px 0 rgba(255,255,255,.06)}
+[aria-label="Wedding galleries"]::before{content:"";position:absolute;left:5%;bottom:10%;width:118px;height:118px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,transparent 56%,rgba(35,15,3,.26) 58%,rgba(35,15,3,.12) 63%,transparent 66%)}
+[aria-label="Wedding galleries"]::after{content:"";position:absolute;right:2.5%;top:-34px;width:168px;height:168px;pointer-events:none;transform:rotate(-14deg);z-index:0;
+  background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cellipse cx='100' cy='108' rx='84' ry='84' fill='rgba(0,0,0,.28)'/%3E%3Ccircle cx='100' cy='100' r='84' fill='%23EFE8DA'/%3E%3Ccircle cx='100' cy='100' r='84' fill='none' stroke='%23CFC4AE' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='58' fill='%23F7F2E8' stroke='%23D9CFBA' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='47' fill='%233A2314'/%3E%3Ccircle cx='100' cy='100' r='47' fill='none' stroke='%23E9E0CE' stroke-width='5'/%3E%3Cpath d='M70 92c8-12 20-10 30-4s24 6 32-6' fill='none' stroke='%238A5A33' stroke-width='3' stroke-linecap='round' opacity='.7'/%3E%3Cpath d='M156 94c22-6 30 20 8 26' fill='none' stroke='%23EFE8DA' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+[aria-label="Wedding galleries"]>div{display:flex!important;flex-wrap:wrap;justify-content:center;width:auto!important;gap:48px 34px!important;padding:0!important;position:relative;z-index:1}
+#weddings article{position:relative;z-index:1;width:min(310px,78vw)!important;flex:none;gap:12px!important;padding:14px 14px 12px;background:#FBF7EC;color:#2B2118;
+  box-shadow:0 1px 1px rgba(0,0,0,.25),0 10px 16px rgba(0,0,0,.3),0 24px 36px rgba(0,0,0,.22);rotate:var(--rot,0deg);scale:var(--sc,1);
+  transition:transform .3s ease-out,rotate .35s var(--ease),scale .35s var(--ease),box-shadow .35s}
+#weddings article.tilt{transition:transform .3s ease-out,rotate .35s var(--ease),scale .35s var(--ease),box-shadow .35s}
+#weddings article:hover{--rot:0deg;--sc:1.06;z-index:5;box-shadow:0 2px 2px rgba(0,0,0,.25),0 18px 28px rgba(0,0,0,.38),0 40px 56px rgba(0,0,0,.3)}
+#weddings article:nth-child(1){--rot:-4.5deg}
+#weddings article:nth-child(2){--rot:3deg;margin-top:34px}
+#weddings article:nth-child(3){--rot:-2deg;margin-top:-6px}
+#weddings article:nth-child(4){--rot:5deg;margin-top:28px}
+#weddings article:nth-child(odd)::before{content:"";position:absolute;top:-11px;left:calc(50% - 44px);width:88px;height:24px;transform:rotate(-3deg);background:rgba(246,232,176,.62);box-shadow:0 1px 2px rgba(0,0,0,.18);z-index:2}
+#weddings article:nth-child(even)::before{content:"";position:absolute;top:-8px;right:-14px;width:70px;height:22px;transform:rotate(38deg);background:rgba(246,232,176,.55);box-shadow:0 1px 2px rgba(0,0,0,.18);z-index:2}
+#weddings article .ph{aspect-ratio:4/3!important;border-radius:0;background:#17120D;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 22px rgba(0,0,0,.35)}
+#weddings article .ph::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 38%)}
+#weddings article h3{font-family:'Caveat',cursive!important;font-size:30px!important;font-weight:600!important;color:#2B2118!important;letter-spacing:0!important;text-transform:none!important;line-height:1}
+#weddings article h3+span{color:#6B5A45!important}
+#weddings article .card-link{color:#5B3A1E;min-height:32px}
+#weddings article .card-link:hover{color:#8B4A1F}
+/* polaroid "developing" on reveal */
+article[data-r] .ph img{filter:brightness(1.9) contrast(.45) sepia(1) blur(5px)!important;transition:filter 1.4s ease-out .3s,transform .8s!important}
+article[data-r].in .ph img{filter:sepia(.28) contrast(1.04)!important}
+#weddings article:hover .ph img{filter:sepia(0) contrast(1)}
+@media (max-width:640px){#weddings article:nth-child(n){margin-top:0}[aria-label="Wedding galleries"]::after{width:110px;height:110px;top:-24px}}
+@media (prefers-reduced-motion:reduce){article[data-r] .ph img{filter:sepia(.28) contrast(1.04)!important}}
+
+/* ===== Speakeasy ===== */
+:root{--hf:'Limelight',serif;--bf:'Josefin Sans',system-ui,sans-serif;--wood1:#4E2619;--wood2:#2F150E;--woodline:rgba(0,0,0,.45);--gold:#FF4D5E}
+:root[data-theme="dark"]{--wood1:#3C1E14;--wood2:#210E09;--woodline:rgba(0,0,0,.55)}
+body>div{font-family:var(--bf)!important;font-weight:400;
+  background:linear-gradient(rgba(11,16,32,.74),rgba(11,16,32,.84)),url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='56'%3E%3Crect width='128' height='56' fill='%230E0A0C'/%3E%3Crect x='2' y='2' width='60' height='24' fill='%235A2A22'/%3E%3Crect x='66' y='2' width='60' height='24' fill='%234E241C'/%3E%3Crect x='-30' y='30' width='60' height='24' fill='%23552820'/%3E%3Crect x='34' y='30' width='60' height='24' fill='%23472019'/%3E%3Crect x='98' y='30' width='60' height='24' fill='%234E241C'/%3E%3C/svg%3E")!important}
+:root[data-theme="light"] body>div{background:linear-gradient(rgba(234,223,203,.8),rgba(234,223,203,.88)),url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='56'%3E%3Crect width='128' height='56' fill='%230E0A0C'/%3E%3Crect x='2' y='2' width='60' height='24' fill='%235A2A22'/%3E%3Crect x='66' y='2' width='60' height='24' fill='%234E241C'/%3E%3Crect x='-30' y='30' width='60' height='24' fill='%23552820'/%3E%3Crect x='34' y='30' width='60' height='24' fill='%23472019'/%3E%3Crect x='98' y='30' width='60' height='24' fill='%234E241C'/%3E%3C/svg%3E")!important}
+[style*="Space Mono"],.nav a,.btn,.chip,.card-link,.theme-toggle{font-family:'Josefin Sans',sans-serif!important;letter-spacing:.2em!important;font-weight:600}
+h1,h2,h3{font-weight:400!important;text-transform:none}
+h1{font-size:clamp(46px,6vw,88px)!important;line-height:1.02!important;letter-spacing:.01em!important;color:#FFEAE6}
+:root[data-theme="dark"] h1{text-shadow:0 0 4px #FFC9C4,0 0 12px #FF4D5E,0 0 30px #FF1F3D,0 0 64px rgba(255,31,61,.65);animation:neon 7s infinite}
+:root[data-theme="light"] h1{color:var(--accent-text)}
+@keyframes neon{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.55}21%{opacity:.9}}
+h2{font-size:clamp(34px,4vw,50px)!important;color:var(--text)}
+h2::after{content:"";display:block;width:150px;height:14px;margin-top:16px;background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='14'%3E%3Cpath d='M0 7H62M88 7H150' stroke='%23FF4D5E' stroke-width='1.2'/%3E%3Cpath d='M75 1L81 7L75 13L69 7Z' fill='%23FF4D5E'/%3E%3Ccircle cx='64' cy='7' r='1.6' fill='%23FF4D5E'/%3E%3Ccircle cx='86' cy='7' r='1.6' fill='%23FF4D5E'/%3E%3C/svg%3E") center/contain no-repeat}
+#contact h2::after,#about h2::after{margin-top:14px}
+header a:first-child span:first-child{font-family:var(--hf)!important;font-size:24px!important;letter-spacing:.2em!important;color:var(--gold)!important;font-weight:400!important}
+section{border-color:rgba(255,77,94,.35)!important}
+:root[data-theme="light"] section{border-color:var(--line-strong)!important}
+#archive,#contact{background:linear-gradient(rgba(19,26,46,.94),rgba(19,26,46,.94)),url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 1L43 22L22 43L1 22Z' fill='none' stroke='rgba(255,77,94,.13)' stroke-width='1'/%3E%3Cpath d='M22 11L33 22L22 33L11 22Z' fill='none' stroke='rgba(255,77,94,.07)' stroke-width='1'/%3E%3C/svg%3E")!important}
+:root[data-theme="light"] #archive,:root[data-theme="light"] #contact{background:linear-gradient(rgba(220,205,176,.9),rgba(220,205,176,.9)),url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 1L43 22L22 43L1 22Z' fill='none' stroke='rgba(255,77,94,.13)' stroke-width='1'/%3E%3Cpath d='M22 11L33 22L22 33L11 22Z' fill='none' stroke='rgba(255,77,94,.07)' stroke-width='1'/%3E%3C/svg%3E")!important}
+.btn{border:1px solid var(--gold);color:var(--gold);border-radius:0;background:transparent}
+.btn:hover{background:var(--gold);color:#0B1020}
+.btn-fill{background:var(--gold);color:#0B1020}
+.btn-fill:hover{background:transparent;color:var(--gold)}
+:root[data-theme="light"] .btn{border-color:var(--accent);color:var(--accent-text)}
+:root[data-theme="light"] .btn:hover,:root[data-theme="light"] .btn-fill{background:var(--accent);color:#F8EEDA}
+:root[data-theme="light"] .btn-fill:hover{background:transparent;color:var(--accent-text)}
+.chip{border-color:rgba(255,77,94,.5);border-radius:0}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#0B1020}
+#top .ph{outline:1px solid var(--gold);outline-offset:9px;box-shadow:0 0 60px rgba(255,60,90,.22),0 30px 60px rgba(0,0,0,.5)}
+:root[data-theme="light"] #top .ph{outline-color:var(--accent);box-shadow:0 24px 50px rgba(40,20,10,.35)}
+/* lamp light + vignette + drifting smoke */
+html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:55;background:radial-gradient(ellipse at 50% 30%,transparent 42%,rgba(0,0,0,.6) 100%)}
+:root[data-theme="light"] html::before,:root[data-theme="light"]::before{background:radial-gradient(ellipse at 50% 30%,transparent 55%,rgba(60,30,10,.28) 100%)}
+body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54;opacity:.22;
+  background:radial-gradient(40% 30% at 20% 30%,rgba(255,196,110,.5),transparent 70%),radial-gradient(35% 28% at 75% 60%,rgba(80,130,255,.55),transparent 70%),radial-gradient(45% 30% at 50% 90%,rgba(255,60,90,.38),transparent 70%);
+  filter:blur(28px);animation:smoke 38s ease-in-out infinite alternate}
+:root[data-theme="light"] body::before{opacity:.07}
+@keyframes smoke{0%{transform:translate(-4%,2%) scale(1)}50%{transform:translate(3%,-3%) scale(1.12)}100%{transform:translate(6%,3%) scale(1.04)}}
+/* bar top + whiskey */
+[aria-label="Wedding galleries"]{box-shadow:inset 0 0 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,77,94,.35),0 24px 50px rgba(0,0,0,.5)}
+[aria-label="Wedding galleries"]::after{background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3CradialGradient id='a' cx='45%25' cy='40%25' r='65%25'%3E%3Cstop offset='0' stop-color='%23E9A24A'/%3E%3Cstop offset='1' stop-color='%238A3F10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='104' cy='110' rx='84' ry='84' fill='rgba(0,0,0,.3)'/%3E%3Ccircle cx='100' cy='100' r='84' fill='rgba(255,255,255,.14)' stroke='rgba(255,255,255,.5)' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='70' fill='url(%23a)'/%3E%3Cg fill='rgba(255,255,255,.4)' stroke='rgba(255,255,255,.7)' stroke-width='1.5'%3E%3Crect x='66' y='70' width='38' height='38' rx='6' transform='rotate(14 85 89)'/%3E%3Crect x='102' y='96' width='34' height='34' rx='6' transform='rotate(-18 119 113)'/%3E%3C/g%3E%3Cpath d='M38 70A68 68 0 0 1 82 36' stroke='rgba(255,255,255,.75)' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(12deg)}
+[aria-label="Wedding galleries"]::before{background:radial-gradient(circle,transparent 56%,rgba(255,200,120,.1) 58%,rgba(255,200,120,.05) 63%,transparent 66%)}
+/* record-style play button */
+#gf-player .shell{background:#0E1324;border-color:rgba(255,77,94,.55);color:#F2E6CC}
+#gf-player{--text:#F2E6CC;--muted:#AE9A7C;--accent-text:#FF4D5E;--line:#26304D;--line-strong:#44527E}
+#gf-player .play{position:relative;background:none!important;color:#FF4D5E}
+#gf-player .play::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#FF4D5E 0 12%,#0c0c0c 13% 30%,#1e1e1e 31% 33%,#0c0c0c 34% 52%,#222 53% 55%,#0c0c0c 56%);box-shadow:0 0 0 1px rgba(255,77,94,.4)}
+#gf-player.playing .play::before{animation:spin 3.2s linear infinite}
+#gf-player .play svg{position:relative;fill:#0B1020;width:16px;height:16px;z-index:1}
+#gf-player .play:hover svg{fill:#000}
+@keyframes spin{to{transform:rotate(360deg)}}
+#gf-player .eq{display:none}
+#gf-cam{color:#E7DCC2}:root[data-theme="light"] #gf-cam{color:#1C1C1E}
+@media (prefers-reduced-motion:reduce){:root[data-theme="dark"] h1{animation:none}body::before{animation:none}#gf-player.playing .play::before{animation:none}}
+
+:root[data-theme="light"] .gf-w svg{filter:drop-shadow(0 7px 5px rgba(45,25,10,.5)) drop-shadow(0 1px 1px rgba(45,25,10,.45))}
+:root[data-theme="light"] .gf-w::after{content:"";position:absolute;left:8px;top:100px;width:56px;height:12px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at center,rgba(45,25,10,.5) 0,rgba(45,25,10,.22) 50%,transparent 72%)}
+/* waiter, waitress, glass and bottle are <div>s on <body>, so the light-mode page-background rule was painting a box behind them */
+:root[data-theme] div.gf-w,:root[data-theme] div#gf-bottle,:root[data-theme] div#gf-cam,:root[data-theme] div.gf-rat,:root[data-theme] div#gf-cheese{background:none!important}
+
+
+/* ===== Wine bar display (was a coffee table): lacquered bar top, brass trim, wine glass + stains, bottle and corks ===== */
+[aria-label="Wedding galleries"]{
+  background:linear-gradient(112deg,transparent 28%,rgba(255,255,255,.075) 40%,transparent 52%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='.01 .5' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .05  0 0 0 0 .01  0 0 0 0 .01  0 0 0 .5 0'/></filter><rect width='600' height='400' filter='url(%23w)'/></svg>"),
+    linear-gradient(180deg,#5A2519 0%,#3B170F 55%,#2A0F09 100%)!important;
+  border-radius:8px;
+  box-shadow:inset 0 0 0 2px rgba(222,178,96,.7),inset 0 0 0 5px rgba(40,18,8,.9),inset 0 0 0 6px rgba(222,178,96,.35),inset 0 0 110px rgba(0,0,0,.55),0 16px 0 -3px #1F0C07,0 18px 0 -3px #B8893A,0 30px 38px rgba(0,0,0,.4)!important}
+[aria-label="Wedding galleries"]::before{left:4%;bottom:7%;width:190px;height:124px;border-radius:0;transform:rotate(-8deg);
+  background:radial-gradient(circle 54px at 34% 50%,transparent 0 49px,rgba(120,10,35,.34) 50px 53px,rgba(120,10,35,.12) 54px,transparent 56px),
+    radial-gradient(circle 54px at 66% 56%,transparent 0 49px,rgba(120,10,35,.28) 50px 53px,rgba(120,10,35,.1) 54px,transparent 56px)}
+[aria-label="Wedding galleries"]::after{right:2.5%;top:-30px;width:176px;height:176px;transform:rotate(-14deg);
+  background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3CradialGradient id='w' cx='45%25' cy='42%25' r='65%25'%3E%3Cstop offset='0' stop-color='%23B21C42'/%3E%3Cstop offset='.55' stop-color='%236A0D26'/%3E%3Cstop offset='1' stop-color='%232A040E'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='104' cy='112' rx='84' ry='84' fill='rgba(0,0,0,.3)'/%3E%3Ccircle cx='100' cy='100' r='84' fill='rgba(255,255,255,.13)' stroke='rgba(255,255,255,.6)' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='70' fill='url(%23w)'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='rgba(255,170,190,.25)' stroke-width='2'/%3E%3Cpath d='M50 80A58 58 0 0 1 96 44' stroke='rgba(255,255,255,.6)' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3Cellipse cx='128' cy='134' rx='24' ry='10' fill='rgba(255,255,255,.12)' transform='rotate(-30 128 134)'/%3E%3Ccircle cx='100' cy='100' r='7' fill='rgba(255,255,255,.08)'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 8px 9px rgba(0,0,0,.5))}
+.gf-prop{position:absolute;display:block;pointer-events:none;z-index:0}
+.gf-bottle{left:1.6%;top:9%;width:62px;height:270px;transform:rotate(9deg);filter:drop-shadow(10px 12px 9px rgba(0,0,0,.5))}
+.gf-cork{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#E7C892,#B88A52 62%,#7B5530);box-shadow:3px 5px 6px rgba(0,0,0,.5),inset 0 0 0 1.5px rgba(90,55,20,.5)}
+.gf-cork.a{right:5%;bottom:11%}
+.gf-cork.b{right:7.4%;bottom:7.5%;width:22px;height:22px}
+@media (max-width:900px){.gf-bottle,.gf-cork{display:none}}
+
+
+
+/* ===== Bar top, in 3D: real grain, planks, knots, bevelled lacquer, thick front edge, tilted back into the room ===== */
+[aria-label="Wedding galleries"]{
+  transform:perspective(1700px) rotateX(2.6deg);transform-origin:50% 100%;margin-bottom:42px;
+  background:
+    radial-gradient(ellipse 70% 38% at 50% 0%,rgba(255,196,140,.16),transparent 70%),
+    linear-gradient(112deg,transparent 26%,rgba(255,255,255,.085) 38%,rgba(255,255,255,.02) 46%,transparent 54%),
+    radial-gradient(ellipse 80px 30px at 17% 24%,transparent 0,rgba(15,4,1,.7) 12%,transparent 20%,rgba(15,4,1,.38) 32%,transparent 42%,rgba(15,4,1,.25) 56%,transparent 70%),
+    radial-gradient(ellipse 64px 26px at 83% 63%,transparent 0,rgba(15,4,1,.7) 12%,transparent 22%,rgba(15,4,1,.34) 36%,transparent 48%,rgba(15,4,1,.22) 62%,transparent 74%),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='520'%3E%3Cdefs%3E%3Cfilter id='a' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0025 .02' numOctaves='2' seed='5' result='w'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.003 .26' numOctaves='4' seed='11' result='g'/%3E%3CfeDisplacementMap in='g' in2='w' scale='60' xChannelSelector='R' yChannelSelector='G' result='d'/%3E%3CfeColorMatrix in='d' values='0 0 0 0 .07  0 0 0 0 .02  0 0 0 0 .01  3.0 0 0 0 -1.05'/%3E%3C/filter%3E%3Cfilter id='p' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .9' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .02  0 0 0 0 .0  0 0 0 0 .0  1.4 0 0 0 -.5'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1000' height='520' filter='url(%23a)'/%3E%3Crect width='1000' height='520' filter='url(%23p)' opacity='.6'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg,transparent 0 196px,rgba(8,2,0,.7) 196px 198px,rgba(255,200,150,.14) 198px 200px),
+    linear-gradient(180deg,rgba(255,170,110,.1),rgba(0,0,0,.14)) 0 0/100% 200px,
+    linear-gradient(180deg,#5E2A1B 0%,#43190F 55%,#2F1109 100%)!important;
+  border-radius:10px;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,225,180,.5),inset -1px -1px 0 rgba(0,0,0,.6),
+    inset 0 0 0 4px rgba(34,14,6,.55),inset 0 0 0 5px rgba(222,178,96,.55),
+    inset 0 0 120px rgba(0,0,0,.55),
+    0 1px 0 -3px #935F38,0 2px 0 -3px #8E5B35,0 3px 0 -3px #895833,0 4px 0 -3px #855531,0 5px 0 -3px #80512F,0 6px 0 -3px #7C4E2D,0 7px 0 -3px #774B2B,0 8px 0 -3px #734729,0 9px 0 -3px #6E4427,0 10px 0 -3px #6A4125,0 11px 0 -3px #653D23,0 12px 0 -3px #613A21,0 13px 0 -3px #5C371F,0 14px 0 -3px #58341D,0 15px 0 -3px #C9983F,0 16px 0 -3px #C9983F,0 17px 0 -3px #8A6422,0 18px 0 -3px #462615,0 19px 0 -3px #412313,0 20px 0 -3px #3D2011,0 21px 0 -3px #381C0F,0 22px 0 -3px #34190D,0 23px 0 -3px #2F160B,0 24px 0 -3px #2B1309,
+    0 44px 38px -8px rgba(0,0,0,.55),0 70px 80px -20px rgba(0,0,0,.4)!important}
+@media (max-width:640px){[aria-label="Wedding galleries"]{transform:none}}
+
+/* ===== Entry gate: a neon OPEN sign (only shown when the browser blocks autoplay) ===== */
+#gf-gate{position:fixed;inset:0;z-index:75;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.2vh,22px);text-align:center;color:#F2E6CC;cursor:none;transition:opacity .9s ease;
+  background:radial-gradient(ellipse at 50% 42%,rgba(58,22,32,.55),rgba(8,8,16,.96) 75%),url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='56'%3E%3Crect width='128' height='56' fill='%230E0A0C'/%3E%3Crect x='2' y='2' width='60' height='24' fill='%235A2A22'/%3E%3Crect x='66' y='2' width='60' height='24' fill='%234E241C'/%3E%3Crect x='-30' y='30' width='60' height='24' fill='%23552820'/%3E%3Crect x='34' y='30' width='60' height='24' fill='%23472019'/%3E%3Crect x='98' y='30' width='60' height='24' fill='%234E241C'/%3E%3C/svg%3E")!important}
+#gf-gate.out{opacity:0;pointer-events:none}
+#gf-gate .k{position:relative;font-family:'Limelight',serif;font-size:clamp(34px,6.5vh,64px);line-height:1;color:#FFEAE6;text-shadow:0 0 4px #FFC9C4,0 0 12px #FF4D5E,0 0 30px #FF1F3D,0 0 64px rgba(255,31,61,.65)}
+#gf-gate .k .g{display:inline-block;font-family:'Libre Baskerville',serif;font-weight:700;font-size:.9em}
+#gf-gate .k .g.off{color:#5A2A30;text-shadow:none;opacity:.5}
+#gf-gate .k .g.dim{opacity:.82;text-shadow:0 0 3px #FFC9C4,0 0 8px #FF4D5E}
+#gf-gate .sub{position:relative;margin:0;font:600 11px 'Josefin Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#AE9A7C}
+#gf-gate .bloom{position:absolute;left:50%;top:50%;width:46vmax;height:46vmax;margin:-23vmax 0 0 -23vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,77,94,.7),rgba(255,77,94,.28) 40%,transparent 68%);opacity:0;transform:scale(.3);transition:opacity .6s ease,transform 1.9s cubic-bezier(.2,.6,.3,1);pointer-events:none}
+#gf-gate.lock .bloom{opacity:1;transform:scale(1.2)}
+#gf-gate.flood .bloom{transform:scale(5.5)}
+#gf-gate .sign{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1.2vh,12px);padding:clamp(18px,4vh,40px) clamp(34px,8vw,96px);border:5px solid #4A2028;border-radius:18px;outline-offset:12px;transition:border-color .08s,box-shadow .08s}
+#gf-gate .sign:focus-visible{outline:2px solid #FF4D5E}
+#gf-gate .sign .o{font-family:'Limelight',serif;font-size:clamp(64px,17vh,160px);line-height:1;color:#3A1A20;transition:color .08s,text-shadow .08s}
+#gf-gate .sign .t{font:600 clamp(11px,1.7vh,14px) 'Josefin Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#4A2028;transition:color .08s,text-shadow .08s}
+#gf-gate .sign.tease{border-color:#7A2A34}
+#gf-gate .sign.tease .o{color:#8A3A44;text-shadow:0 0 10px rgba(255,77,94,.55)}
+#gf-gate .sign.on{border-color:#FF4D5E;box-shadow:0 0 30px #FF4D5E,0 0 70px rgba(255,77,94,.55),inset 0 0 24px rgba(255,77,94,.6)}
+#gf-gate .sign.on .o{color:#FFE3E6;text-shadow:0 0 6px #FFC9C4,0 0 20px #FF4D5E,0 0 48px #FF4D5E}
+#gf-gate .sign.on .t{color:#FFB3BA;text-shadow:0 0 8px #FF4D5E}
+#gf-gate .hint{position:relative;margin:0;font:600 13px 'Josefin Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#F2E6CC;animation:gfHint 1.6s ease-in-out infinite;transition:opacity .2s}
+#gf-gate.go .hint{opacity:0;animation:none}
+@keyframes gfHint{50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){#gf-gate .hint{animation:none}#gf-gate .bloom{transition:none}}
+
+/* ===== Cursor v2: exact-point marker + glass offset, so you can always see what you are clicking ===== */
+#gf-cam{z-index:80}
+#gf-cam .glass{transform-origin:38px 36px}
+#gf-cam svg.body{translate:16px 14px;transform-origin:22px 22px;transform:scale(.9);transition:transform .18s var(--ease),opacity .18s}
+#gf-cam.hot svg.body{transform:scale(.72);opacity:.5}
+#gf-pt{position:fixed;left:0;top:0;width:0;height:0;z-index:81;pointer-events:none;opacity:0;transition:opacity .2s;will-change:transform}
+#gf-pt i{position:absolute;left:0;top:0;border-radius:50%;transform:translate(-50%,-50%);transition:width .18s var(--ease),height .18s var(--ease),background-color .18s,border-color .18s,box-shadow .18s}
+#gf-pt .ring{width:22px;height:22px;border:1.5px solid #fff;box-shadow:0 0 0 1.5px rgba(10,6,8,.8),inset 0 0 0 1.5px rgba(10,6,8,.45)}
+#gf-pt .dot{width:5px;height:5px;background:#FF4D5E;box-shadow:0 0 0 1.5px #fff,0 0 0 3px rgba(10,6,8,.75)}
+#gf-pt.hot .ring{width:40px;height:40px;border-color:#FF4D5E;background:rgba(255,77,94,.18);box-shadow:0 0 0 1.5px #fff,0 0 0 3px rgba(10,6,8,.75),0 0 16px rgba(255,77,94,.75)}
+#gf-pt.hot .dot{background:#fff;box-shadow:0 0 0 1.5px #FF4D5E,0 0 0 3px rgba(10,6,8,.75)}
+#gf-pt.press .ring{width:14px;height:14px}
+#gf-pt .tip{position:absolute;left:0;top:-40px;transform:translate(-50%,4px);white-space:nowrap;padding:4px 9px;background:#0E1324;color:#F2E6CC;border:1px solid #FF4D5E;border-radius:3px;font:600 10px 'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 4px 12px rgba(0,0,0,.5);opacity:0;transition:opacity .15s,transform .18s var(--ease)}
+#gf-pt.hot .tip{opacity:1;transform:translate(-50%,0)}
+#gf-pt.low .tip{top:30px}
+#gf-pt.edge-l .tip{left:-14px;transform:translate(0,4px)}#gf-pt.edge-l.hot .tip{transform:none}
+#gf-pt.edge-r .tip{left:14px;transform:translate(-100%,4px)}#gf-pt.edge-r.hot .tip{transform:translate(-100%,0)}
+@media (prefers-reduced-motion:reduce){#gf-pt{display:none}}
+
+/* ===== Ticket stubs: each wedding is an "Admit Two" ticket lying on the bar top (replaces the polaroids) ===== */
+#weddings article:nth-child(n){display:grid!important;grid-template-columns:200px minmax(0,1fr);grid-template-rows:200px;gap:0!important;padding:0!important;width:min(480px,92vw)!important;height:200px;margin-top:0!important;overflow:hidden;border-radius:2px;background:#F4E8D4;color:#1A1620;
+  box-shadow:0 1px 1px rgba(0,0,0,.3),0 12px 20px rgba(0,0,0,.4),0 26px 40px rgba(0,0,0,.28)}
+#weddings article:nth-child(1){--rot:-1.2deg}#weddings article:nth-child(2){--rot:1deg}#weddings article:nth-child(3){--rot:1deg}#weddings article:nth-child(4){--rot:-1.2deg}#weddings article:nth-child(5){--rot:1.1deg}
+#weddings article:nth-child(n)::before,#weddings article:nth-child(n)::after{content:"";position:absolute;left:188px;right:auto;top:-12px;width:24px;height:24px;border-radius:50%;transform:none;background:#1D0A06;box-shadow:inset 0 0 7px #000;z-index:3}
+#weddings article:nth-child(n)::after{top:auto;bottom:-12px}
+#weddings article .ph{width:200px!important;height:200px;aspect-ratio:auto!important;box-shadow:none}
+#weddings article:nth-child(1) .ph img{object-position:45% 35%}
+#weddings article:nth-child(2) .ph img{object-position:40% 40%}
+#weddings article:nth-child(3) .ph img{object-position:50% 45%}
+#weddings article:nth-child(4) .ph img{object-position:55% 30%}
+#weddings article:nth-child(5) .ph img{object-position:50% 40%}
+#weddings article>div:nth-child(2){display:flex!important;flex-direction:column;flex-wrap:nowrap!important;justify-content:flex-start!important;align-items:stretch!important;gap:0!important;height:200px;box-sizing:border-box;padding:22px 18px 14px 24px;min-width:0}
+#weddings article>div:nth-child(2)::before{content:"";position:absolute;left:200px;top:10px;bottom:10px;border-left:2px dashed #B8A27A}
+#weddings article>div:nth-child(2)>div{gap:0!important}
+.tk-no{font:600 12px 'Josefin Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#B3192B}
+#weddings article h3{margin:12px 0 0!important;font-family:'Limelight',serif!important;font-size:26px!important;font-weight:400!important;line-height:1.1!important;color:#1A1620!important;letter-spacing:0!important}
+#weddings article h3+span{display:block;margin-top:12px;font:400 13px/1.5 'Josefin Sans',sans-serif!important;letter-spacing:0!important;text-transform:none!important;color:#3A3446!important}
+#weddings article .card-link{margin-top:auto;min-height:32px;align-self:flex-start;color:#B3192B;font-size:12px}
+#weddings article .card-link:hover{color:#1A1620}
+#weddings article:nth-child(n) .heart{top:auto;bottom:10px;right:10px}
+@media (max-width:560px){
+  #weddings article:nth-child(n){grid-template-columns:1fr;grid-template-rows:auto auto;height:auto}
+  #weddings article .ph{width:100%!important;height:190px}
+  #weddings article>div:nth-child(2){height:auto;min-height:170px}
+  #weddings article>div:nth-child(2)::before,#weddings article:nth-child(n)::before,#weddings article:nth-child(n)::after{display:none}
+}
+</style>
+<style>
+/* Archive pinboard */
+#archive .cs{display:flex!important;flex-wrap:wrap;justify-content:center;gap:44px 56px;padding:56px 24px 48px!important;background:rgba(11,16,32,.55)!important;border:1px solid rgba(242,230,204,.14);border-radius:6px}
+#archive .cs-f{flex:none;width:min(360px,86vw);box-sizing:border-box;padding:12px 12px 44px!important;background:#FAF5E9!important;color:#3A2A18!important;box-shadow:0 10px 18px rgba(0,0,0,.4);transition:transform .25s ease,box-shadow .25s}
+#archive .cs-f:nth-child(odd){transform:rotate(-1.6deg)}
+#archive .cs-f:nth-child(even){transform:rotate(1.4deg)}
+#archive .cs-f:hover,#archive .cs-f:focus-visible{transform:rotate(0) translateY(-4px);box-shadow:0 18px 28px rgba(0,0,0,.45)}
+#archive .cs-f::before{content:"";top:-8px!important;left:calc(50% - 8px)!important;right:auto!important;width:16px;height:16px!important;border-radius:50%;background:#FF4D5E!important;opacity:1!important;box-shadow:1px 3px 4px rgba(0,0,0,.5),inset -2px -2px 3px rgba(0,0,0,.3)}
+#archive .cs-f::after{display:none!important}
+#archive .cs-f img{aspect-ratio:4/3;filter:none!important}
+#archive .cs-f .gp{display:none}
+#archive .cs-f span{left:0!important;right:0;bottom:14px!important;text-align:center;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#3A2A18}
+#archive .cs-f small{display:none}
+#archive .cs-f .heart{top:22px!important;right:22px!important}
+/* Map: teal, the complement of the red theme (dark set) */
+#map-root .map{background:radial-gradient(circle at 50% 40%,#0B343B,#031318);border-color:rgba(63,167,155,.35)}
+#map-root .land{fill:#115058;stroke:#3FA79B}
+#map-root .grid-l{stroke:rgba(190,240,232,.07)}
+#map-root .coast{fill:none;stroke-width:.9;stroke-linejoin:round}
+:root[data-theme="light"] #map-root .coast{fill:none}
+#map-root .bord{fill:none;stroke:rgba(127,224,210,.4);stroke-width:.7;stroke-linejoin:round}
+#map-root .river{fill:none;stroke:#2E8E88;stroke-width:1.1;opacity:.75;stroke-linejoin:round}
+#map-root .lake{fill:#031318;stroke:#3FA79B;stroke-width:1}
+#map-root .ridge{fill:none;stroke:rgba(159,230,219,.4);stroke-width:1}
+#map-root .city{fill:#DDF7F2;opacity:.7}
+#map-root .citylbl{font:500 9px 'Josefin Sans';fill:#DDF7F2;opacity:.6;letter-spacing:.04em}
+#map-root .hibox{fill:rgba(3,19,24,.5);stroke:rgba(63,167,155,.45);stroke-dasharray:4 4}
+#map-root .cmp-r{fill:none;stroke:rgba(159,230,219,.4)}
+#map-root .cmp-n{fill:#DDF7F2}#map-root .cmp-s{fill:rgba(159,230,219,.35)}
+#map-root .pin text{fill:#DDF7F2;stroke:#031318}
+#map-root .route{stroke:#9FE6DB}
+#map-root .map .inset{fill:#DDF7F2}
+#map-root .map-card b,#map-root .map-card a{color:#0B4A52}
+:root[data-theme="light"] #map-root .map{background:radial-gradient(circle at 50% 40%,#8FBFB9,#5E9A95);border-color:rgba(8,48,55,.5)}
+:root[data-theme="light"] #map-root .land{fill:#2B7479;stroke:#08323A}
+:root[data-theme="light"] #map-root .grid-l{stroke:rgba(8,50,58,.18)}
+:root[data-theme="light"] #map-root .bord{stroke:rgba(242,251,249,.38)}
+:root[data-theme="light"] #map-root .river{stroke:#8FD0C8;opacity:.8}
+:root[data-theme="light"] #map-root .lake{fill:#79B0AA;stroke:#08323A}
+:root[data-theme="light"] #map-root .ridge{stroke:rgba(242,251,249,.45)}
+:root[data-theme="light"] #map-root .city{fill:#F2FBF9}
+:root[data-theme="light"] #map-root .citylbl{fill:#F2FBF9;opacity:.75}
+:root[data-theme="light"] #map-root .hibox{fill:rgba(8,50,58,.15);stroke:rgba(8,50,58,.5)}
+:root[data-theme="light"] #map-root .cmp-r{stroke:rgba(8,50,58,.5)}
+:root[data-theme="light"] #map-root .cmp-n{fill:#08323A}:root[data-theme="light"] #map-root .cmp-s{fill:rgba(8,50,58,.35)}
+:root[data-theme="light"] #map-root .pin text{fill:#F2FBF9;stroke:#08323A}
+:root[data-theme="light"] #map-root .route{stroke:#F2FBF9}
+:root[data-theme="light"] #map-root .map .inset{fill:#08323A;opacity:.75}
+:root[data-theme="light"] #map-root .pin circle.dt{fill:#E0344A}
+:root[data-theme="light"] #map-root .pin circle.pu{stroke:#E0344A}
+</style>
+<link rel="stylesheet" href="features.css">
+</head>
+<body>
+<div style="background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;min-height:100%">
+
+<header style="max-width:1280px;margin:0 auto;padding:20px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+<a href="#top" style="display:flex;flex-direction:column;gap:2px">
+<span style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--text)">Welcome to Gunframe</span>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;color:var(--muted)">Photography by Kevin Ha</span>
+</a>
+<nav class="nav" style="display:flex;flex-wrap:wrap;gap:20px">
+<a href="#weddings">Weddings</a>
+<a href="#archive">Archive</a>
+<a href="#map">Map</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+<button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Switch to dark mode"><span class="dot" aria-hidden="true"></span><span id="theme-label">Dark</span></button>
+</nav>
+</header>
+
+<section id="top" style="max-width:1280px;margin:0 auto;padding:32px 32px 72px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-end;justify-content:space-between">
+<div style="flex:1.4 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px">
+<p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)">Newark, NJ · Available to travel</p>
+<h1 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(44px,5.4vw,68px);line-height:1.02;letter-spacing:-.02em;text-transform:none;font-style:normal;text-wrap:balance;">Candid. Composed.</h1>
+</div>
+<div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:24px">
+<p style="margin:0;font-size:18px;line-height:1.55;color:var(--body);max-width:46ch;">Run-and-gun by default, directed when it matters. Browse the weddings below, or wander through the archive.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start"><a class="btn btn-fill" href="#weddings">See the weddings</a><a class="btn" href="#contact" style="border-color:var(--line-strong)">Book a date</a></div>
+</div>
+</div>
+<div>
+<div class="ph tone2" style="width:100%;aspect-ratio:2048/1369;"><img src="images/hero.jpg" alt="Couple seated back to back on a stone wall under a floral arch, smiling at the camera" fetchpriority="high"></div>
+<p style="margin:10px 0 0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Frame 01 · The Taylors · Cathedral Park, Portland</p>
+</div>
+</section>
+
+<section id="weddings" style="border-top:1px solid var(--line)">
+<div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px">
+<h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">Weddings</h2>
+<p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Selected galleries</p>
+</div>
+<div role="region" aria-label="Wedding galleries" tabindex="0" style="overflow-x:auto;border-top:10px dotted var(--line-strong);border-bottom:10px dotted var(--line-strong);padding:24px 0"><span class="gf-prop gf-bottle"><svg viewBox="0 0 62 270" width="62" height="270" aria-hidden="true"><defs><linearGradient id="gb" x1="0" x2="1"><stop offset="0" stop-color="#0F2418"/><stop offset=".35" stop-color="#2D5A3F"/><stop offset=".6" stop-color="#1B3A29"/><stop offset="1" stop-color="#0A1A11"/></linearGradient></defs><rect x="25" y="14" width="12" height="12" rx="2" fill="#8E1530"/><rect x="26" y="24" width="10" height="84" fill="url(#gb)"/><path d="M26 100C26 118 6 120 6 150V250Q6 262 18 262H44Q56 262 56 250V150C56 120 36 118 36 100Z" fill="url(#gb)"/><rect x="6" y="168" width="50" height="62" fill="#EFE5D0"/><rect x="6" y="168" width="50" height="3" fill="#B8893A"/><rect x="6" y="227" width="50" height="3" fill="#B8893A"/><path d="M16 188H46M20 197H42M24 206H38" stroke="#7A2536" stroke-width="2" stroke-linecap="round"/><path d="M13 130V240" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-linecap="round"/></svg></span><span class="gf-prop gf-cork a"></span><span class="gf-prop gf-cork b"></span>
+<div style="display:flex;gap:20px;width:max-content;padding:0 4px">
+<article style="display:flex;flex-direction:column;gap:14px;width:380px;flex:none">
+<div class="ph tone1" style="width:100%;aspect-ratio:3/2;"><img src="images/wedding-01.jpg" alt="Bride and groom smiling on a stone staircase, with bridesmaids in the foreground" loading="lazy" decoding="async"></div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="tk-no">Admit two · No. 001</div>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;font-style:normal">The Le Family</h3>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Abernathy Center, Oregon City · August 2022</span>
+</div>
+<a class="card-link" href="#weddings">View gallery →</a>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;gap:14px;width:380px;flex:none">
+<div class="ph tone3" style="width:100%;aspect-ratio:3/2;"><img src="images/wedding-02.jpg" alt="Bride and groom on a beach with the ocean and an island behind them" loading="lazy" decoding="async"></div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="tk-no">Admit two · No. 002</div>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;font-style:normal">The Sandovals</h3>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Wailea Beach, Maui · October 2022</span>
+</div>
+<a class="card-link" href="#weddings">View gallery →</a>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;gap:14px;width:380px;flex:none">
+<div class="ph tone4" style="width:100%;aspect-ratio:3/2;"><img src="images/wedding-03.jpg" alt="Couple cutting their wedding cake in front of a floral arch with a waterfront view" loading="lazy" decoding="async"></div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="tk-no">Admit two · No. 003</div>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;font-style:normal">The Sangils</h3>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Bellingham Cruise Terminal, Bellingham · March 2026</span>
+</div>
+<a class="card-link" href="#weddings">View gallery →</a>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;gap:14px;width:380px;flex:none">
+<div class="ph tone2" style="width:100%;aspect-ratio:3/2;"><img src="images/wedding-04.jpg" alt="Bride in a flower crown and groom in a black suit with mountains behind them" loading="lazy" decoding="async"></div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="tk-no">Admit two · No. 004</div>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;font-style:normal">The Ho Family</h3>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Secret location, Pigeon Forge · September 2024</span>
+</div>
+<a class="card-link" href="#weddings">View gallery →</a>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;gap:14px;width:380px;flex:none">
+<div class="ph tone2" style="width:100%;aspect-ratio:3/2;"><img src="images/hero.jpg" alt="Couple seated back to back on a stone wall under a floral arch, smiling at the camera" loading="lazy" decoding="async"></div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="tk-no">Admit two · No. 005</div>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;font-style:normal">The Taylors</h3>
+<span style="font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Cathedral Park, Portland · November 2025</span>
+</div>
+<a class="card-link" href="#weddings">View gallery →</a>
+</div>
+</article>
+</div>
+</div>
+<div>
+<a class="btn" href="#weddings">All wedding galleries →</a>
+</div>
+</div>
+</section>
+
+<section id="archive" style="border-top:1px solid var(--line);background:var(--surface)">
+<div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:56ch">
+<h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">The archive</h2>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--body)">Everything outside the wedding portfolio: portraits, events, editorial and lifestyle work, pinned to the board. Open any frame to see it up close, and tap the heart on the ones you like.</p>
+</div>
+<div id="chips" role="group" aria-label="Filter archive by genre" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+</div>
+<div id="frames" class="cs"></div>
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+<p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Showing <span id="shown">6</span> of <span id="total">6</span> frames</p>
+<a class="btn" href="#archive">Browse the full archive →</a>
+</div>
+</div>
+</section>
+
+<section id="map" style="border-top:1px solid var(--line)">
+<div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:56ch">
+<h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">Where I've shot</h2>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--body)">Every pin is a place I've shot. Tap one to see the details, or to check my dates for your own day.</p>
+</div>
+<div id="map-root"></div>
+</div>
+</section>
+<section id="about" style="border-top:1px solid var(--line)">
+<div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:row;flex-wrap:wrap;gap:48px;align-items:flex-start">
+<div style="flex:1 1 300px;min-width:0">
+<div class="ph tone3" style="width:100%;aspect-ratio:770/963;max-width:385px"><img src="images/portrait.jpg" alt="Portrait of Kevin Ha" width="770" height="963" loading="lazy" decoding="async"></div>
+</div>
+<div style="flex:1.6 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px">
+<h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">About</h2>
+<p style="margin:0;font-size:18px;line-height:1.6;color:var(--body);max-width:60ch">I'm Kevin, a photographer who works light, handheld and close to the action. I follow the day instead of staging it, and when a moment calls for a proper portrait, I slow down and direct it. I'm currently working out of New Jersey and moving to Seattle, and I'm happy to travel for the right day. Expect me nearby but not in the way, with photos that look the way the day felt.</p>
+<p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Portraits · Events · Editorial · Lifestyle</p>
+</div>
+</div>
+</section>
+
+<section id="contact" style="border-top:1px solid var(--line);background:var(--surface)">
+<div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:52ch">
+<h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">Planning a wedding?</h2>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--body)">Pick a date below or just email me at mr.ha.kev@gmail.com, and I'll let you know if I'm available.</p>
+</div>
+<a class="btn btn-fill" href="mailto:mr.ha.kev@gmail.com">Send an inquiry</a>
+<div id="booking-root" style="flex:1 1 100%"></div>
+</div>
+</section>
+
+<footer style="border-top:1px solid var(--line)">
+<div style="max-width:1280px;margin:0 auto;padding:28px 32px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
+<span>Gunframe · Photography by Kevin Ha · gunframe.co</span>
+<span>© 2026 Gunframe</span>
+</div>
+<div id="wall-root" style="max-width:1280px;margin:0 auto;padding:0 32px 28px"></div>
+</footer>
+
+</div>
+<script>
+(function () {
+  var GENRES = ['All', 'Portraits'];
+
+  // ARCHIVE PHOTOS: add one line per photo. src = file in images/, genre must be one of the genres above,
+  // title = the caption shown in the viewer. wed:true also lists it under "Weddings" on the bar menu.
+  var FRAMES = [
+  ];
+  // Wedding photos live in the Weddings section, not the archive. They are only listed here so the bar menu, picks and viewer know them.
+  var WEDDING = [
+    { src: 'images/wedding-01.jpg', title: 'Stone staircase',  genre: 'Events',    wed: true, alt: 'Bride and groom smiling on a stone staircase, with bridesmaids in the foreground' },
+    { src: 'images/wedding-02.jpg', title: 'Beach and island', genre: 'Lifestyle', wed: true, alt: 'Bride and groom on a beach with the ocean and an island behind them' },
+    { src: 'images/wedding-03.jpg', title: 'Cake cutting',     genre: 'Events',    wed: true, alt: 'Couple cutting their wedding cake in front of a floral arch with a waterfront view' },
+    { src: 'images/hero.jpg',       title: 'The Taylors',      genre: 'Editorial', wed: true, alt: 'Couple seated back to back on a stone wall under a floral arch, smiling at the camera' },
+    { src: 'images/wedding-04.jpg', title: 'Flower crown',     genre: 'Lifestyle', wed: true, alt: 'Bride in a flower crown and groom in a black suit with mountains behind them' },
+  ];
+
+  var current = 'All';
+  var chipsEl = document.getElementById('chips');
+  var framesEl = document.getElementById('frames');
+  var shownEl = document.getElementById('shown');
+  document.getElementById('total').textContent = FRAMES.length;
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function visible() {
+    var out = [];
+    FRAMES.forEach(function (f, i) { if (current === 'All' || f.genre === current) out.push(i); });
+    return out;
+  }
+
+  function renderChips() {
+    if (!FRAMES.length) { chipsEl.innerHTML = ''; return; }
+    chipsEl.innerHTML = GENRES.map(function (g) {
+      return '<button type="button" class="chip' + (g === current ? ' on' : '') + '" data-genre="' + esc(g) + '" aria-pressed="' + (g === current) + '">' + esc(g) + '</button>';
+    }).join('');
+  }
+
+  // each frame is a strip of film; every other one gets a grease-pencil circle, like a picked shot
+  function renderFrames() {
+    var idx = visible();
+    if (!FRAMES.length) {
+      framesEl.innerHTML = '<p style="margin:0;padding:48px 0;text-align:center;font-family:\'Space Mono\',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">New frames are going up on the board soon.</p>';
+      shownEl.textContent = 0;
+      return;
+    }
+    framesEl.innerHTML = idx.map(function (i) {
+      var f = FRAMES[i];
+      var pencil = i % 2 === 0
+        ? '<svg class="gp" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="30" rx="44" ry="25" transform="rotate(-3 50 30)"/></svg>'
+        : '';
+      return '<div class="cs-f" role="button" tabindex="0" data-i="' + i + '" aria-label="Open ' + esc(f.title) + '">' +
+        '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || '') + '" loading="lazy">' + pencil +
+        '<button type="button" class="heart" data-fav="' + esc(f.src) + '" aria-label="Add to my picks">\u2665</button>' +
+        '<span>' + (i < 9 ? '0' : '') + (i + 1) + ' \u00b7 ' + esc(f.title) + '</span><small>' + esc(f.genre) + '</small></div>';
+    }).join('');
+    shownEl.textContent = idx.length;
+    if (window.GF && GF.sync) GF.sync();
+  }
+
+  function setGenre(g) {
+    current = GENRES.indexOf(g) > -1 ? g : 'All';
+    renderChips();
+    renderFrames();
+  }
+
+  chipsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-genre]');
+    if (b) setGenre(b.getAttribute('data-genre'));
+  });
+  framesEl.addEventListener('keydown', function (e) {
+    var f = e.target.closest('.cs-f');
+    if (f && e.target === f && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); f.click(); }
+  });
+
+  window.GF = window.GF || {};
+  GF.frames = FRAMES;
+  GF.library = FRAMES.concat(WEDDING);
+  GF.visible = visible;
+  GF.filter = setGenre;
+  renderChips();
+  renderFrames();
+})();
+</script>
+<script>
+(function(){
+  var root=document.documentElement,b=document.getElementById('theme-toggle'),l=document.getElementById('theme-label');
+  function apply(t){root.setAttribute('data-theme',t);var d=t==='dark';b.setAttribute('aria-pressed',d?'true':'false');b.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');l.textContent=d?'Light':'Dark';}
+  apply(root.getAttribute('data-theme')==='dark'?'dark':'light');
+  b.addEventListener('click',function(){var n=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(n)});
+})();
+</script>
+<script>
+/* Motion layer (test phase). Remove this block and the Motion CSS to turn it off. */
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var $=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  /* 1. Reveal on scroll (hero staggers on load) */
+  var io=reduce?null:new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var el=e.target;io.unobserve(el);el.classList.add('in');
+      var wait=(parseFloat(getComputedStyle(el).getPropertyValue('--d'))||0)*1000+1700;
+      setTimeout(function(){el.removeAttribute('data-r');el.classList.remove('in');el.style.removeProperty('--d');el.dataset.done='1'},wait);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  function mark(el,delay,kind){
+    if(reduce||!el||el.dataset.done||el.hasAttribute('data-r'))return;
+    el.setAttribute('data-r',kind||'up');el.style.setProperty('--d',(delay||0)+'s');io.observe(el);
+  }
+  if(!reduce){
+    var hp=$('#top p');
+    mark(hp[0],.08);mark($('#top h1')[0],.22);mark(hp[1],.36);
+    $('#top .btn').forEach(function(el,j){mark(el,.5+j*.08)});
+    mark(hp[2],.9);
+    $('#top .ph').forEach(function(el){mark(el,.25,'clip')});
+    $('section:not(#top) h2, section:not(#top) h2 + p, #weddings > div > div:last-child .btn, #archive .btn, #about .ph, #about p, #contact p, #contact .btn, #chips, footer').forEach(function(el,i){mark(el,0)});
+    $('#weddings article').forEach(function(el,i){mark(el,i*.12)});
+    var framesEl=document.getElementById('frames');
+    function markFrames(){$('#frames > a').forEach(function(el,i){mark(el,Math.min(i,12)*.05)})}
+    markFrames();
+    new MutationObserver(markFrames).observe(framesEl,{childList:true});
+  }
+
+  /* 2. Scroll progress bar + hero parallax + active nav */
+  var bar=document.createElement('div');bar.id='gf-progress';document.body.appendChild(bar);
+  var heroImg=$('#top .ph img')[0],ticking=false;
+  function onScroll(){
+    if(ticking)return;ticking=true;
+    requestAnimationFrame(function(){
+      var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+      bar.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+      if(!reduce&&heroImg&&heroImg.parentNode.dataset.done&&h.scrollTop<1400){
+        heroImg.style.transition='none';
+        heroImg.style.transform='translateY('+(h.scrollTop*.07)+'px) scale(1.08)';
+      }
+      ticking=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var links=$('.nav a[href^="#"]');
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)});
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ['weddings','archive','about','contact'].forEach(function(id){var s=document.getElementById(id);if(s)so.observe(s)});
+  }
+
+  /* 3. Theme toggle: spin the dot and cross-fade colors */
+  var tb=document.getElementById('theme-toggle');
+  if(tb)tb.addEventListener('click',function(){
+    var r=document.documentElement;r.classList.add('theming');tb.classList.toggle('spin');
+    setTimeout(function(){r.classList.remove('theming')},500);
+  });
+
+  if(reduce||!fine)return;
+
+  /* 4. Wedding cards tilt toward the cursor */
+  $('#weddings article').forEach(function(a){
+    a.classList.add('tilt');
+    a.addEventListener('mousemove',function(e){
+      var r=a.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      a.style.setProperty('--ry',(x*8)+'deg');a.style.setProperty('--rx',(-y*8)+'deg');a.style.setProperty('--ty','-4px');
+    });
+    a.addEventListener('mouseleave',function(){a.style.setProperty('--ry','0deg');a.style.setProperty('--rx','0deg');a.style.setProperty('--ty','0px')});
+  });
+
+  /* 5. Magnetic buttons */
+  $('.btn').forEach(function(b){
+    b.addEventListener('mousemove',function(e){
+      var r=b.getBoundingClientRect();
+      b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.28)+'px)';
+    });
+    b.addEventListener('mouseleave',function(){b.style.transform=''});
+  });
+
+  /* 6. Wine-glass cursor: tilts as you move, spills if you move it too fast, refills when still.
+        Hold still and a bottle appears to top you up; move again and a waiter sprints in to steal it. */
+  var cam=document.createElement('div');cam.id='gf-cam';
+  var BOWL='M8 4H36C37.5 21 32 34 22 35C12 34 6.5 21 8 4Z';
+  cam.innerHTML='<div class="glass"><svg class="body" viewBox="0 0 44 64" aria-hidden="true"><defs><clipPath id="gf-bowl"><path d="'+BOWL+'"/></clipPath><linearGradient id="gf-wine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A31A3F"/><stop offset="1" stop-color="#5E0C25"/></linearGradient></defs><g clip-path="url(#gf-bowl)"><g class="wine"><rect x="-30" y="0" width="104" height="90" fill="url(#gf-wine)"/><rect x="-30" y="0" width="104" height="1.6" fill="#E0708C" opacity=".75"/></g></g><path d="'+BOWL+'" fill="#fff" fill-opacity=".1" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8C12 18 15 26 19 30" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/><path d="M21 35H23V56H21Z" fill="currentColor"/><ellipse cx="22" cy="58" rx="11" ry="3" fill="currentColor"/></svg></div>';
+  document.body.appendChild(cam);
+  document.documentElement.classList.add('cam');
+  var glass=cam.querySelector('.glass'),wine=cam.querySelector('.wine');
+
+  /* CURSOR v2: a crisp ring + dot sits exactly on the pointer (this is the click point). The glass is drawn
+     OFFX/OFFY away from it, so it never hides what is under the pointer. Over anything clickable the ring grows,
+     turns red, a label says what the click does, and the glass fades back. */
+  var OFFX=16,OFFY=14;
+  var pt=document.createElement('aside');pt.id='gf-pt';pt.setAttribute('aria-hidden','true');
+  pt.innerHTML='<i class="ring"></i><i class="dot"></i><span class="tip"></span>';
+  document.body.appendChild(pt);
+  var tip=pt.querySelector('.tip');
+  var CLICKY='a,button,.ph,[role="button"],.pin,.sign,input,select,textarea,label,summary';
+  function clickTarget(el){
+    var t=el&&el.closest?el.closest(CLICKY):null;
+    while(t&&((t.classList.contains('ph')&&t.style.cursor!=='zoom-in')||t.disabled))t=t.parentElement&&t.parentElement.closest(CLICKY);
+    return t;
+  }
+  function clickLabel(t){
+    var c=t.classList,tag=t.tagName;
+    if(c.contains('ph'))return 'Open photo';
+    if(t.hasAttribute('data-fav'))return c.contains('on')?'Remove pick':'Add to picks';
+    if(c.contains('cs-f'))return 'Open photo';
+    if(c.contains('pin'))return 'Show place';
+    if(c.contains('sign'))return 'Switch on';
+    if(t.id==='theme-toggle')return 'Switch theme';
+    if(c.contains('free'))return 'Pick this date';
+    if(tag==='INPUT'&&(t.type==='range'))return 'Drag';
+    if(tag==='INPUT'&&t.type==='checkbox')return 'Toggle';
+    if(tag==='INPUT'||tag==='TEXTAREA')return 'Type here';
+    if(tag==='SELECT')return 'Choose';
+    var s=(t.getAttribute('aria-label')||t.textContent||'').replace(/\s+/g,' ').trim();
+    return s.length>26?s.slice(0,25)+'\u2026':s;
+  }
+
+  /* the bottle (neck tip is the pivot) */
+  var BOTTLE_INNER='<path d="M9 2H15V24C15 30 21 32 21 40V76Q21 82 15 82H9Q3 82 3 76V40C3 32 9 30 9 24Z" fill="#1C2A20" stroke="#A9BFA4" stroke-opacity=".6" stroke-width="1"/><rect x="8.4" y="2" width="7.2" height="9" rx="1" fill="#7A1230"/><rect x="3.6" y="48" width="16.8" height="22" fill="#EBDDBD"/><rect x="3.6" y="55" width="16.8" height="3" fill="#7A1230"/><path d="M6 36V74" stroke="#fff" stroke-opacity=".25" stroke-width="1.6" stroke-linecap="round"/>';
+  var bottle=document.createElement('div');bottle.id='gf-bottle';
+  bottle.innerHTML='<div class="stream"></div><svg viewBox="0 0 24 84" aria-hidden="true">'+BOTTLE_INNER+'</svg>';
+  document.body.appendChild(bottle);
+  var stream=bottle.querySelector('.stream');
+
+  /* the waiter (faces right; flipped with scaleX) */
+  var wtr=document.createElement('div');wtr.id='gf-waiter';wtr.className='gf-w';
+  var LEG='<rect x="31" y="66" width="9" height="36" rx="4" fill="#15131B"/><rect x="31" y="100" width="16" height="7" rx="3.5" fill="#0A090C"/>';
+  wtr.innerHTML='<div class="flip"><svg viewBox="0 0 80 112" width="80" height="112" aria-hidden="true">'
+    +'<path class="lines" d="M-4 38H14M-12 54H8M-6 70H12" stroke="currentColor" stroke-opacity=".4" stroke-width="2" stroke-linecap="round" fill="none"/>'
+    +'<g class="lean">'
+    +'<g class="armB"><rect x="33" y="34" width="7" height="26" rx="3.5" fill="#F4EEE2"/><circle cx="36.5" cy="62" r="4" fill="#E9BC95"/></g>'
+    +'<g class="legB">'+LEG+'</g><g class="legA">'+LEG+'</g>'
+    +'<rect x="24" y="28" width="24" height="40" rx="7" fill="#F4EEE2"/>'
+    +'<path d="M24 38L36 54L48 38V66H24Z" fill="#1A1620"/>'
+    +'<path d="M24 64H48L51 96H21Z" fill="#fff" stroke="#00000033"/>'
+    +'<path d="M36 31L28 27V35ZM36 31L44 27V35Z" fill="#B3192B"/>'
+    +'<circle cx="36" cy="17" r="11" fill="#E9BC95"/>'
+    +'<path d="M25 15C25 4.5 47 4.5 47 15C43 10.5 29 10.5 25 15Z" fill="#1A1620"/>'
+    +'<g class="l l0"><ellipse cx="32" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><ellipse cx="40" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><circle cx="32.4" cy="17" r="1.4" fill="#1A1620"/><circle cx="40.4" cy="17" r="1.4" fill="#1A1620"/><rect x="28.8" y="13.2" width="6.4" height="3.4" fill="#E9BC95"/><rect x="36.8" y="13.2" width="6.4" height="3.4" fill="#E9BC95"/><path d="M29 16.6H35M37 16.6H43" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.1"/><path d="M29 12.8H35M37 11.8L43 10.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M33 26Q37 27.8 41 24.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/></g><g class="l l1"><ellipse cx="32" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><ellipse cx="40" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><circle cx="33.5" cy="16.5" r="1.4" fill="#1A1620"/><circle cx="41.5" cy="16.5" r="1.4" fill="#1A1620"/><path d="M29 13.2H35M37 13.2H43" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M33.5 26.4H39.5" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/></g><g class="l l2"><ellipse cx="40" cy="16.6" rx="3.1" ry="3.1" fill="#fff"/><circle cx="40.2" cy="16.9" r="1.4" fill="#1A1620"/><path d="M29.2 16.4Q32 19.2 34.8 16.4" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/><path d="M29 13.8Q32 12.4 35 13.4M37 12Q40 10.9 43 12.2" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M32 25.6Q36.5 29.8 41 25.6Z" fill="#fff" stroke="#1A1620" stroke-width="1" stroke-linejoin="round"/></g><g class="l l3"><ellipse cx="32" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><ellipse cx="40" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><circle cx="32" cy="17.4" r="1.4" fill="#1A1620"/><circle cx="40" cy="17.4" r="1.4" fill="#1A1620"/><path d="M28.6 11.8L35 14.2M43.4 11.8L37 14.2" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.6"/><path d="M33 27.8Q36.5 25.2 40 27.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/></g><g class="l l4"><ellipse cx="32" cy="16.2" rx="3.4" ry="3.8" fill="#fff"/><ellipse cx="40" cy="16.2" rx="3.4" ry="3.8" fill="#fff"/><circle cx="32.6" cy="15" r="1.1" fill="#1A1620"/><circle cx="40.6" cy="15" r="1.1" fill="#1A1620"/><path d="M28.8 12.6Q32 11.2 35.2 12.6M36.8 12.6Q40 11.2 43.2 12.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.2"/><circle cx="36.5" cy="26.8" r="1.5" fill="#7A2A2A" stroke="#1A1620" stroke-width="1"/></g><g class="l l5"><path d="M29.6 14.8L34.4 16.6L29.6 18.4M42.4 14.8L37.6 16.6L42.4 18.4" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4" stroke-linejoin="round"/><path d="M29 12.6Q32 11.4 35 12.6M37 12.6Q40 11.4 43 12.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/><path d="M32.5 25.4Q36.5 28.4 40.5 25.4" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.2"/><ellipse cx="37" cy="28.6" rx="2.6" ry="3.1" fill="#E26D7C" stroke="#1A1620" stroke-width=".8"/><path d="M37 26.8V29.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width=".7"/></g><g class="l l6"><ellipse cx="32" cy="16.8" rx="3.1" ry="2.4" fill="#fff"/><ellipse cx="40" cy="16.8" rx="3.1" ry="2.4" fill="#fff"/><circle cx="32.2" cy="17.2" r="1.3" fill="#1A1620"/><circle cx="39.8" cy="17.2" r="1.3" fill="#1A1620"/><path d="M28 11L35.4 14.6M44 11L36.6 14.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.9"/><ellipse cx="36.5" cy="27" rx="4.2" ry="2.9" fill="#4A0F18" stroke="#1A1620" stroke-width="1"/><path d="M32.6 25.3H40.4V26.5H32.6Z" fill="#fff"/><path d="M42.6 8.2L42 11.6M45.4 8.2L44.8 11.6M41.4 9.4H46.2M41.2 10.8H46" stroke="#1A1620" stroke-linecap="round" fill="none" stroke="#E0203C" stroke-width="1.2"/></g><g class="l l7"><ellipse cx="32" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><ellipse cx="40" cy="16.5" rx="3.1" ry="3.1" fill="#fff"/><circle cx="32" cy="14.4" r="1.4" fill="#1A1620"/><circle cx="40" cy="14.4" r="1.4" fill="#1A1620"/><path d="M29 12.4H35M37 12.4H43" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M33.5 26.8H39.5" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/></g><g class="l l8"><ellipse cx="32" cy="16.6" rx="3.5" ry="3.8" fill="#fff"/><ellipse cx="40" cy="16.6" rx="3.5" ry="3.8" fill="#fff"/><circle cx="32" cy="17" r="2.2" fill="#1A1620"/><circle cx="40" cy="17" r="2.2" fill="#1A1620"/><circle cx="31.2" cy="16" r=".8" fill="#fff"/><circle cx="39.2" cy="16" r=".8" fill="#fff"/><path d="M28.8 13.8L35 11.8M43.2 13.8L37 11.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M33.5 27.8Q36.5 25.6 39.5 27.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/><path d="M29.4 20.6Q27.8 22.6 29.4 23.8Q31 22.6 29.4 20.6Z" fill="#8CC7FF"/></g><g class="l l9"><path d="M29.4 16.8Q32 14.2 34.6 16.8M37.4 16.8Q40 14.2 42.6 16.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M29 12.6Q32 11.4 35 12.6M37 12.6Q40 11.4 43 12.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/><ellipse cx="36.5" cy="27" rx="1.9" ry="1.6" fill="#D9455F"/><path d="M49 9C47.2 6.8 44.2 9 46.4 11.2L49 13.6L51.6 11.2C53.8 9 50.8 6.8 49 9Z" fill="#FF5A7A"/></g><g class="l l10"><circle cx="32" cy="16.5" r="3.2" fill="#fff"/><circle cx="40" cy="16.5" r="3.2" fill="#fff"/><g class="sp"><circle cx="32" cy="16.5" r="1.9" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width=".9"/><circle cx="40" cy="16.5" r="1.9" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width=".9"/></g><circle cx="32" cy="16.5" r=".7" fill="#1A1620"/><circle cx="40" cy="16.5" r=".7" fill="#1A1620"/><path d="M29 12L35 13.2M37 13.4L43 11.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M32.5 26.6Q34 24.8 35.5 26.6T38.5 26.6T41.5 26.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.2"/><circle cx="28.4" cy="21.6" r="2" fill="#F28B9B" opacity=".6"/><circle cx="44.6" cy="21.6" r="2" fill="#F28B9B" opacity=".6"/></g><g class="l l11"><path d="M29.4 16.8Q32 14.2 34.6 16.8M37.4 16.8Q40 14.2 42.6 16.8" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.4"/><path d="M29 12.6Q32 11.4 35 12.6M37 12.6Q40 11.4 43 12.6" stroke="#1A1620" stroke-linecap="round" fill="none" stroke-width="1.3"/><path d="M31.5 25Q36.5 31.4 41.5 25Z" fill="#4A0F18" stroke="#1A1620" stroke-width="1" stroke-linejoin="round"/><path d="M32.3 25.3H40.7V26.6H32.3Z" fill="#fff"/><path d="M28.6 18.6Q27.2 20.6 28.6 21.8Q30 20.6 28.6 18.6ZM44.4 18.6Q43 20.6 44.4 21.8Q45.8 20.6 44.4 18.6Z" fill="#8CC7FF"/></g>'
+    +'<path d="M28.5 22Q33 19.5 36 21.5Q39 19.5 43.5 22Q39 25 36 23.5Q33 25 28.5 22Z" fill="#1A1620"/>'
+    +'<g class="held" transform="translate(65 28) scale(.6) translate(-12 0)">'+BOTTLE_INNER+'</g>'
+    +'<path d="M41 36L63 54" stroke="#F4EEE2" stroke-width="7" stroke-linecap="round"/><circle cx="65" cy="56" r="4.5" fill="#E9BC95"/>'
+    +'</g></svg></div><div class="say"></div>';
+  document.body.appendChild(wtr);
+  var say=wtr.querySelector('.say'),flip=wtr.querySelector('.flip');
+  /* One list of quips per face, in the same order as the faces in the SVG (l0..l11).
+     Face 6 is the shouting one: its swearing is censored with symbols. */
+  var LOOKS=[
+    ['Mine now.','Don\u2019t mind if I do.','Lovely vintage.'],            /* 0 smug */
+    ['Excusez-moi!','Nothing to see here.','I saw nothing.'],             /* 1 side-eye */
+    ['Reserved!','Our little secret.','House rules.'],                    /* 2 wink */
+    ['Last call!','Too slow.','Move it, @#$%!'],                         /* 3 glare */
+    ['Who, me?','What bottle?','Was that yours?'],                       /* 4 innocent */
+    ['Finders keepers!','Nyeh nyeh!','Cheers, sucker!'],                 /* 5 tongue out */
+    ['@#$%&!','What the %#&@!?','You $#@% fool!','Son of a #$%@!','Mon dieu\u2026 @#$%!'], /* 6 shouting */
+    ['Seriously?','Amateurs.','Every. Single. Time.','What a #$%@.'],    /* 7 eye-roll */
+    ['Please?','Table six needs it.','Just following orders.'],          /* 8 puppy eyes */
+    ['Mwah!','Bellissimo!','Grazie!'],                                   /* 9 blowing a kiss */
+    ['*hic*','Cheers, mate!','Whoa, spinny\u2026'],                      /* 10 dizzy */
+    ['Ha ha ha!','Too easy!','Gotcha!']                                  /* 11 laughing */
+  ];
+
+  /* the waitress: same drawing as the waiter, with her own hair, skirt and tray */
+  var NS='http://www.w3.org/2000/svg',HAIR='#8A3B1E';
+  var wtr2=wtr.cloneNode(true);wtr2.id='gf-waitress';wtr2.className='gf-w gf-f';
+  (function(){
+    var q=function(sel){return wtr2.querySelector(sel)};
+    var hair=q('path[d^="M25 15C25"]');hair.setAttribute('fill',HAIR);
+    hair.insertAdjacentHTML('afterend','<circle cx="36" cy="4.5" r="5" fill="'+HAIR+'"/>');
+    var ms=q('path[d^="M28.5 22Q33"]');ms.parentNode.removeChild(ms);
+    q('path[d^="M24 38L36 54"]').setAttribute('fill','#7A1230');
+    Array.prototype.forEach.call(wtr2.querySelectorAll('rect[fill="#15131B"]'),function(r){r.setAttribute('fill','#E9BC95')});
+    var ap=q('path[d^="M24 64H48"]');ap.setAttribute('d','M24 62H48L55 85H17Z');ap.setAttribute('fill','#1A1620');ap.removeAttribute('stroke');
+    ap.insertAdjacentHTML('afterend','<path d="M28 66H44L46 80H26Z" fill="#fff" stroke="#00000033"/>');
+    q('rect[x="24"][y="28"]').insertAdjacentHTML('beforebegin','<path d="M27 12C14 8 8 26 15 40C17 29 22 23 28 22Z" fill="'+HAIR+'"/>');
+    var arm=q('path[d="M41 36L63 54"]'),hand=arm.nextElementSibling,g=document.createElementNS(NS,'g');
+    g.setAttribute('class','armF');arm.parentNode.insertBefore(g,arm);g.appendChild(arm);g.appendChild(hand);
+    g.insertAdjacentHTML('beforeend','<g class="tray"><ellipse cx="67" cy="50" rx="13" ry="3" fill="#D9D9E0" stroke="#8A8A96" stroke-width=".9"/><ellipse cx="67" cy="49" rx="9" ry="1.6" fill="#fff" opacity=".6"/></g>');
+  })();
+  document.body.appendChild(wtr2);
+  var say2=wtr2.querySelector('.say'),flip2=wtr2.querySelector('.flip');
+  var CONF=['Hey! Put that back!','That’s MY bottle!','Table nine, you thief!','I called dibs!','Not again, Gaston!'];
+  var CONF_LOUD=['@#$%&!','You son of a #$%@!','Give it here, @#$%!'];
+  var RETORT=[[4,'Who, me?'],[2,'Prove it.'],[0,'I saw it first.'],[7,'Oh, please.'],[8,'Just one sip?']];
+  var BONKED=['That’s for last time!','Mind your manners!','Next time, think twice.'];
+  var WON=['Ha! Mine!','Too slow, Gaston.','Thanks, honey.'];
+  var LOST=['Ahh, @#$%!','@#$%&! Again?!','Merde!'];
+  var LOST_CLEAN=['Argh!','Not again!','Curses!','Oh, come on!'];
+  var CURSE=.01;   /* chance that any swearing is allowed: about 1 time in 100. Set to 0 for none, 1 for the old behaviour. */
+  function bleepy(t){return /[@#$%&]{3}/.test(t)}
+  var fs='off',fx=0,fy=0,fdir=1,fspd=0,fdelay=0,ftgt=0,fsayT=0,duo=false,outcome='',conN=0,wHas=true;
+  function pick(a){return a[(Math.random()*a.length)|0]}
+  function setLook(el,sy,k){for(var j=0;j<LOOKS.length;j++)el.classList.toggle('look'+j,j===k);el.classList.toggle('shout',k===6);sy.classList.toggle('shout',k===6)}
+  function talk(sy,txt){sy.textContent=txt;sy.classList.add('on');if(/[@#$%&]{3}/.test(txt))bleep()}
+  function setGait(el,leg,amp,lean){el.style.setProperty('--leg',leg);el.style.setProperty('--amp',amp);el.style.setProperty('--lean',lean)}
+
+  var tx=0,ty=0,cx=0,cy=0,px=0,py=0,on=false;
+  var MAXL=.62,level=MAXL,tilt=0,bump=0,wa=0,drops=[];
+  /* The bottle (and so the waiters) comes back only after a random rest: REST_MIN..REST_MAX frames, about 8 to 25 seconds at 60 fps. */
+  var REST_MIN=480,REST_MAX=1500;
+  function rest(){return REST_MIN+Math.floor(Math.random()*(REST_MAX-REST_MIN))}
+  var st='idle',stillN=0,age=0,wait=0,bx=0,by=0,side=1,wx=0,wy=0,wdir=1,wspd=0,sayT=0,cool=0,look=-1,pauseN=0;
+
+  function reset(){
+    st='idle';stillN=0;
+    bottle.classList.remove('show');bottle.style.display='none';
+    wtr.style.display='none';wtr.classList.remove('has','stop','hit');say.classList.remove('on');
+    fs='off';duo=false;wtr2.style.display='none';wtr2.classList.remove('has','stop','swing','reach');say2.classList.remove('on');
+  }
+  window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;if(!on){on=true;cx=px=tx;cy=py=ty;cam.style.opacity='1';pt.style.opacity='1'}
+    pt.style.transform='translate('+tx+'px,'+ty+'px)';   /* the marker follows the raw pointer with no lag: it IS the click point */
+    pt.classList.toggle('low',ty<56);pt.classList.toggle('edge-l',tx<90);pt.classList.toggle('edge-r',tx>innerWidth-90);
+  });
+  document.addEventListener('mouseleave',function(){cam.style.opacity='0';pt.style.opacity='0';on=false;reset()});
+  document.addEventListener('mouseover',function(e){
+    var t=clickTarget(e.target);
+    cam.classList.toggle('hot',!!t);pt.classList.toggle('hot',!!t);
+    if(t)tip.textContent=clickLabel(t);
+  });
+  function drop(x,y,vx,vy,col,g,life,size){
+    if(drops.length>90)return;
+    var el=document.createElement('i');el.className='gf-drop';
+    el.style.width=el.style.height=size+'px';el.style.background=col;
+    document.body.appendChild(el);
+    drops.push({el:el,x:x,y:y,vx:vx,vy:vy,g:g,life:life,max:life,s:size});
+  }
+  function sparkle(x,y,n){for(var k=0;k<n;k++){var a=Math.random()*6.283,s=2+Math.random()*3;drop(x,y,Math.cos(a)*s,Math.sin(a)*s,'#FFD98A',.08,26,3)}}
+  /* censor bleep: a clear but soft 900 Hz sine tone with gentle fade in/out under his swearing. Browsers only allow audio after the
+     first click/keypress, so it stays silent until then. It respects the player's mute button. */
+  var ac=null;
+  function unlock(){try{var AC=window.AudioContext||window.webkitAudioContext;if(AC&&!ac)ac=new AC();if(ac&&ac.state==='suspended')ac.resume()}catch(e){}}
+  document.addEventListener('pointerdown',unlock,true);document.addEventListener('keydown',unlock,true);document.addEventListener('touchend',unlock,true);
+  function bleep(){
+    var au=document.getElementById('mp-audio');
+    if(!ac||(au&&au.muted))return;
+    try{
+      if(ac.state==='suspended')ac.resume();
+      var t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();
+      o.type='sine';o.frequency.value=900;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.05);
+      g.gain.setValueAtTime(.22,t+.58);g.gain.linearRampToValueAtTime(0,t+.7);
+      o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.75);
+    }catch(e){}
+  }
+  /* click = cheers: the glass dips and a few gold sparkles pop */
+  document.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='touch')return;
+    bump=18;sparkle(tx,ty,7);pt.classList.add('press');
+  },true);
+  document.addEventListener('pointerup',function(){pt.classList.remove('press')},true);
+  document.addEventListener('pointercancel',function(){pt.classList.remove('press')},true);
+
+  function showBottle(){
+    side=cx+OFFX>innerWidth-130?-1:1;bx=cx+OFFX+side*4;by=cy+OFFY-30;
+    bottle.style.display='block';
+    bottle.style.transform='translate('+bx+'px,'+by+'px)';
+    bottle.style.setProperty('--br','0deg');bottle.style.setProperty('--bs','.4');
+    void bottle.offsetWidth;
+    bottle.classList.add('show');
+    bottle.style.setProperty('--br',(side>0?-135:135)+'deg');bottle.style.setProperty('--bs','1');
+    sparkle(bx,by,6);
+    st='bottle';age=0;
+  }
+  function sendWaiter(){
+    wdir=bx<innerWidth/2?1:-1;
+    wx=wdir>0?-90:innerWidth+90;
+    wy=Math.max(0,Math.min(innerHeight-112,by-15));
+    wspd=3;
+    var nl;do{nl=(Math.random()*LOOKS.length)|0}while(nl===look||(nl===6&&Math.random()>CURSE));look=nl;
+    for(var k=0;k<LOOKS.length;k++)wtr.classList.toggle('look'+k,k===look);
+    wtr.classList.toggle('shout',look===6);say.classList.toggle('shout',look===6);
+    wtr.style.setProperty('--leg','.42s');wtr.style.setProperty('--amp','28deg');wtr.style.setProperty('--lean','3deg');
+    wtr.classList.remove('has','hit');flip.style.setProperty('--f',wdir);wHas=true;
+    /* some visits, the waitress shows up too */
+    duo=Math.random()<.35;
+    if(duo){
+      fdir=-wdir;ftgt=bx+wdir*34;fy=wy;
+      var Dw=Math.abs((bx-wdir*29)-wx),Df=Math.abs(ftgt-(fdir>0?-90:innerWidth+90));
+      fdelay=Math.max(0,Math.round(26+Math.max(0,Dw-85)/6.5-(11+Df/13)));
+      outcome=Math.random()<.5?'bonk':'snatch';
+      fs='wait';
+    }
+    wtr.style.transform='translate('+(wx-36)+'px,'+wy+'px)';wtr.style.display='block';
+    st='in';
+  }
+
+  function leave(has){
+    st='out';wHas=has;
+    if(has){bottle.classList.remove('show');bottle.style.display='none';wtr.classList.add('has')}
+    wtr.classList.remove('stop','hit');
+    wdir=-wdir;flip.style.setProperty('--f',wdir);wspd=has?9:3;
+    setGait(wtr,has?'.26s':'.34s',has?'42deg':'30deg',has?'9deg':'3deg');
+    sayT=40;
+  }
+  function fLeave(){
+    fs='out';wtr2.classList.remove('stop','swing','reach');
+    fdir=-fdir;flip2.style.setProperty('--f',fdir);fspd=6;
+    setGait(wtr2,'.26s','40deg','8deg');fsayT=40;
+  }
+  /* the confrontation: she glares, he retorts, then she either bonks him with the tray or snatches the bottle */
+  function duoStep(){
+    conN++;
+    if(conN===1){var k=Math.random()<CURSE?6:pick([3,3,7]);setLook(wtr2,say2,k);talk(say2,k===6?pick(CONF_LOUD):pick(CONF))}
+    if(conN===45){var r=pick(RETORT);setLook(wtr,say,r[0]);talk(say,r[1])}
+    if(outcome==='bonk'){
+      if(conN===95)wtr2.classList.add('swing');
+      if(conN===110){wtr.classList.add('hit');setLook(wtr,say,10);talk(say,'Whoa, spinny…');sparkle(wx,wy+14,12);setLook(wtr2,say2,5);talk(say2,pick(BONKED))}
+      if(conN===165)fLeave();
+      if(conN===178)leave(true);
+    }else{
+      if(conN===95)wtr2.classList.add('reach');
+      if(conN===105){bottle.classList.remove('show');bottle.style.display='none';wtr2.classList.add('has');setLook(wtr2,say2,5);talk(say2,pick(WON));setLook(wtr,say,6);talk(say,pick(Math.random()<CURSE?LOST:LOST_CLEAN))}
+      if(conN===112)fLeave();
+      if(conN===190){setLook(wtr,say,8);talk(say,'Wait, I’m thirsty…')}
+      if(conN===215)leave(false);
+    }
+  }
+
+  (function loop(){
+    cx+=(tx-cx)*.35;cy+=(ty-cy)*.35;
+    var vx=cx-px,vy=cy-py;px=cx;py=cy;
+    var sp=Math.sqrt(vx*vx+vy*vy);
+    /* glass leans into the motion; the wine lags behind and stays level */
+    var target=Math.max(-38,Math.min(38,vx*1.4));
+    tilt+=(target-tilt)*.25;bump*=.86;
+    var ang=tilt+bump;
+    wa+=(-ang-wa)*.18;
+
+    /* bottle + waiter */
+    if(on&&!document.getElementById('gf-gate')){if(sp<.6)stillN++;else stillN=0}else stillN=0;   /* no bottle/waiter while the entry door is up */
+    var pouring=false;
+    if(st==='idle'){
+      if(cool>0)cool--;else if(fs==='off'&&on&&stillN>=(level<MAXL-.003?8:70))showBottle();
+    }else if(st==='bottle'){
+      age++;
+      pouring=age>=10&&sp<5&&level<MAXL-.003&&Math.abs(cx+OFFX-(bx-side*4))<16&&Math.abs(cy+OFFY-(by+30))<16;
+      if(age>25&&sp>3){st='wait';wait=14;bottle.style.setProperty('--br','0deg')}
+    }else if(st==='wait'){
+      if(--wait<=0)sendWaiter();
+    }else if(st==='in'){
+      wspd=Math.min(6.5,wspd+.25);wx+=wdir*wspd;
+      var tgt=bx-wdir*29;
+      if((wx-tgt)*wdir>=0){
+        /* arrived: stop dead beside the bottle and give you the look */
+        wx=tgt;st='pause';pauseN=85;
+        wtr.classList.add('stop');wtr.style.setProperty('--lean','0deg');
+        var qs=LOOKS[look],qt=qs[(Math.random()*qs.length)|0];if(bleepy(qt)&&Math.random()>CURSE){var cl=qs.filter(function(t){return !bleepy(t)});if(cl.length)qt=cl[(Math.random()*cl.length)|0]}say.textContent=qt;say.classList.add('on');
+        if(/[@#$%&]{3}/.test(say.textContent))bleep();
+      }
+    }else if(st==='pause'){
+      if(--pauseN<=0){
+        if(duo){if(fs==='face'){st='duo';conN=0}else pauseN=1}   /* wait for her to arrive */
+        else leave(true);                                          /* now snatch the bottle and go */
+      }
+    }else if(st==='duo'){
+      duoStep();
+    }else if(st==='out'){
+      wspd=Math.min(wHas?16:7,wspd+(wHas?.7:.3));wx+=wdir*wspd;
+      if(wx<-120||wx>innerWidth+120){
+        wtr.style.display='none';wtr.classList.remove('has');say.classList.remove('on');
+        st='idle';stillN=0;cool=rest();
+      }
+    }
+    if(st==='in'||st==='pause'||st==='duo'||st==='out'){
+      wtr.style.transform='translate('+(wx-36)+'px,'+wy+'px)';
+      if(sayT>0&&--sayT===0)say.classList.remove('on');
+    }
+    if(fs==='wait'){
+      if(--fdelay<=0){
+        fs='in';fspd=4;fx=fdir>0?-90:innerWidth+90;
+        setLook(wtr2,say2,3);flip2.style.setProperty('--f',fdir);setGait(wtr2,'.3s','36deg','4deg');
+        wtr2.classList.remove('has','stop','swing','reach');
+        wtr2.style.transform='translate('+(fx-36)+'px,'+fy+'px)';wtr2.style.display='block';
+      }
+    }else if(fs==='in'){
+      fspd=Math.min(13,fspd+.6);fx+=fdir*fspd;
+      if((fx-ftgt)*fdir>=0){fx=ftgt;fs='face';wtr2.classList.add('stop');wtr2.style.setProperty('--lean','0deg')}
+    }else if(fs==='out'){
+      fspd=Math.min(14,fspd+.7);fx+=fdir*fspd;
+      if(fx<-120||fx>innerWidth+120){wtr2.style.display='none';wtr2.classList.remove('has','stop');say2.classList.remove('on');fs='off'}
+    }
+    if(fs==='in'||fs==='face'||fs==='out'){
+      wtr2.style.transform='translate('+(fx-36)+'px,'+fy+'px)';
+      if(fsayT>0&&--fsayT===0)say2.classList.remove('on');
+    }
+    if(pouring){stream.style.height=(43-level*31)+'px';stream.style.opacity=1}else stream.style.opacity=0;
+
+    /* too fast? it spills over the leading rim */
+    if(sp>18&&level>.01){
+      var amt=Math.min(level,(sp-18)*.004);level-=amt;
+      var n=Math.min(8,1+Math.round(amt*220)),dir=vx>=0?1:-1;
+      for(var k=0;k<n;k++)drop(cx+OFFX+dir*13,cy+OFFY-15,vx*.55+(Math.random()-.3)*dir*2.5,vy*.3-2-Math.random()*3,k%3?'#8E1534':'#B02450',.55,46+Math.random()*20,3+Math.random()*3.5);
+    }else if(pouring){level=Math.min(MAXL,level+.012)}
+    var y=35-level*31;
+    wine.setAttribute('transform','rotate('+wa.toFixed(1)+' 22 22) translate(0 '+y.toFixed(2)+')');
+    glass.style.transform='rotate('+ang.toFixed(1)+'deg)';
+    cam.style.transform='translate('+cx+'px,'+cy+'px)';
+    for(var i=drops.length-1;i>=0;i--){
+      var d=drops[i];d.vy+=d.g;d.x+=d.vx;d.y+=d.vy;d.life--;
+      if(d.life<=0||d.y>innerHeight+20){d.el.remove();drops.splice(i,1);continue}
+      d.el.style.opacity=Math.min(1,d.life/(d.max*.5));
+      d.el.style.transform='translate('+d.x+'px,'+d.y+'px)';
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+<div id="gf-player" role="region" aria-label="Music player">
+<div class="shell">
+<div class="top">
+<button type="button" class="play" id="mp-play" aria-label="Play music"><svg viewBox="0 0 24 24" id="mp-ico"><path d="M8 5v14l11-7z"/></svg></button>
+<div class="meta"><div class="ttl" id="mp-title">Music</div><div class="sub" id="mp-sub">Press play</div></div>
+<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+<button type="button" class="chev" id="mp-more" aria-label="Show player controls" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg></button>
+</div>
+<div class="more">
+<div class="row"><span class="time" id="mp-cur">0:00</span><input type="range" id="mp-seek" min="0" max="1000" value="0" aria-label="Seek"><span class="time" id="mp-dur" style="text-align:right">0:00</span></div>
+<div class="row ctr">
+<button type="button" id="mp-prev" aria-label="Previous track"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg></button>
+<button type="button" id="mp-next" aria-label="Next track"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+<button type="button" id="mp-mute" aria-label="Mute"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9z"/><path d="M16.5 12a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg></button>
+<input type="range" id="mp-vol" min="0" max="100" value="27" aria-label="Volume" style="max-width:110px">
+</div>
+<div class="msg" id="mp-msg" role="status"></div>
+</div>
+</div>
+<audio id="mp-audio" preload="none"></audio>
+</div>
+<script>
+/* MUSIC PLAYER. Add your MP3s to the audio/ folder and list them here. */
+(function(){
+  var TRACKS=[
+    {title:'Jazz Restaurant',artist:'Alex Morgan',src:'audio/jazz-restaurant.mp3'}
+  ];
+  var $=function(i){return document.getElementById(i)};
+  var root=$('gf-player'),au=$('mp-audio'),play=$('mp-play'),ico=$('mp-ico'),seek=$('mp-seek'),vol=$('mp-vol'),msg=$('mp-msg');
+  var PLAY='M8 5v14l11-7z',PAUSE='M6 5h4v14H6zM14 5h4v14h-4z';
+  var i=0,seeking=false;
+  try{i=Math.min(TRACKS.length-1,Math.max(0,parseInt(localStorage.getItem('gf-track'),10)||0))}catch(e){}
+  vol.value=27; /* always start at 27% */
+  au.volume=vol.value/100;
+  if(TRACKS.length===1){au.loop=true;$('mp-prev').style.display='none';$('mp-next').style.display='none'}
+  function fmt(s){if(!isFinite(s))return'0:00';s=Math.floor(s);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+  function load(n,go){
+    i=(n+TRACKS.length)%TRACKS.length;
+    var t=TRACKS[i];au.src=t.src;msg.textContent='';
+    $('mp-title').textContent=t.title;$('mp-sub').textContent=t.artist+(TRACKS.length>1?' · '+(i+1)+'/'+TRACKS.length:'');
+    seek.value=0;$('mp-cur').textContent='0:00';$('mp-dur').textContent='0:00';
+    try{localStorage.setItem('gf-track',i)}catch(e){}
+    if('mediaSession' in navigator&&window.MediaMetadata)navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:t.artist,album:'Gunframe'});
+    if(go)au.play().catch(function(){});
+  }
+  function ui(p){root.classList.toggle('playing',p);ico.firstElementChild?0:0;ico.innerHTML='<path d="'+(p?PAUSE:PLAY)+'"/>';play.setAttribute('aria-label',p?'Pause music':'Play music')}
+  play.addEventListener('click',function(){if(au.paused)au.play().catch(function(){});else au.pause()});
+  au.addEventListener('play',function(){ui(true)});au.addEventListener('pause',function(){ui(false)});
+  au.addEventListener('ended',function(){load(i+1,true)});
+  au.addEventListener('error',function(){ui(false);msg.textContent='Add an MP3 at '+TRACKS[i].src;root.classList.add('open');$('mp-more').setAttribute('aria-expanded','true')});
+  au.addEventListener('loadedmetadata',function(){$('mp-dur').textContent=fmt(au.duration)});
+  au.addEventListener('timeupdate',function(){if(seeking||!au.duration)return;seek.value=au.currentTime/au.duration*1000;$('mp-cur').textContent=fmt(au.currentTime)});
+  seek.addEventListener('input',function(){seeking=true;if(au.duration)$('mp-cur').textContent=fmt(seek.value/1000*au.duration)});
+  seek.addEventListener('change',function(){if(au.duration)au.currentTime=seek.value/1000*au.duration;seeking=false});
+  vol.addEventListener('input',function(){au.volume=vol.value/100;au.muted=false;try{localStorage.setItem('gf-vol',vol.value)}catch(e){}});
+  $('mp-mute').addEventListener('click',function(){au.muted=!au.muted;this.setAttribute('aria-label',au.muted?'Unmute':'Mute');this.style.opacity=au.muted?.5:1});
+  $('mp-prev').addEventListener('click',function(){load(i-1,!au.paused)});
+  $('mp-next').addEventListener('click',function(){load(i+1,!au.paused)});
+  $('mp-more').addEventListener('click',function(){var o=root.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Hide player controls':'Show player controls')});
+  if('mediaSession' in navigator){
+    navigator.mediaSession.setActionHandler('previoustrack',function(){load(i-1,true)});
+    navigator.mediaSession.setActionHandler('nexttrack',function(){load(i+1,true)});
+  }
+  load(i,false);
+  /* AUTOPLAY at 30%. Browsers block sound until the visitor interacts, so try now and, if blocked,
+     start on the first click / key press / tap (unless that click is on the player itself). */
+  function kick(e){
+    if(e&&e.target&&e.target.closest&&e.target.closest('#gf-player'))return;
+    if(document.getElementById('gf-gate'))return;   /* no music until the visitor is fully inside the room */
+    if(au.paused)au.play().catch(function(){});
+  }
+  var EVS=['pointerdown','keydown','touchend'];
+  function stopKick(){EVS.forEach(function(ev){document.removeEventListener(ev,kick,true)})}
+  au.addEventListener('play',stopKick);
+  EVS.forEach(function(ev){document.addEventListener(ev,kick,true)});
+  /* Try to play the moment the page loads. If the browser refuses (no interaction yet), show the
+     entry door: knocking on it is the click that lets the music start right away. */
+  function showGate(){
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var g=document.createElement('div');g.id='gf-gate';g.setAttribute('role','dialog');g.setAttribute('aria-label','Enter Gunframe Lounge');
+    g.innerHTML='<div class="bloom"></div><div class="k"><span class="g">G</span>unframe Lounge</div><p class="sub">A speakeasy for photographs</p>'
+      +'<div class="sign" role="button" tabindex="0" aria-label="Switch on the sign to enter"><span class="o">OPEN</span><span class="t">Live jazz \u00b7 all night</span></div><p class="hint">Tap to switch on the sign</p>';
+    document.body.appendChild(g);
+    document.documentElement.style.overflow='hidden';
+    var signEl=g.querySelector('.sign'),signOn=false;
+    var done=false;
+    /* NEON SIGN: the G flickers and the sign buzzes until the door opens.
+       Browsers keep sound locked until the first click / tap / key press, so the buzz
+       begins the instant the visitor first interacts (normally the knock). */
+    var neon={on:true,c:null,master:null,noise:null},gEl=g.querySelector('.g');
+    function neonAudio(){
+      try{
+        var AC=window.AudioContext||window.webkitAudioContext,c=new AC(),m=c.createGain();
+        m.gain.value=0;m.connect(c.destination);
+        /* transformer hum: 120 Hz + harmonics, slightly drifting */
+        var lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1400;lp.connect(m);
+        [[120,'sawtooth',.55],[240,'square',.16],[360,'sine',.12],[480,'sine',.07]].forEach(function(p){
+          var o=c.createOscillator(),gn=c.createGain();o.type=p[1];o.frequency.value=p[0];gn.gain.value=p[2];o.connect(gn);gn.connect(lp);o.start();
+        });
+        /* whirring: gas buzz, a band of noise whose pitch and loudness wobble */
+        var b=c.createBuffer(1,c.sampleRate*2,c.sampleRate),d=b.getChannelData(0);
+        for(var k=0;k<d.length;k++)d[k]=Math.random()*2-1;
+        var ns=c.createBufferSource();ns.buffer=b;ns.loop=true;
+        var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2400;bp.Q.value=2.2;
+        var wob=c.createGain();wob.gain.value=.5;
+        var ng=c.createGain();ng.gain.value=.12;
+        ns.connect(bp);bp.connect(wob);wob.connect(ng);ng.connect(m);ns.start();
+        var l1=c.createOscillator(),l1g=c.createGain();l1.frequency.value=7;l1g.gain.value=.3;l1.connect(l1g);l1g.connect(wob.gain);l1.start();
+        var l2=c.createOscillator(),l2g=c.createGain();l2.frequency.value=.8;l2g.gain.value=700;l2.connect(l2g);l2g.connect(bp.frequency);l2.start();
+        m.gain.linearRampToValueAtTime(.2,c.currentTime+.3);
+        neon.c=c;neon.master=m;neon.noise=ng;neon.buf=b;
+        (function tick(){   /* random crackle ticks */
+          if(!neon.on||!neon.c)return;
+          if(neon.c.state==='running'){
+            var t=neon.c.currentTime,s=neon.c.createBufferSource(),tg=neon.c.createGain(),hp=neon.c.createBiquadFilter();
+            hp.type='highpass';hp.frequency.value=1800;s.buffer=neon.buf;
+            tg.gain.setValueAtTime(.35,t);tg.gain.exponentialRampToValueAtTime(.001,t+.03);
+            s.connect(hp);hp.connect(tg);tg.connect(neon.master);s.start(t,Math.random(),.04);
+          }
+          setTimeout(tick,60+Math.random()*350);
+        })();
+      }catch(e){}
+    }
+    function neonWake(){
+      if(!neon.on)return;
+      if(!neon.c)neonAudio();
+      if(neon.c&&neon.c.state==='suspended')neon.c.resume().catch(function(){});
+    }
+    ['pointerdown','keydown','touchstart'].forEach(function(ev){g.addEventListener(ev,neonWake,true);document.addEventListener(ev,neonWake,true)});
+    neonAudio();   /* if the browser already allows sound, it starts right away */
+    function neonSet(lit,crackle){
+      if(gEl)gEl.className='g'+(lit?'':' off');
+      if(signEl&&!signOn)signEl.classList.toggle('tease',lit&&crackle);
+      if(neon.c&&neon.master){
+        var t=neon.c.currentTime;
+        neon.master.gain.cancelScheduledValues(t);neon.master.gain.setTargetAtTime(lit?.2:.07,t,.01);
+        neon.noise.gain.cancelScheduledValues(t);neon.noise.gain.setTargetAtTime(crackle?.4:.12,t,.01);
+      }
+    }
+    function neonStop(){
+      neon.on=false;
+      if(gEl)gEl.className='g';
+      if(neon.c){
+        try{var t=neon.c.currentTime;neon.master.gain.cancelScheduledValues(t);neon.master.gain.setTargetAtTime(0,t,.05)}catch(e){}
+        setTimeout(function(){try{neon.c.close()}catch(e){}},500);
+      }
+    }
+    function neonFlicker(){
+      if(!neon.on)return;
+      var steps=3+Math.floor(Math.random()*5),i=0;
+      (function step(){
+        if(!neon.on)return;
+        if(i>=steps){neonSet(true,false);setTimeout(neonFlicker,600+Math.random()*1800);return}
+        neonSet(i%2===1,true);i++;
+        setTimeout(step,35+Math.random()*80);
+      })();
+    }
+    if(!reduce)setTimeout(neonFlicker,500);
+    function finish(){neonStop();document.documentElement.style.overflow='';if(g.parentNode)g.parentNode.removeChild(g);au.play().catch(function(){})}   /* music starts once the door is gone and the room is fully visible */
+    var hintEl=g.querySelector('.hint');
+    function enter(){
+      if(done)return;
+      done=true;signOn=true;
+      neonWake();
+      g.classList.add('go');signEl.classList.remove('tease');
+      if(reduce){signEl.classList.add('on');g.classList.add('lock');setTimeout(function(){g.classList.add('out')},500);setTimeout(finish,1500);return}
+      /* the sign stutters, catches, then locks on and its red light floods the room */
+      [[0,1],[90,0],[170,1],[240,0],[430,1],[510,0],[580,1],[640,0],[760,1]].forEach(function(st){
+        setTimeout(function(){signEl.classList.toggle('on',!!st[1]);neonSet(!!st[1],true)},st[0]);
+      });
+      setTimeout(function(){neonSet(true,false);g.classList.add('lock')},780);   /* locked on: steady hum, bloom grows */
+      setTimeout(function(){g.classList.add('flood')},1200);                      /* the red light fills the screen */
+      setTimeout(function(){g.classList.add('out')},2500);                        /* ...and clears to the room */
+      setTimeout(finish,3500);
+    }
+    g.addEventListener('click',enter);
+    document.addEventListener('keydown',function onKey(e){if(!g.parentNode){document.removeEventListener('keydown',onKey);return}if(e.key==='Enter'||e.key===' '){e.preventDefault();enter()}});
+  }
+  au.play().catch(function(e){if(e&&e.name==='NotAllowedError')showGate()});
+})();
+</script>
+<style>
+/* ===== Cheese thieves ===== */
+#gf-cheese{position:fixed;right:28px;bottom:24px;width:56px;height:44px;z-index:64;pointer-events:none;transition:opacity .5s,transform .5s var(--ease)}
+#gf-cheese svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+:root[data-theme="light"] #gf-cheese svg{filter:drop-shadow(0 4px 3px rgba(45,25,10,.45))}
+#gf-cheese.gone{opacity:0;transform:scale(.5) translateY(8px)}
+#gf-cheese.gone{transition:none}
+.gf-rat{position:fixed;left:0;bottom:24px;width:60px;height:34px;z-index:65;pointer-events:none;will-change:transform}
+.gf-rat .fl{width:100%;height:100%;transform:scaleX(var(--f,1))}
+.gf-rat svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+:root[data-theme="light"] .gf-rat svg{filter:drop-shadow(0 4px 3px rgba(45,25,10,.5))}
+.gf-rat .held{display:none}.gf-rat.has .held{display:inline}
+.gf-rat .la,.gf-rat .lb,.gf-rat .tail{transform-box:fill-box}
+.gf-rat.run .la{transform-origin:50% 0;animation:gfRatLeg .16s ease-in-out infinite}
+.gf-rat.run .lb{transform-origin:50% 0;animation:gfRatLeg .16s ease-in-out infinite reverse}
+.gf-rat.run svg{animation:gfRatBob .08s ease-in-out infinite alternate}
+.gf-rat .tail{transform-origin:100% 50%;animation:gfRatTail .5s ease-in-out infinite alternate}
+.gf-rat.sniff .head{animation:gfRatSniff .18s ease-in-out infinite alternate}
+.gf-rat .head{transform-box:fill-box;transform-origin:20% 80%}
+@keyframes gfRatLeg{0%,100%{transform:rotate(-35deg)}50%{transform:rotate(35deg)}}
+@keyframes gfRatBob{to{transform:translateY(-2px)}}
+@keyframes gfRatTail{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+@keyframes gfRatSniff{to{transform:rotate(7deg)}}
+@media (max-width:700px){#gf-cheese{bottom:92px;right:16px}.gf-rat{bottom:92px}}
+@media (prefers-reduced-motion:reduce){#gf-cheese,.gf-rat{display:none}}
+</style>
+<div id="gf-cheese" aria-hidden="true"><svg viewBox="0 0 56 44"><ellipse cx="28" cy="38" rx="27" ry="5" fill="#6B4A2E" stroke="#3F2B1C"/><path d="M5 35L51 35L51 14Z" fill="#F2C230" stroke="#C9951A" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 35L51 14L40 10Z" fill="#F8DC6A" stroke="#C9951A" stroke-width="1.5" stroke-linejoin="round"/><circle cx="40" cy="28" r="3" fill="#D9A31E"/><circle cx="47" cy="21" r="2.2" fill="#D9A31E"/><circle cx="29" cy="32" r="2" fill="#D9A31E"/></svg></div>
+<script>
+/* CHEESE THIEVES: every so often a rat sprints in, swipes the cheese and runs off; sometimes a second rat
+   arrives too late. Tweak the timings here (seconds). Switched off for visitors who prefer reduced motion. */
+(function(){
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var FIRST=[6,12],EVERY=[14,38],RESPAWN=[3,6],SPEED=300,SECOND_ODDS=.25;
+  var cheese=document.getElementById('gf-cheese');
+  window.gfRatSVG=null;
+  var RAT='<div class="fl"><svg viewBox="0 0 64 36" aria-hidden="true">'
+    +'<path class="tail" d="M10 22C-2 22 -6 10 -14 12" stroke="#C9A3A0" stroke-width="2.4" stroke-linecap="round" fill="none"/>'
+    +'<g class="lb"><rect x="38" y="27" width="5" height="9" rx="2.5" fill="#6F6C79"/><rect x="14" y="27" width="5" height="9" rx="2.5" fill="#6F6C79"/></g>'
+    +'<ellipse cx="29" cy="21" rx="21" ry="11" fill="#8A8794"/>'
+    +'<g class="la"><rect x="33" y="27" width="5" height="9" rx="2.5" fill="#9A97A4"/><rect x="19" y="27" width="5" height="9" rx="2.5" fill="#9A97A4"/></g>'
+    +'<g class="head"><path d="M44 15C53 13 60 19 63 24C60 28 53 31 44 30Z" fill="#9A97A4"/><circle cx="46" cy="14" r="5" fill="#C9A3A0" stroke="#6B6874" stroke-width="1"/><circle cx="54" cy="20.5" r="1.7" fill="#15131B"/><circle cx="63" cy="24" r="2.2" fill="#E58BA0"/><path d="M58 25L66 22M58 26.5L66 28" stroke="#4A4752" stroke-width=".7" stroke-linecap="round"/>'
+    +'<g class="held"><path d="M55 27L67 29L56 34Z" fill="#F2C230" stroke="#C9951A" stroke-width="1" stroke-linejoin="round"/></g></g>'
+    +'</svg></div>';
+  window.gfRatSVG=RAT;
+  function rnd(a){return (a[0]+Math.random()*(a[1]-a[0]))*1000}
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function squeak(){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext,c=new AC(),o=c.createOscillator(),g=c.createGain();
+      var t=c.currentTime;o.type='sine';o.frequency.setValueAtTime(2300,t);o.frequency.exponentialRampToValueAtTime(3600,t+.07);o.frequency.exponentialRampToValueAtTime(2600,t+.14);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.035,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+.16);
+      o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.18);setTimeout(function(){try{c.close()}catch(e){}},400);
+    }catch(e){}
+  }
+  function makeRat(){var el=document.createElement('div');el.className='gf-rat';el.innerHTML=RAT;document.body.appendChild(el);return el}
+  function place(el,x){el.style.transition='none';el.style.transform='translateX('+x+'px)';void el.offsetWidth}
+  function run(el,x0,x1){
+    var d=Math.abs(x1-x0)/SPEED;
+    el.classList.add('run');place(el,x0);
+    el.style.transition='transform '+d+'s linear';el.style.transform='translateX('+x1+'px)';
+    return sleep(d*1000+30).then(function(){el.classList.remove('run')});
+  }
+  function visit(steal,fromLeft){
+    var el=makeRat(),W=innerWidth,r=cheese.getBoundingClientRect(),RW=60;
+    var dir=fromLeft?1:-1,start=fromLeft?-RW-20:W+20;
+    el.style.setProperty('--f',dir);
+    var stop=fromLeft?r.right-22-RW:r.left+22;
+    if(!fromLeft&&stop<0)stop=0;
+    return run(el,start,stop).then(function(){
+      el.classList.add('sniff');return sleep(steal?350:800);
+    }).then(function(){
+      el.classList.remove('sniff');
+      if(steal){cheese.classList.add('gone');el.classList.add('has');squeak()}
+      else squeak();
+      return sleep(steal?250:300);
+    }).then(function(){
+      var back=steal?(Math.random()<.5):!fromLeft;   /* the thief may bolt out either side */
+      var out=back?W+20:-RW-20;
+      el.style.setProperty('--f',back?1:-1);
+      return run(el,stop,out);
+    }).then(function(){el.remove()});
+  }
+  function heist(){
+    if(document.getElementById('gf-gate')||document.hidden||cheese.classList.contains('gone'))return Promise.resolve(false);
+    var ph=window.gfPhotoHeist&&window.gfPhotoHeist();   /* now and then he goes for a wedding polaroid instead */
+    if(ph)return ph.then(function(){return true});
+    var fromLeft=Math.random()<.5;
+    var p=visit(true,fromLeft);
+    if(Math.random()<SECOND_ODDS)sleep(1600).then(function(){return visit(false,!fromLeft)});   /* too late, he'll be disappointed */
+    return p.then(function(){return true});
+  }
+  window.gfRatNow=heist;
+  function cycle(first){
+    sleep(first?rnd(FIRST):rnd(EVERY)).then(heist).then(function(did){
+      if(!did)return cycle(false);
+      return sleep(rnd(RESPAWN)).then(function(){cheese.classList.remove('gone');cycle(false)});
+    });
+  }
+  function boot(){if(document.getElementById('gf-gate')){setTimeout(boot,600);return}cycle(true)}
+  boot();
+})();
+</script>
+<script src="features.js" defer></script>
+</body>
+</html>
