@@ -1022,7 +1022,8 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     }
   }
 
-  (function loop(){
+  /* All the cursor, bottle and waiter logic counts frames, so it runs on a fixed 60 steps per second no matter how fast the screen refreshes (120/144Hz screens used to run it 2x faster). */
+  function simStep(){
     cx+=(tx-cx)*.35;cy+=(ty-cy)*.35;
     var vx=cx-px,vy=cy-py;px=cx;py=cy;
     var sp=Math.sqrt(vx*vx+vy*vy);
@@ -1107,8 +1108,15 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
       d.el.style.opacity=Math.min(1,d.life/(d.max*.5));
       d.el.style.transform='translate('+d.x+'px,'+d.y+'px)';
     }
-    requestAnimationFrame(loop);
-  })();
+  }
+  var simLast=0,simAcc=0;
+  (function frame(t){
+    if(!simLast)simLast=t||0;
+    simAcc+=Math.min(100,(t||0)-simLast);simLast=t||0;
+    var n=0;
+    while(simAcc>=16.667&&n<6){simStep();simAcc-=16.667;n++}
+    requestAnimationFrame(frame);
+  })(0);
 })();
 </script>
 <div id="gf-player" role="region" aria-label="Music player">
