@@ -1151,7 +1151,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   var PLAY='M8 5v14l11-7z',PAUSE='M6 5h4v14H6zM14 5h4v14h-4z';
   var i=0,seeking=false;
   try{i=Math.min(TRACKS.length-1,Math.max(0,parseInt(localStorage.getItem('gf-track'),10)||0))}catch(e){}
-  vol.value=27; /* always start at 27% */
+  vol.value=20; /* always start at 20% */
   au.volume=vol.value/100;
   if(TRACKS.length===1){au.loop=true;$('mp-prev').style.display='none';$('mp-next').style.display='none'}
   function fmt(s){if(!isFinite(s))return'0:00';s=Math.floor(s);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
