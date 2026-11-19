@@ -207,3 +207,7 @@ body>div>header .theme-toggle #theme-label{color:#eee9dd}
 .vw-box{align-items:center}
 .vw-stage{width:auto;max-width:100%}
 .vw-cap,.vw-nav{justify-content:center;text-align:center}
+/* easter egg wall: bigger bricks on phones, and the loose brick gets a generous invisible tap area */
+.wall button.secret{position:relative}
+.wall button.secret::after{content:"";position:absolute;inset:-12px -8px;z-index:2}
+@media(max-width:700px){#wall-root .wall button{aspect-ratio:2/1}}
