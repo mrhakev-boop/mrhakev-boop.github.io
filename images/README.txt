@@ -1,1 +1,1 @@
-Put your web-sized photos in this folder (JPEG, about 1600 px on the long edge, under 25 MB each).
+
