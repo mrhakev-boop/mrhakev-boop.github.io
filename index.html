@@ -545,7 +545,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
 <div style="display:flex;flex-direction:column;gap:12px;max-width:56ch">
 <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:40px;letter-spacing:-.01em;font-style:normal">The archive</h2>
-<p style="margin:0;font-size:17px;line-height:1.55;color:var(--body)">Everything outside the wedding portfolio: portraits, events, editorial and lifestyle work, pinned to the board. Open any frame to see it up close, and tap the heart on the ones you like.</p>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--body)">Everything outside the wedding portfolio: art, artifacts, automobiles, concerts, nature, travel and wildlife, pinned to the board. Open any frame to see it up close, and tap the heart on the ones you like.</p>
 </div>
 <div id="chips" role="group" aria-label="Filter archive by genre" style="display:flex;flex-wrap:wrap;gap:8px"></div>
 </div>
@@ -601,7 +601,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 </div>
 <script>
 (function () {
-  var GENRES = ['All', 'Portraits'];
+  var GENRES = ['All', 'Art', 'Artifacts', 'Automobiles', 'Concerts', 'Nature', 'Travel', 'Wildlife'];
 
   // ARCHIVE PHOTOS: add one line per photo. src = file in images/, genre must be one of the genres above,
   // title = the caption shown in the viewer. wed:true also lists it under "Weddings" on the bar menu.
@@ -612,7 +612,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     { src: 'images/wedding-01.jpg', title: 'Stone staircase',  genre: 'Events',    wed: true, alt: 'Bride and groom smiling on a stone staircase, with bridesmaids in the foreground' },
     { src: 'images/wedding-02.jpg', title: 'Beach and island', genre: 'Lifestyle', wed: true, alt: 'Bride and groom on a beach with the ocean and an island behind them' },
     { src: 'images/wedding-03.jpg', title: 'Cake cutting',     genre: 'Events',    wed: true, alt: 'Couple cutting their wedding cake in front of a floral arch with a waterfront view' },
-    { src: 'images/hero.jpg',       title: 'The Taylors',      genre: 'Editorial', wed: true, alt: 'Couple seated back to back on a stone wall under a floral arch, smiling at the camera' },
+    { src: 'images/hero.jpg',       title: 'The Taylors',      genre: 'Travel', wed: true, alt: 'Couple seated back to back on a stone wall under a floral arch, smiling at the camera' },
     { src: 'images/wedding-04.jpg', title: 'Flower crown',     genre: 'Lifestyle', wed: true, alt: 'Bride in a flower crown and groom in a black suit with mountains behind them' },
   ];
 
@@ -632,7 +632,6 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   }
 
   function renderChips() {
-    if (!FRAMES.length) { chipsEl.innerHTML = ''; return; }
     chipsEl.innerHTML = GENRES.map(function (g) {
       return '<button type="button" class="chip' + (g === current ? ' on' : '') + '" data-genre="' + esc(g) + '" aria-pressed="' + (g === current) + '">' + esc(g) + '</button>';
     }).join('');
@@ -641,8 +640,8 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   // each frame is a strip of film; every other one gets a grease-pencil circle, like a picked shot
   function renderFrames() {
     var idx = visible();
-    if (!FRAMES.length) {
-      framesEl.innerHTML = '<p style="margin:0;padding:48px 0;text-align:center;font-family:\'Space Mono\',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">New frames are going up on the board soon.</p>';
+    if (!idx.length) {
+      framesEl.innerHTML = '<p style="margin:0;padding:48px 0;text-align:center;font-family:\'Space Mono\',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">' + (current === 'All' ? 'New frames are going up on the board soon.' : esc(current) + ' frames are going up on the board soon.') + '</p>';
       shownEl.textContent = 0;
       return;
     }
