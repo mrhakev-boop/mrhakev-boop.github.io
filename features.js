@@ -32,8 +32,8 @@ var BOOKED=[];                          /* real unavailable dates as 'YYYY-MM-DD
 var DEMO_BOOKED=true;                   /* true = also show made-up booked dates so the calendar looks lived-in. Set to false once BOOKED is real. */
 var MENU=[                              /* the chalkboard: name, mood, which photos, where "open gallery" goes */
   {n:'Weddings',mood:'Slow Dance',go:'#weddings',pick:function(f){return f.wed}},
-  {n:'Portraits',mood:'Late Night Jazz',go:'Portraits',pick:function(f){return !f.wed&&f.genre==='Portraits'}},
-  {n:'Editorial',mood:'Smoke & Mirrors',go:'Editorial',pick:function(f){return !f.wed&&f.genre==='Editorial'}},
+  {n:'Concerts',mood:'Late Night Jazz',go:'Concerts',pick:function(f){return !f.wed&&f.genre==='Concerts'}},
+  {n:'Travel',mood:'Smoke & Mirrors',go:'Travel',pick:function(f){return !f.wed&&f.genre==='Travel'}},
   {n:'The Archive',mood:'Vinyl Crackle',go:'All',pick:function(f){return !f.wed}}
 ];
 /* ================================================== */
@@ -173,9 +173,9 @@ document.addEventListener('click',function(e){
 /* ================= 5. BAR MENU + JUKEBOX ================= */
 var MOODS={
  'Weddings':{bpm:66,chords:[[48,55,59,64],[45,52,55,60],[41,48,52,57],[43,50,55,59]],pat:[0,1,2,3,2,1,2,1],bass:4},
- 'Portraits':{bpm:56,chords:[[50,57,60,65],[43,53,59,62],[48,55,59,64],[45,52,55,60]],pat:[0,-1,2,-1,1,-1,3,-1],bass:8},
+ 'Concerts':{bpm:56,chords:[[50,57,60,65],[43,53,59,62],[48,55,59,64],[45,52,55,60]],pat:[0,-1,2,-1,1,-1,3,-1],bass:8},
  'Events':{bpm:116,swing:1,chords:[[48,55,60,64],[53,57,60,65],[55,59,62,67],[48,55,60,64]],pat:[0,2,1,3,0,2,1,3],bass:2},
- 'Editorial':{bpm:78,chords:[[45,52,57,60],[41,48,53,57],[48,55,60,64],[40,52,56,59]],pat:[0,-1,-1,2,-1,1,-1,-1],bass:2},
+ 'Travel':{bpm:78,chords:[[45,52,57,60],[41,48,53,57],[48,55,60,64],[40,52,56,59]],pat:[0,-1,-1,2,-1,1,-1,-1],bass:2},
  'Lifestyle':{bpm:98,chords:[[43,50,55,59],[50,57,62,66],[52,59,64,67],[48,55,60,64]],pat:[0,1,2,1,3,2,1,0],bass:4},
  'The Archive':{bpm:60,crackle:1,chords:[[48,55,59,64],[45,52,55,60],[50,57,60,65],[43,50,55,59]],pat:[0,-1,1,-1,2,-1,1,-1],bass:8}
 };
