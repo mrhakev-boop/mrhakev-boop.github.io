@@ -311,7 +311,8 @@ function jbPlay(cat){
 /* (a) a loose brick in the footer wall: knock three times to open the Back Room */
 (function(){
   var root=$('#wall-root');if(!root)return;
-  var COLS=34,ROWS=3,SEC=COLS+19;   /* second row, a little right of centre */
+  var phone=window.innerWidth<=700;   /* on a phone the bricks are larger and fewer so the loose one can be tapped */
+  var COLS=phone?9:34,ROWS=phone?4:3,SEC=COLS+Math.round(COLS*.56);   /* second row, a little right of centre */
   var wall=el('div','wall');wall.style.setProperty('--c',COLS);
   for(var i=0;i<COLS*ROWS;i++){var b=el('button',i===SEC?'secret':null);b.type='button';b.tabIndex=i===SEC?0:-1;if(i!==SEC)b.setAttribute('aria-hidden','true');else b.setAttribute('aria-label','Loose brick');wall.appendChild(b)}
   root.appendChild(wall);
