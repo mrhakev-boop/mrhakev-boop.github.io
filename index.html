@@ -1297,7 +1297,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     g.addEventListener('click',enter);
     document.addEventListener('keydown',function onKey(e){if(!g.parentNode){document.removeEventListener('keydown',onKey);return}if(e.key==='Enter'||e.key===' '){e.preventDefault();enter()}});
   }
-  au.play().catch(function(e){if(e&&e.name==='NotAllowedError')showGate()});
+  showGate();   /* always show the OPEN sign on arrival; the music starts once the visitor switches it on */
 })();
 </script>
 <style>
