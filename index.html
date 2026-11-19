@@ -760,10 +760,10 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     setTimeout(function(){r.classList.remove('theming')},500);
   });
 
-  if(reduce||!fine)return;
+  if(reduce)return;   /* touch screens carry on: the waiters follow your finger instead of a mouse */
 
   /* 4. Wedding cards tilt toward the cursor */
-  $('#weddings article').forEach(function(a){
+  if(fine)$('#weddings article').forEach(function(a){
     a.classList.add('tilt');
     a.addEventListener('mousemove',function(e){
       var r=a.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
@@ -773,7 +773,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   });
 
   /* 5. Magnetic buttons */
-  $('.btn').forEach(function(b){
+  if(fine)$('.btn').forEach(function(b){
     b.addEventListener('mousemove',function(e){
       var r=b.getBoundingClientRect();
       b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.28)+'px)';
@@ -787,7 +787,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   var BOWL='M8 4H36C37.5 21 32 34 22 35C12 34 6.5 21 8 4Z';
   cam.innerHTML='<div class="glass"><svg class="body" viewBox="0 0 44 64" aria-hidden="true"><defs><clipPath id="gf-bowl"><path d="'+BOWL+'"/></clipPath><linearGradient id="gf-wine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A31A3F"/><stop offset="1" stop-color="#5E0C25"/></linearGradient></defs><g clip-path="url(#gf-bowl)"><g class="wine"><rect x="-30" y="0" width="104" height="90" fill="url(#gf-wine)"/><rect x="-30" y="0" width="104" height="1.6" fill="#E0708C" opacity=".75"/></g></g><path d="'+BOWL+'" fill="#fff" fill-opacity=".1" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8C12 18 15 26 19 30" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/><path d="M21 35H23V56H21Z" fill="currentColor"/><ellipse cx="22" cy="58" rx="11" ry="3" fill="currentColor"/></svg></div>';
   document.body.appendChild(cam);
-  document.documentElement.classList.add('cam');
+  if(fine)document.documentElement.classList.add('cam');
   var glass=cam.querySelector('.glass'),wine=cam.querySelector('.wine');
 
   /* CURSOR v2: a crisp ring + dot sits exactly on the pointer (this is the click point). The glass is drawn
@@ -913,10 +913,13 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     wtr.style.display='none';wtr.classList.remove('has','stop','hit');say.classList.remove('on');
     fs='off';duo=false;wtr2.style.display='none';wtr2.classList.remove('has','stop','swing','reach');say2.classList.remove('on');
   }
-  window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;if(!on){on=true;cx=px=tx;cy=py=ty;cam.style.opacity='1';pt.style.opacity='1'}
+  window.addEventListener('mousemove',function(e){if(!fine)return;tx=e.clientX;ty=e.clientY;if(!on){on=true;cx=px=tx;cy=py=ty;cam.style.opacity='1';pt.style.opacity='1'}
     pt.style.transform='translate('+tx+'px,'+ty+'px)';   /* the marker follows the raw pointer with no lag: it IS the click point */
     pt.classList.toggle('low',ty<56);pt.classList.toggle('edge-l',tx<90);pt.classList.toggle('edge-r',tx>innerWidth-90);
   });
+  /* touch screens: the last place a finger touched stands in for the mouse (no glass or ring is drawn) */
+  function touchAt(e){var t=(e.touches&&e.touches[0])||(e.changedTouches&&e.changedTouches[0]);if(!t)return;tx=t.clientX;ty=t.clientY;if(!on){on=true;cx=px=tx;cy=py=ty}}
+  if(!fine)['touchstart','touchmove','touchend'].forEach(function(n){document.addEventListener(n,touchAt,{passive:true,capture:true})});
   document.addEventListener('mouseleave',function(){cam.style.opacity='0';pt.style.opacity='0';on=false;reset()});
   document.addEventListener('mouseover',function(e){
     var t=clickTarget(e.target);
@@ -1041,7 +1044,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     }else if(st==='bottle'){
       age++;
       pouring=age>=10&&sp<5&&level<MAXL-.003&&Math.abs(cx+OFFX-(bx-side*4))<16&&Math.abs(cy+OFFY-(by+30))<16;
-      if(age>25&&sp>3){st='wait';wait=14;bottle.style.setProperty('--br','0deg')}
+      if(age>25&&(sp>3||(!fine&&age>180))){st='wait';wait=14;bottle.style.setProperty('--br','0deg')}
     }else if(st==='wait'){
       if(--wait<=0)sendWaiter();
     }else if(st==='in'){
@@ -1093,7 +1096,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     if(pouring){stream.style.height=(43-level*31)+'px';stream.style.opacity=1}else stream.style.opacity=0;
 
     /* too fast? it spills over the leading rim */
-    if(sp>18&&level>.01){
+    if(fine&&sp>18&&level>.01){
       var amt=Math.min(level,(sp-18)*.004);level-=amt;
       var n=Math.min(8,1+Math.round(amt*220)),dir=vx>=0?1:-1;
       for(var k=0;k<n;k++)drop(cx+OFFX+dir*13,cy+OFFY-15,vx*.55+(Math.random()-.3)*dir*2.5,vy*.3-2-Math.random()*3,k%3?'#8E1534':'#B02450',.55,46+Math.random()*20,3+Math.random()*3.5);
