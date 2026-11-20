@@ -383,14 +383,23 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 </style>
 <style>
 /* Archive pinboard */
-#archive .cs{display:flex!important;flex-wrap:wrap;justify-content:center;gap:44px 56px;padding:56px 24px 48px!important;background:rgba(11,16,32,.55)!important;border:1px solid rgba(242,230,204,.14);border-radius:6px}
-#archive .cs-f{flex:none;width:min(360px,86vw);box-sizing:border-box;padding:12px 12px 44px!important;background:#FAF5E9!important;color:#3A2A18!important;box-shadow:0 10px 18px rgba(0,0,0,.4);transition:transform .25s ease,box-shadow .25s}
+#archive .car{position:relative}
+#archive .cs{--h:clamp(300px,54vh,470px);display:flex!important;flex-wrap:nowrap;justify-content:flex-start;align-items:center;gap:40px;padding:56px 64px 52px!important;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 64px;scrollbar-width:thin;scrollbar-color:rgba(242,230,204,.35) transparent;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;background:rgba(11,16,32,.55)!important;border:1px solid rgba(242,230,204,.14);border-radius:6px;outline-offset:3px}
+#archive .cs.drag{scroll-snap-type:none;cursor:grabbing}
+#archive .cs.drag .cs-f{pointer-events:none}
+#archive .cs>p{flex:1;min-width:0}
+.car-btn{position:absolute;top:50%;z-index:3;width:48px;height:48px;margin-top:-24px;border-radius:50%;border:1px solid rgba(242,230,204,.5);background:rgba(11,16,32,.8);color:#F2E6CC;font:400 30px/1 'Space Grotesk',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 0 4px;transition:background-color .2s,opacity .2s,transform .2s}
+.car-btn:hover{background:#FF4D5E;border-color:#FF4D5E;color:#0B1020}
+.car-btn:disabled{opacity:0;pointer-events:none}
+.car-prev{left:10px}.car-next{right:10px}
+@media(max-width:700px){#archive .cs{--h:clamp(260px,46vh,400px);gap:28px;padding:44px 24px 40px!important;scroll-padding:0 24px}.car-btn{width:40px;height:40px;margin-top:-20px;font-size:26px}.car-prev{left:4px}.car-next{right:4px}}
+#archive .cs-f{flex:none;width:auto;scroll-snap-align:center;box-sizing:border-box;padding:12px 12px 44px!important;background:#FAF5E9!important;color:#3A2A18!important;box-shadow:0 10px 18px rgba(0,0,0,.4);transition:transform .25s ease,box-shadow .25s}
 #archive .cs-f:nth-child(odd){transform:rotate(-1.6deg)}
 #archive .cs-f:nth-child(even){transform:rotate(1.4deg)}
 #archive .cs-f:hover,#archive .cs-f:focus-visible{transform:rotate(0) translateY(-4px);box-shadow:0 18px 28px rgba(0,0,0,.45)}
 #archive .cs-f::before{content:"";top:-8px!important;left:calc(50% - 8px)!important;right:auto!important;width:16px;height:16px!important;border-radius:50%;background:#FF4D5E!important;opacity:1!important;box-shadow:1px 3px 4px rgba(0,0,0,.5),inset -2px -2px 3px rgba(0,0,0,.3)}
 #archive .cs-f::after{display:none!important}
-#archive .cs-f img{aspect-ratio:4/3;filter:none!important}
+#archive .cs-f img{display:block;height:auto;width:min(calc(var(--h) * var(--r,1.5)),calc(100vw - 96px));aspect-ratio:var(--r,1.5);object-fit:cover;filter:none!important;-webkit-user-drag:none;user-select:none}
 #archive .cs-f .gp{display:none}
 #archive .cs-f span{left:0!important;right:0;bottom:14px!important;text-align:center;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#3A2A18}
 #archive .cs-f small{display:none}
@@ -549,7 +558,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 </div>
 <div id="chips" role="group" aria-label="Filter archive by genre" style="display:flex;flex-wrap:wrap;gap:8px"></div>
 </div>
-<div id="frames" class="cs"></div>
+<div class="car"><button type="button" class="car-btn car-prev" aria-label="Previous photos">&#8249;</button><div id="frames" class="cs" tabindex="0" role="region" aria-label="Archive photos. Scroll sideways or use the arrow keys."></div><button type="button" class="car-btn car-next" aria-label="Next photos">&#8250;</button></div>
 <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
 <p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Showing <span id="shown">6</span> of <span id="total">6</span> frames</p>
 <a class="btn" href="#archive">Browse the full archive →</a>
@@ -606,171 +615,171 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   // ARCHIVE PHOTOS: add one line per photo. src = file in images/, genre must be one of the genres above,
   // title = the caption shown in the viewer. wed:true also lists it under "Weddings" on the bar menu.
   var FRAMES = [
-    { src: 'images/artifact-01.jpg', title: 'Crystal-crowned jug', genre: 'Artifacts', alt: 'A clay jug with white crystal forms growing around its middle, on a dark museum plinth with its placard' },
-    { src: 'images/artifact-02.jpg', title: 'Mended teacup',      genre: 'Artifacts', alt: 'A small pale teacup repaired with gold and black lacquer, on a dark pedestal' },
-    { src: 'images/artifact-03.jpg', title: 'Lacquered crab',     genre: 'Artifacts', alt: 'A black and gold lacquered crab resting on a pale porcelain shell, on a dark pedestal' },
-    { src: 'images/wildlife-01.jpg', title: 'Duck dabbling', genre: 'Wildlife', alt: 'A mallard hen dipping her bill in rippled, sparkling water' },
-    { src: 'images/wildlife-02.jpg', title: 'Preening', genre: 'Wildlife', alt: 'A mallard preening, head tucked into her shoulder feathers on the water' },
-    { src: 'images/wildlife-03.jpg', title: 'Duck portrait', genre: 'Wildlife', alt: 'Close portrait of a mallard hen floating on calm water' },
-    { src: 'images/wildlife-04.jpg', title: 'Quiet moment', genre: 'Wildlife', alt: 'A mallard with her head tucked, floating on pale blue water' },
-    { src: 'images/wildlife-05.jpg', title: 'Asleep on one leg', genre: 'Wildlife', alt: 'A small duck asleep on one leg, reflected in golden water' },
-    { src: 'images/wildlife-06.jpg', title: 'Blue flash', genre: 'Wildlife', alt: 'A duck turned away with the blue wing patch showing, ripples around her' },
-    { src: 'images/wildlife-07.jpg', title: 'Ripples', genre: 'Wildlife', alt: 'A duck preening in the middle of wide circular ripples' },
-    { src: 'images/wildlife-08.jpg', title: 'Critter by the bumper', genre: 'Wildlife', alt: 'A small animal beside a car bumper and a tree trunk' },
-    { src: 'images/wildlife-09.jpg', title: 'Jay on a rock', genre: 'Wildlife', alt: "A Steller's jay perched on a rock beside a dirt trail" },
-    { src: 'images/wildlife-10.jpg', title: 'Jay in the rhododendrons', genre: 'Wildlife', alt: "A Steller's jay among rhododendron leaves and a cut stump" },
-    { src: 'images/wildlife-11.jpg', title: "Steller's jay", genre: 'Wildlife', alt: "A Steller's jay with a black crest and blue wings standing on the forest floor" },
-    { src: 'images/wildlife-12.jpg', title: 'Jay on a stump', genre: 'Wildlife', alt: "A Steller's jay on a cut stump covered in seeds" },
-    { src: 'images/wildlife-13.jpg', title: 'Chipmunk', genre: 'Wildlife', alt: 'A chipmunk on the forest floor near a mossy tree base' },
-    { src: 'images/wildlife-14.jpg', title: 'Cat on a shoulder', genre: 'Wildlife', alt: "A fluffy grey cat resting on a person's shoulder at a cat show" },
-    { src: 'images/wildlife-15.jpg', title: 'Spotted cat in arms', genre: 'Wildlife', alt: 'A man in a bright patterned shirt holding a spotted cat at a cat show' },
-    { src: 'images/wildlife-16.jpg', title: 'The big lift', genre: 'Wildlife', alt: 'A man in a bright patterned shirt lifting a white long-haired cat' },
-    { src: 'images/wildlife-17.jpg', title: 'Maine Coon, table 37', genre: 'Wildlife', alt: 'A ginger long-haired cat being groomed at a judging table' },
-    { src: 'images/wildlife-18.jpg', title: 'Cream cat on the table', genre: 'Wildlife', alt: 'A cream cat standing on a judging table while a handler looks on' },
-    { src: 'images/wildlife-19.jpg', title: 'Lizard under the mesh', genre: 'Wildlife', alt: 'A lizard resting on bark chips behind wire mesh' },
-    { src: 'images/wildlife-20.jpg', title: 'Green coil', genre: 'Wildlife', alt: 'A bright green snake coiled on a branch among leaves' },
-    { src: 'images/wildlife-21.jpg', title: 'Owl behind the mesh', genre: 'Wildlife', alt: 'An owl perched on a post inside a wire-mesh enclosure' },
-    { src: 'images/wildlife-22.jpg', title: "Under the judge's hands", genre: 'Wildlife', alt: 'A cream cat being held steady on a judging table at a cat show' },
-    { src: 'images/wildlife-23.jpg', title: 'Judging table', genre: 'Wildlife', alt: 'A cream and white cat lying on a judging table while a judge in a leopard-print top gestures' },
-    { src: 'images/wildlife-24.jpg', title: 'Small bird on the lawn', genre: 'Wildlife', alt: 'A tiny bird on a lawn beside a paved path and green hedge' },
-    { src: 'images/wildlife-25.jpg', title: 'Peacock and peahen', genre: 'Wildlife', alt: 'A peacock with a green and blue tail and a peahen walking on a grassy hillside' },
-    { src: 'images/wildlife-26.jpg', title: 'Python on the crate', genre: 'Wildlife', alt: 'A large patterned python resting in a glass case on a yellow wooden crate' },
-    { src: 'images/wildlife-27.jpg', title: 'Gecko in the case', genre: 'Wildlife', alt: 'A leopard gecko resting on white paper inside a clear enclosure' },
-    { src: 'images/wildlife-28.jpg', title: 'Ball python', genre: 'Wildlife', alt: 'A person in a black shirt holding a ball python draped over their arms' },
-    { src: 'images/wildlife-29.jpg', title: 'Tarantula', genre: 'Wildlife', alt: 'A large tarantula with pale striped legs in a clear container of dark soil' },
-    { src: 'images/wildlife-30.jpg', title: 'Corn snakes', genre: 'Wildlife', alt: 'Orange corn snakes coiled on white substrate in small clear containers' },
-    { src: 'images/wildlife-31.jpg', title: 'Lizards at the table', genre: 'Wildlife', alt: 'Small lizards in clear tubs on a vendor table at a reptile show' },
-    { src: 'images/wildlife-32.jpg', title: 'Bearded dragon', genre: 'Wildlife', alt: 'A bearded dragon perched on a tub, looking out' },
-    { src: 'images/wildlife-33.jpg', title: 'Yellow ball python', genre: 'Wildlife', alt: 'A person in a pink shirt holding a yellow and white ball python' },
-    { src: 'images/wildlife-34.jpg', title: 'Leopard gecko', genre: 'Wildlife', alt: 'A spotted leopard gecko resting inside a clear plastic container' },
-    { src: 'images/wildlife-35.jpg', title: 'Lizard in hand', genre: 'Wildlife', alt: 'A small brown lizard held in an open hand in front of a blurred crowd' },
-    { src: 'images/wildlife-36.jpg', title: 'Boa in hand', genre: 'Wildlife', alt: "A man's hand holding a golden-brown boa with its head resting on top" },
-    { src: 'images/wildlife-37.jpg', title: 'Tarantula in a tub', genre: 'Wildlife', alt: 'A dark tarantula beside a terracotta pot in a clear plastic tub of soil' },
-    { src: 'images/wildlife-38.jpg', title: 'Tarantula on the arm', genre: 'Wildlife', alt: "A tiny blue tarantula walking on a man's forearm" },
-    { src: 'images/wildlife-39.jpg', title: 'Tiny and its box', genre: 'Wildlife', alt: 'A small spider on a forearm next to a clear box held in the other hand' },
-    { src: 'images/wildlife-40.jpg', title: 'Axolotl', genre: 'Wildlife', alt: 'An axolotl with feathery gills in a clear tank on a purple tablecloth' },
-    { src: 'images/wildlife-41.jpg', title: 'Pale lizard', genre: 'Wildlife', alt: 'A hand petting a pale lizard on a dark tablecloth' },
-    { src: 'images/wildlife-42.jpg', title: 'Sun conure on a shoulder', genre: 'Wildlife', alt: "An orange sun conure perched on a man's shoulder" },
-    { src: 'images/wildlife-43.jpg', title: 'Baby rabbits', genre: 'Wildlife', alt: 'Grey baby rabbits huddled in a white carrier' },
-    { src: 'images/wildlife-44.jpg', title: 'African grey on a perch', genre: 'Wildlife', alt: 'An African grey parrot on a perch with blurred people behind it' },
-    { src: 'images/wildlife-45.jpg', title: 'Blue-and-gold macaw', genre: 'Wildlife', alt: 'A blue and gold macaw on a wooden perch' },
-    { src: 'images/wildlife-46.jpg', title: 'Green parrot', genre: 'Wildlife', alt: 'A green parrot perched near a woman holding a phone' },
-    { src: 'images/wildlife-47.jpg', title: 'Macaw with a dollar', genre: 'Wildlife', alt: 'A red macaw holding a dollar bill in its beak, with a smiling woman behind it' },
-    { src: 'images/wildlife-48.jpg', title: 'Wings out', genre: 'Wildlife', alt: 'A red macaw with wings spread wide in front of a painted jungle backdrop' },
-    { src: 'images/wildlife-49.jpg', title: 'African grey in hand', genre: 'Wildlife', alt: "An African grey parrot held belly-up in a man's hands" },
-    { src: 'images/wildlife-50.jpg', title: 'Cockatoo', genre: 'Wildlife', alt: 'A white cockatoo on a perch taking a treat from a hand' },
-    { src: 'images/wildlife-51.jpg', title: 'Head scratch', genre: 'Wildlife', alt: 'A white cockatoo bowing its head while a hand scratches it' },
-    { src: 'images/wildlife-52.jpg', title: 'Cockatoo and friend', genre: 'Wildlife', alt: 'A bearded man in glasses leaning in to a white cockatoo' },
-    { src: 'images/wildlife-53.jpg', title: 'Snakes in glass', genre: 'Wildlife', alt: 'A red-brown snake and a grey snake in a clear glass enclosure on a pedestal' },
-    { src: 'images/wildlife-54.jpg', title: 'Sun conures', genre: 'Wildlife', alt: "Two sun conures, one on a man's shoulder and one nestled against his beard" },
-    { src: 'images/wildlife-55.jpg', title: 'Chameleon behind the bars', genre: 'Wildlife', alt: 'A panther chameleon seen through cage bars and leaves' },
-    { src: 'images/wildlife-56.jpg', title: 'Panther chameleon', genre: 'Wildlife', alt: 'A panther chameleon with red and blue stripes clinging to a branch' },
-    { src: 'images/wildlife-57.jpg', title: 'Lizard in the vivarium', genre: 'Wildlife', alt: 'A small lizard on a branch inside a dark vivarium with leaves' },
-    { src: 'images/wildlife-58.jpg', title: 'Sulcata tortoise', genre: 'Wildlife', alt: 'A large sulcata tortoise resting in a tub of hay' },
-    { src: 'images/wildlife-59.jpg', title: 'Turtle tank', genre: 'Wildlife', alt: 'A small turtle and water plants in a clear tank with bubbling water' },
-    { src: 'images/wildlife-60.jpg', title: 'Mini pigs', genre: 'Wildlife', alt: 'Two black and white mini pigs in a straw-lined pen' },
-    { src: 'images/wildlife-61.jpg', title: 'Piglet peeking', genre: 'Wildlife', alt: 'A black and white mini pig peeking out from behind another in a pen' },
-    { src: 'images/wildlife-62.jpg', title: 'Young monitors', genre: 'Wildlife', alt: 'Two young spotted monitor lizards on a flat rock under a warm light' },
-    { src: 'images/wildlife-63.jpg', title: 'Katydid on the glass', genre: 'Wildlife', alt: 'A green katydid with long antennae clinging to glass against a cloudy sky' },
-    { src: 'images/wildlife-64.jpg', title: 'Resting on the gravel', genre: 'Wildlife', alt: 'A brown, white and black dog lying on a bed of river stones in evening light' },
-    { src: 'images/wildlife-65.jpg', title: 'Puppy behind the bars', genre: 'Wildlife', alt: 'A brown and white puppy peering out through the bars of a crate' },
-    { src: 'images/wildlife-66.jpg', title: 'Litter in the crate', genre: 'Wildlife', alt: 'A white and tan puppy standing in a wire crate with its brown littermates behind it' },
-    { src: 'images/travel-01.jpg', title: 'Blossoms over the street', genre: 'Travel', alt: 'Cherry blossoms arching over a city street with people below' },
-    { src: 'images/travel-02.jpg', title: 'Sun through the blossoms', genre: 'Travel', alt: 'Sunlight breaking through cherry blossom branches above a riverside park' },
-    { src: 'images/travel-03.jpg', title: 'Picnic under the blossoms', genre: 'Travel', alt: 'People relaxing on the grass under blooming cherry trees by the river' },
-    { src: 'images/travel-04.jpg', title: 'Bridge and blossoms', genre: 'Travel', alt: 'A bridge across a river seen over a bank of cherry blossoms' },
-    { src: 'images/travel-05.jpg', title: 'Waterfront in bloom', genre: 'Travel', alt: 'Cherry trees in full bloom along a grassy riverfront' },
-    { src: 'images/travel-06.jpg', title: 'Convention center spires', genre: 'Travel', alt: 'Twin glass spires of a convention center rising over cherry blossoms' },
-    { src: 'images/travel-07.jpg', title: 'Lift bridge in bloom', genre: 'Travel', alt: 'A steel lift bridge behind blossoming cherry trees and a crowd on the lawn' },
-    { src: 'images/travel-08.jpg', title: 'Quiet street, late sun', genre: 'Travel', alt: 'A tree-lined city street in late afternoon light with parked cars' },
-    { src: 'images/travel-09.jpg', title: 'Behind the bar', genre: 'Travel', alt: 'A lit bar with wooden pendant lamps and staff and guests in front' },
-    { src: 'images/travel-10.jpg', title: 'Camp 18', genre: 'Travel', alt: 'A carved wooden totem and a Camp 18 Restaurant sign above a parking lot in a forest' },
-    { src: 'images/travel-11.jpg', title: 'Steam tractor', genre: 'Travel', alt: 'A rusted steam traction engine parked on gravel in front of trees' },
-    { src: 'images/travel-12.jpg', title: 'Bridge into the fog', genre: 'Travel', alt: 'A long bridge road disappearing into fog, seen through a windshield' },
-    { src: 'images/travel-13.jpg', title: 'Ferris wheel', genre: 'Travel', alt: 'A ferris wheel lit in pink and blue against the night sky' },
-    { src: 'images/travel-14.jpg', title: 'The fair from above', genre: 'Travel', alt: 'A night fairground with bright rides and stalls seen from above' },
-    { src: 'images/travel-15.jpg', title: 'Stone pagoda', genre: 'Travel', alt: 'A moss-covered stone pagoda lantern in a garden with trimmed hedges' },
-    { src: 'images/travel-16.jpg', title: 'Bamboo water spout', genre: 'Travel', alt: 'A bamboo water spout and stone basin among green shrubs and a stone lantern' },
-    { src: 'images/travel-17.jpg', title: 'Wooden bridge', genre: 'Travel', alt: 'A wooden arched bridge in a mossy garden under tall trees' },
-    { src: 'images/travel-18.jpg', title: 'Cranes on the pond', genre: 'Travel', alt: 'Two bronze crane statues on stones at the edge of a garden pond' },
-    { src: 'images/travel-19.jpg', title: 'Sand garden', genre: 'Travel', alt: 'A raked sand garden with mossy stones inside a low wall' },
-    { src: 'images/travel-20.jpg', title: 'Japanese Garden entrance', genre: 'Travel', alt: 'The Portland Japanese Garden sign among trees on a rainy day' },
-    { src: 'images/nature-01.jpg', title: 'Mt. Hood and the paddlers', genre: 'Nature', alt: 'Snow-streaked Mt. Hood under a cloud over a forested lake with paddlers' },
-    { src: 'images/nature-02.jpg', title: 'Lakeside chairs, Mt. Hood', genre: 'Nature', alt: 'Two people in camp chairs by a lake looking at Mt. Hood and a yellow paddleboard' },
-    { src: 'images/nature-03.jpg', title: 'Graffiti hut on the trail', genre: 'Nature', alt: 'A mossy graffiti-covered stone hut beside a trail sign in the woods' },
-    { src: 'images/nature-04.jpg', title: 'White hyacinth', genre: 'Nature', alt: 'A single white hyacinth blooming in a bed of bark mulch' },
-    { src: 'images/nature-05.jpg', title: 'Red rhododendron', genre: 'Nature', alt: 'A crimson rhododendron bloom against dark green forest leaves' },
-    { src: 'images/nature-06.jpg', title: 'Red camellia', genre: 'Nature', alt: 'A red camellia in bloom among glossy green leaves' },
-    { src: 'images/nature-07.jpg', title: 'White camellia', genre: 'Nature', alt: 'A pale pink-white camellia surrounded by dark leaves' },
-    { src: 'images/nature-08.jpg', title: 'White camellia, upright', genre: 'Nature', alt: 'A pale camellia bloom with branches rising behind it' },
-    { src: 'images/nature-09.jpg', title: 'Camellia bud', genre: 'Nature', alt: 'A red camellia bud on a bright green branch with a soft background' },
-    { src: 'images/nature-10.jpg', title: 'Camellia in the light', genre: 'Nature', alt: 'A red camellia bud on a leafy branch against a pale blurred background' },
-    { src: 'images/nature-11.jpg', title: 'Camellia by the trunk', genre: 'Nature', alt: 'A red camellia blooming beside a tree trunk with sunlit leaves' },
-    { src: 'images/nature-12.jpg', title: 'The garden dinosaur', genre: 'Nature', alt: 'A blue-green dinosaur sculpture standing among trees in a garden' },
-    { src: 'images/nature-13.jpg', title: 'Leach Botanical Garden', genre: 'Nature', alt: 'The Leach Botanical Garden sign above planters of grasses' },
-    { src: 'images/nature-14.jpg', title: 'Old tanker truck', genre: 'Nature', alt: 'A weathered tanker truck parked on a lawn in front of evergreens' },
-    { src: 'images/nature-15.jpg', title: 'Garden gate', genre: 'Nature', alt: 'A wooden gate in a white wall of a Japanese garden after rain' },
-    { src: 'images/nature-16.jpg', title: 'Gate after rain', genre: 'Nature', alt: 'A wet stone courtyard leading to a wooden garden gate' },
-    { src: 'images/nature-17.jpg', title: 'Moss path from above', genre: 'Nature', alt: 'Wet paths winding through mossy ground seen past a tree trunk' },
-    { src: 'images/nature-18.jpg', title: 'Guardian lion', genre: 'Nature', alt: 'A stone guardian lion statue on a wet path beside bamboo' },
-    { src: 'images/nature-19.jpg', title: 'Bamboo water basin', genre: 'Nature', alt: 'A stone water basin with a bamboo spout among shrubs' },
-    { src: 'images/automobile-01.jpg', title: 'Plush passenger', genre: 'Motors & Wings', alt: 'A plush dog riding in a shopping cart at a car meet' },
-    { src: 'images/automobile-02.jpg', title: 'Ford GT', genre: 'Motors & Wings', alt: 'White Ford GT with blue stripes and its clamshell raised' },
-    { src: 'images/automobile-03.jpg', title: 'Ford GT, door open', genre: 'Motors & Wings', alt: 'Open door and raised rear clamshell of a white Ford GT' },
-    { src: 'images/automobile-04.jpg', title: 'Ford GT, rear suspension', genre: 'Motors & Wings', alt: 'Detail of the exposed rear suspension and engine bay of a Ford GT' },
-    { src: 'images/automobile-05.jpg', title: 'Mustang GT, garage', genre: 'Motors & Wings', alt: 'A black Mustang GT parked in a concrete garage with a crowd behind' },
-    { src: 'images/automobile-06.jpg', title: 'Hood up', genre: 'Motors & Wings', alt: 'A white vintage Japanese coupe with its hood open as two men look in' },
-    { src: 'images/automobile-07.jpg', title: 'Daihatsu Hijet', genre: 'Motors & Wings', alt: 'White 1997 Daihatsu Hijet kei truck with an import info placard' },
-    { src: 'images/automobile-08.jpg', title: 'Crown, head-on', genre: 'Motors & Wings', alt: 'Front view of a maroon Toyota Crown with chrome bumper and fog lamps' },
-    { src: 'images/automobile-09.jpg', title: 'Crown, three-quarter', genre: 'Motors & Wings', alt: 'Three-quarter view of a maroon vintage Toyota Crown sedan' },
-    { src: 'images/automobile-10.jpg', title: 'Evo, CHOOM', genre: 'Motors & Wings', alt: 'Red Mitsubishi Lancer Evolution from the front with a Japanese plate' },
-    { src: 'images/automobile-11.jpg', title: 'Slammed Celsior', genre: 'Motors & Wings', alt: 'Silver Toyota Celsior on polished lips with a Japanese plate' },
-    { src: 'images/automobile-12.jpg', title: 'Crown, plate 19-88', genre: 'Motors & Wings', alt: 'Front of a blue-grey Toyota Crown with a Japanese plate' },
-    { src: 'images/automobile-13.jpg', title: 'Kei truck cabin', genre: 'Motors & Wings', alt: 'Blue kei truck with a toy truck on the dash' },
-    { src: 'images/automobile-14.jpg', title: 'White MR2', genre: 'Motors & Wings', alt: 'A white first-generation Toyota MR2 parked in a garage' },
-    { src: 'images/automobile-15.jpg', title: 'GR Supra, Unexpected', genre: 'Motors & Wings', alt: 'White and red Toyota GR Supra with a wide aero kit' },
-    { src: 'images/automobile-16.jpg', title: 'White S2000', genre: 'Motors & Wings', alt: 'White Honda S2000 from the front, parked between two cars' },
-    { src: 'images/automobile-17.jpg', title: 'White GT3 RS, head-on', genre: 'Motors & Wings', alt: 'Front view of a white Porsche 911 GT3 RS in a parking lot' },
-    { src: 'images/automobile-18.jpg', title: 'White GT3 RS', genre: 'Motors & Wings', alt: 'Three-quarter view of a white Porsche 911 GT3 RS with yellow brake calipers' },
-    { src: 'images/automobile-19.jpg', title: 'Purple sparkle S13', genre: 'Motors & Wings', alt: 'A purple metallic-flake Nissan coupe with an anime livery, a hoodie and a Gengar plush on the hood' },
-    { src: 'images/automobile-20.jpg', title: 'Spoon S2000', genre: 'Motors & Wings', alt: 'A blue and yellow Spoon Sports liveried Honda S2000 with its hood up' },
-    { src: 'images/automobile-21.jpg', title: 'Grinch under the hood', genre: 'Motors & Wings', alt: 'A green Honda Civic with a furry green costume stuck in its front bumper' },
-    { src: 'images/automobile-22.jpg', title: 'RC drift grid', genre: 'Motors & Wings', alt: 'A row of RC drift cars with small flags on a taped course' },
-    { src: 'images/automobile-23.jpg', title: 'Miata engine bay', genre: 'Motors & Wings', alt: 'A stripped, tube-framed white roadster with a carbon-covered engine and stickers' },
-    { src: 'images/automobile-24.jpg', title: 'Patina Karmann Ghia', genre: 'Motors & Wings', alt: 'A weathered Volkswagen Karmann Ghia with peeling green and cream paint' },
-    { src: 'images/automobile-25.jpg', title: 'Turbo engine bay', genre: 'Motors & Wings', alt: 'A black coupe with its hood up showing a turbo setup and blue piping' },
-    { src: 'images/automobile-26.jpg', title: 'Silver S2000', genre: 'Motors & Wings', alt: 'A silver Honda S2000 on the show floor among other cars' },
-    { src: 'images/automobile-27.jpg', title: 'Red 180SX', genre: 'Motors & Wings', alt: 'A deep red Nissan 180SX in front of other red cars' },
-    { src: 'images/automobile-28.jpg', title: 'Air-ride trunk', genre: 'Motors & Wings', alt: 'A lit trunk display with air suspension tanks and a starry lid' },
-    { src: 'images/automobile-29.jpg', title: 'Lowrider on display', genre: 'Motors & Wings', alt: 'A yellow-green lowrider with its hood up on a raised carpeted platform' },
-    { src: 'images/automobile-30.jpg', title: 'Lowrider, wheels off', genre: 'Motors & Wings', alt: 'A show car sitting on engraved stands with its wheels removed' },
-    { src: 'images/automobile-31.jpg', title: 'Engraved wheel stand', genre: 'Motors & Wings', alt: 'A gold-capped hub on an engraved chrome stand under a lowrider' },
-    { src: 'images/automobile-32.jpg', title: 'Playboy Integra', genre: 'Motors & Wings', alt: 'The rear of a white Acura Integra with Playboy bunny graphics and a big wing' },
-    { src: 'images/automobile-33.jpg', title: 'Unspoken Society WRX', genre: 'Motors & Wings', alt: 'A silver Subaru WRX with its hood up, blue lighting and bandana-print details' },
-    { src: 'images/automobile-34.jpg', title: 'Paisley WRX', genre: 'Motors & Wings', alt: 'Side of a silver Subaru WRX wrapped in blue paisley graphics on polished wheels' },
-    { src: 'images/automobile-35.jpg', title: 'Skyline GT-R, rear', genre: 'Motors & Wings', alt: 'The rear of a grey Nissan Skyline R32 GT-R with an Oregon plate' },
-    { src: 'images/automobile-36.jpg', title: 'Skyline taillights', genre: 'Motors & Wings', alt: 'Close detail of the taillights and badge of a Skyline GT-R' },
-    { src: 'images/automobile-37.jpg', title: 'White GT-R', genre: 'Motors & Wings', alt: 'A white wide-body Nissan GT-R with red wheels and its hood raised under a tent' },
-    { src: 'images/automobile-38.jpg', title: 'Teal Integra', genre: 'Motors & Wings', alt: 'A teal Acura Integra with its hood up on the show floor' },
-    { src: 'images/automobile-39.jpg', title: 'Orange Corvette', genre: 'Motors & Wings', alt: 'An orange C8 Corvette with scissor doors raised and red underglow' },
-    { src: 'images/automobile-40.jpg', title: 'Corvette, rear view', genre: 'Motors & Wings', alt: 'The rear of an orange C8 Corvette with the engine cover open' },
-    { src: 'images/automobile-41.jpg', title: 'Group B rally car', genre: 'Motors & Wings', alt: 'A blue and white MG Metro 6R4 rally car with roof-mounted lights' },
-    { src: 'images/automobile-42.jpg', title: 'Blue lowrider', genre: 'Motors & Wings', alt: 'A blue lowrider convertible with its hood and trunk up and blue lighting' },
-    { src: 'images/automobile-43.jpg', title: 'Lowrider, three-wheel', genre: 'Motors & Wings', alt: 'A blue lowrider hopping on three wheels with glowing blue headlights' },
-    { src: 'images/automobile-44.jpg', title: 'Tube-frame build', genre: 'Motors & Wings', alt: 'A stripped white tube-frame car with an exposed engine on the show floor' },
-    { src: 'images/automobile-45.jpg', title: 'Tube-frame, front', genre: 'Motors & Wings', alt: 'The front of a stripped tube-frame roadster with a large intercooler' },
-    { src: 'images/automobile-46.jpg', title: 'Silver Huracan', genre: 'Motors & Wings', alt: 'A silver Lamborghini Huracan at a crowded indoor car show' },
-    { src: 'images/automobile-47.jpg', title: 'Wave-wrapped G37', genre: 'Motors & Wings', alt: 'A cream Infiniti coupe with a Japanese wave graphic and teal wheels' },
-    { src: 'images/automobile-48.jpg', title: 'Parked in the garage', genre: 'Motors & Wings', alt: 'A dark cruiser motorcycle parked beside a garage door at night' },
-    { src: 'images/art-01.jpg', title: 'Blown glass display', genre: 'Art', alt: 'Colorful blown-glass vases and orbs stacked on a metal display behind glass' },
-    { src: 'images/art-02.jpg', title: 'Porsche heritage wall', genre: 'Art', alt: 'A wall of framed vintage Porsche photographs seen through a glass partition' },
-    { src: 'images/art-03.jpg', title: 'Wild bouquet', genre: 'Art', alt: 'An expressive acrylic painting of sunflowers in a vase in bold blues, reds and yellows' },
-    { src: 'images/art-04.jpg', title: 'Coastal bluff, Carla Deal', genre: 'Art', alt: 'A painted coastal landscape with a windswept pine over a pink-and-blue beach' },
-    { src: 'images/art-05.jpg', title: 'Masked face', genre: 'Art', alt: 'A black-outlined abstract face with swirling hair over pastel watercolor washes' },
-    { src: 'images/art-06.jpg', title: 'Crowned in blue', genre: 'Art', alt: 'A pastel portrait of a short-haired figure in a blue crown against a red-orange ground' },
-    { src: 'images/art-07.jpg', title: "Moonlit ship, Matt O'Tousa", genre: 'Art', alt: 'A black-and-white painting of a sailing ship under a full moon on rough seas' },
-    { src: 'images/art-08.jpg', title: 'Rhino, Jordan Tarrant', genre: 'Art', alt: 'A vivid abstract painting of a rhinoceros head in teal, crimson and gold' },
-    { src: 'images/art-09.jpg', title: 'Poppy field', genre: 'Art', alt: 'A thickly textured painting of a red poppy field under a blue sky with one cloud' },
+    { src: 'images/artifact-01.jpg', r: 1.4970, title: 'Crystal-crowned jug', genre: 'Artifacts', alt: 'A clay jug with white crystal forms growing around its middle, on a dark museum plinth with its placard' },
+    { src: 'images/artifact-02.jpg', r: 1.4970, title: 'Mended teacup',      genre: 'Artifacts', alt: 'A small pale teacup repaired with gold and black lacquer, on a dark pedestal' },
+    { src: 'images/artifact-03.jpg', r: 1.4970, title: 'Lacquered crab',     genre: 'Artifacts', alt: 'A black and gold lacquered crab resting on a pale porcelain shell, on a dark pedestal' },
+    { src: 'images/wildlife-01.jpg', r: 0.6685, title: 'Duck dabbling', genre: 'Wildlife', alt: 'A mallard hen dipping her bill in rippled, sparkling water' },
+    { src: 'images/wildlife-02.jpg', r: 0.6685, title: 'Preening', genre: 'Wildlife', alt: 'A mallard preening, head tucked into her shoulder feathers on the water' },
+    { src: 'images/wildlife-03.jpg', r: 0.6685, title: 'Duck portrait', genre: 'Wildlife', alt: 'Close portrait of a mallard hen floating on calm water' },
+    { src: 'images/wildlife-04.jpg', r: 1.4960, title: 'Quiet moment', genre: 'Wildlife', alt: 'A mallard with her head tucked, floating on pale blue water' },
+    { src: 'images/wildlife-05.jpg', r: 0.6685, title: 'Asleep on one leg', genre: 'Wildlife', alt: 'A small duck asleep on one leg, reflected in golden water' },
+    { src: 'images/wildlife-06.jpg', r: 0.6685, title: 'Blue flash', genre: 'Wildlife', alt: 'A duck turned away with the blue wing patch showing, ripples around her' },
+    { src: 'images/wildlife-07.jpg', r: 1.4960, title: 'Ripples', genre: 'Wildlife', alt: 'A duck preening in the middle of wide circular ripples' },
+    { src: 'images/wildlife-08.jpg', r: 0.6685, title: 'Critter by the bumper', genre: 'Wildlife', alt: 'A small animal beside a car bumper and a tree trunk' },
+    { src: 'images/wildlife-09.jpg', r: 0.6685, title: 'Jay on a rock', genre: 'Wildlife', alt: "A Steller's jay perched on a rock beside a dirt trail" },
+    { src: 'images/wildlife-10.jpg', r: 0.6685, title: 'Jay in the rhododendrons', genre: 'Wildlife', alt: "A Steller's jay among rhododendron leaves and a cut stump" },
+    { src: 'images/wildlife-11.jpg', r: 0.6685, title: "Steller's jay", genre: 'Wildlife', alt: "A Steller's jay with a black crest and blue wings standing on the forest floor" },
+    { src: 'images/wildlife-12.jpg', r: 1.4960, title: 'Jay on a stump', genre: 'Wildlife', alt: "A Steller's jay on a cut stump covered in seeds" },
+    { src: 'images/wildlife-13.jpg', r: 1.4960, title: 'Chipmunk', genre: 'Wildlife', alt: 'A chipmunk on the forest floor near a mossy tree base' },
+    { src: 'images/wildlife-14.jpg', r: 1.4970, title: 'Cat on a shoulder', genre: 'Wildlife', alt: "A fluffy grey cat resting on a person's shoulder at a cat show" },
+    { src: 'images/wildlife-15.jpg', r: 0.6680, title: 'Spotted cat in arms', genre: 'Wildlife', alt: 'A man in a bright patterned shirt holding a spotted cat at a cat show' },
+    { src: 'images/wildlife-16.jpg', r: 0.6680, title: 'The big lift', genre: 'Wildlife', alt: 'A man in a bright patterned shirt lifting a white long-haired cat' },
+    { src: 'images/wildlife-17.jpg', r: 1.4970, title: 'Maine Coon, table 37', genre: 'Wildlife', alt: 'A ginger long-haired cat being groomed at a judging table' },
+    { src: 'images/wildlife-18.jpg', r: 1.4970, title: 'Cream cat on the table', genre: 'Wildlife', alt: 'A cream cat standing on a judging table while a handler looks on' },
+    { src: 'images/wildlife-19.jpg', r: 1.4970, title: 'Lizard under the mesh', genre: 'Wildlife', alt: 'A lizard resting on bark chips behind wire mesh' },
+    { src: 'images/wildlife-20.jpg', r: 1.4970, title: 'Green coil', genre: 'Wildlife', alt: 'A bright green snake coiled on a branch among leaves' },
+    { src: 'images/wildlife-21.jpg', r: 1.4970, title: 'Owl behind the mesh', genre: 'Wildlife', alt: 'An owl perched on a post inside a wire-mesh enclosure' },
+    { src: 'images/wildlife-22.jpg', r: 0.6680, title: "Under the judge's hands", genre: 'Wildlife', alt: 'A cream cat being held steady on a judging table at a cat show' },
+    { src: 'images/wildlife-23.jpg', r: 1.4970, title: 'Judging table', genre: 'Wildlife', alt: 'A cream and white cat lying on a judging table while a judge in a leopard-print top gestures' },
+    { src: 'images/wildlife-24.jpg', r: 0.6680, title: 'Small bird on the lawn', genre: 'Wildlife', alt: 'A tiny bird on a lawn beside a paved path and green hedge' },
+    { src: 'images/wildlife-25.jpg', r: 0.6680, title: 'Peacock and peahen', genre: 'Wildlife', alt: 'A peacock with a green and blue tail and a peahen walking on a grassy hillside' },
+    { src: 'images/wildlife-26.jpg', r: 1.4970, title: 'Python on the crate', genre: 'Wildlife', alt: 'A large patterned python resting in a glass case on a yellow wooden crate' },
+    { src: 'images/wildlife-27.jpg', r: 1.4970, title: 'Gecko in the case', genre: 'Wildlife', alt: 'A leopard gecko resting on white paper inside a clear enclosure' },
+    { src: 'images/wildlife-28.jpg', r: 1.4970, title: 'Ball python', genre: 'Wildlife', alt: 'A person in a black shirt holding a ball python draped over their arms' },
+    { src: 'images/wildlife-29.jpg', r: 1.4970, title: 'Tarantula', genre: 'Wildlife', alt: 'A large tarantula with pale striped legs in a clear container of dark soil' },
+    { src: 'images/wildlife-30.jpg', r: 1.4970, title: 'Corn snakes', genre: 'Wildlife', alt: 'Orange corn snakes coiled on white substrate in small clear containers' },
+    { src: 'images/wildlife-31.jpg', r: 1.4970, title: 'Lizards at the table', genre: 'Wildlife', alt: 'Small lizards in clear tubs on a vendor table at a reptile show' },
+    { src: 'images/wildlife-32.jpg', r: 0.6680, title: 'Bearded dragon', genre: 'Wildlife', alt: 'A bearded dragon perched on a tub, looking out' },
+    { src: 'images/wildlife-33.jpg', r: 1.4970, title: 'Yellow ball python', genre: 'Wildlife', alt: 'A person in a pink shirt holding a yellow and white ball python' },
+    { src: 'images/wildlife-34.jpg', r: 1.4970, title: 'Leopard gecko', genre: 'Wildlife', alt: 'A spotted leopard gecko resting inside a clear plastic container' },
+    { src: 'images/wildlife-35.jpg', r: 1.4970, title: 'Lizard in hand', genre: 'Wildlife', alt: 'A small brown lizard held in an open hand in front of a blurred crowd' },
+    { src: 'images/wildlife-36.jpg', r: 1.4970, title: 'Boa in hand', genre: 'Wildlife', alt: "A man's hand holding a golden-brown boa with its head resting on top" },
+    { src: 'images/wildlife-37.jpg', r: 1.4970, title: 'Tarantula in a tub', genre: 'Wildlife', alt: 'A dark tarantula beside a terracotta pot in a clear plastic tub of soil' },
+    { src: 'images/wildlife-38.jpg', r: 1.4970, title: 'Tarantula on the arm', genre: 'Wildlife', alt: "A tiny blue tarantula walking on a man's forearm" },
+    { src: 'images/wildlife-39.jpg', r: 1.4970, title: 'Tiny and its box', genre: 'Wildlife', alt: 'A small spider on a forearm next to a clear box held in the other hand' },
+    { src: 'images/wildlife-40.jpg', r: 1.4970, title: 'Axolotl', genre: 'Wildlife', alt: 'An axolotl with feathery gills in a clear tank on a purple tablecloth' },
+    { src: 'images/wildlife-41.jpg', r: 1.4970, title: 'Pale lizard', genre: 'Wildlife', alt: 'A hand petting a pale lizard on a dark tablecloth' },
+    { src: 'images/wildlife-42.jpg', r: 1.4970, title: 'Sun conure on a shoulder', genre: 'Wildlife', alt: "An orange sun conure perched on a man's shoulder" },
+    { src: 'images/wildlife-43.jpg', r: 1.4970, title: 'Baby rabbits', genre: 'Wildlife', alt: 'Grey baby rabbits huddled in a white carrier' },
+    { src: 'images/wildlife-44.jpg', r: 1.4970, title: 'African grey on a perch', genre: 'Wildlife', alt: 'An African grey parrot on a perch with blurred people behind it' },
+    { src: 'images/wildlife-45.jpg', r: 1.4970, title: 'Blue-and-gold macaw', genre: 'Wildlife', alt: 'A blue and gold macaw on a wooden perch' },
+    { src: 'images/wildlife-46.jpg', r: 1.4970, title: 'Green parrot', genre: 'Wildlife', alt: 'A green parrot perched near a woman holding a phone' },
+    { src: 'images/wildlife-47.jpg', r: 1.4970, title: 'Macaw with a dollar', genre: 'Wildlife', alt: 'A red macaw holding a dollar bill in its beak, with a smiling woman behind it' },
+    { src: 'images/wildlife-48.jpg', r: 1.4970, title: 'Wings out', genre: 'Wildlife', alt: 'A red macaw with wings spread wide in front of a painted jungle backdrop' },
+    { src: 'images/wildlife-49.jpg', r: 1.4970, title: 'African grey in hand', genre: 'Wildlife', alt: "An African grey parrot held belly-up in a man's hands" },
+    { src: 'images/wildlife-50.jpg', r: 1.4970, title: 'Cockatoo', genre: 'Wildlife', alt: 'A white cockatoo on a perch taking a treat from a hand' },
+    { src: 'images/wildlife-51.jpg', r: 1.4970, title: 'Head scratch', genre: 'Wildlife', alt: 'A white cockatoo bowing its head while a hand scratches it' },
+    { src: 'images/wildlife-52.jpg', r: 1.4970, title: 'Cockatoo and friend', genre: 'Wildlife', alt: 'A bearded man in glasses leaning in to a white cockatoo' },
+    { src: 'images/wildlife-53.jpg', r: 1.4970, title: 'Snakes in glass', genre: 'Wildlife', alt: 'A red-brown snake and a grey snake in a clear glass enclosure on a pedestal' },
+    { src: 'images/wildlife-54.jpg', r: 1.4970, title: 'Sun conures', genre: 'Wildlife', alt: "Two sun conures, one on a man's shoulder and one nestled against his beard" },
+    { src: 'images/wildlife-55.jpg', r: 1.4970, title: 'Chameleon behind the bars', genre: 'Wildlife', alt: 'A panther chameleon seen through cage bars and leaves' },
+    { src: 'images/wildlife-56.jpg', r: 1.4970, title: 'Panther chameleon', genre: 'Wildlife', alt: 'A panther chameleon with red and blue stripes clinging to a branch' },
+    { src: 'images/wildlife-57.jpg', r: 1.4970, title: 'Lizard in the vivarium', genre: 'Wildlife', alt: 'A small lizard on a branch inside a dark vivarium with leaves' },
+    { src: 'images/wildlife-58.jpg', r: 1.4970, title: 'Sulcata tortoise', genre: 'Wildlife', alt: 'A large sulcata tortoise resting in a tub of hay' },
+    { src: 'images/wildlife-59.jpg', r: 1.4970, title: 'Turtle tank', genre: 'Wildlife', alt: 'A small turtle and water plants in a clear tank with bubbling water' },
+    { src: 'images/wildlife-60.jpg', r: 1.4970, title: 'Mini pigs', genre: 'Wildlife', alt: 'Two black and white mini pigs in a straw-lined pen' },
+    { src: 'images/wildlife-61.jpg', r: 1.4970, title: 'Piglet peeking', genre: 'Wildlife', alt: 'A black and white mini pig peeking out from behind another in a pen' },
+    { src: 'images/wildlife-62.jpg', r: 1.4970, title: 'Young monitors', genre: 'Wildlife', alt: 'Two young spotted monitor lizards on a flat rock under a warm light' },
+    { src: 'images/wildlife-63.jpg', r: 0.7500, title: 'Katydid on the glass', genre: 'Wildlife', alt: 'A green katydid with long antennae clinging to glass against a cloudy sky' },
+    { src: 'images/wildlife-64.jpg', r: 0.7500, title: 'Resting on the gravel', genre: 'Wildlife', alt: 'A brown, white and black dog lying on a bed of river stones in evening light' },
+    { src: 'images/wildlife-65.jpg', r: 1.4970, title: 'Puppy behind the bars', genre: 'Wildlife', alt: 'A brown and white puppy peering out through the bars of a crate' },
+    { src: 'images/wildlife-66.jpg', r: 1.4970, title: 'Litter in the crate', genre: 'Wildlife', alt: 'A white and tan puppy standing in a wire crate with its brown littermates behind it' },
+    { src: 'images/travel-01.jpg', r: 1.4970, title: 'Blossoms over the street', genre: 'Travel', alt: 'Cherry blossoms arching over a city street with people below' },
+    { src: 'images/travel-02.jpg', r: 1.4970, title: 'Sun through the blossoms', genre: 'Travel', alt: 'Sunlight breaking through cherry blossom branches above a riverside park' },
+    { src: 'images/travel-03.jpg', r: 1.4970, title: 'Picnic under the blossoms', genre: 'Travel', alt: 'People relaxing on the grass under blooming cherry trees by the river' },
+    { src: 'images/travel-04.jpg', r: 0.6680, title: 'Bridge and blossoms', genre: 'Travel', alt: 'A bridge across a river seen over a bank of cherry blossoms' },
+    { src: 'images/travel-05.jpg', r: 1.4970, title: 'Waterfront in bloom', genre: 'Travel', alt: 'Cherry trees in full bloom along a grassy riverfront' },
+    { src: 'images/travel-06.jpg', r: 0.6680, title: 'Convention center spires', genre: 'Travel', alt: 'Twin glass spires of a convention center rising over cherry blossoms' },
+    { src: 'images/travel-07.jpg', r: 0.6680, title: 'Lift bridge in bloom', genre: 'Travel', alt: 'A steel lift bridge behind blossoming cherry trees and a crowd on the lawn' },
+    { src: 'images/travel-08.jpg', r: 0.6680, title: 'Quiet street, late sun', genre: 'Travel', alt: 'A tree-lined city street in late afternoon light with parked cars' },
+    { src: 'images/travel-09.jpg', r: 1.4970, title: 'Behind the bar', genre: 'Travel', alt: 'A lit bar with wooden pendant lamps and staff and guests in front' },
+    { src: 'images/travel-10.jpg', r: 0.6680, title: 'Camp 18', genre: 'Travel', alt: 'A carved wooden totem and a Camp 18 Restaurant sign above a parking lot in a forest' },
+    { src: 'images/travel-11.jpg', r: 0.6680, title: 'Steam tractor', genre: 'Travel', alt: 'A rusted steam traction engine parked on gravel in front of trees' },
+    { src: 'images/travel-12.jpg', r: 0.6680, title: 'Bridge into the fog', genre: 'Travel', alt: 'A long bridge road disappearing into fog, seen through a windshield' },
+    { src: 'images/travel-13.jpg', r: 0.6680, title: 'Ferris wheel', genre: 'Travel', alt: 'A ferris wheel lit in pink and blue against the night sky' },
+    { src: 'images/travel-14.jpg', r: 0.6680, title: 'The fair from above', genre: 'Travel', alt: 'A night fairground with bright rides and stalls seen from above' },
+    { src: 'images/travel-15.jpg', r: 0.6680, title: 'Stone pagoda', genre: 'Travel', alt: 'A moss-covered stone pagoda lantern in a garden with trimmed hedges' },
+    { src: 'images/travel-16.jpg', r: 1.4970, title: 'Bamboo water spout', genre: 'Travel', alt: 'A bamboo water spout and stone basin among green shrubs and a stone lantern' },
+    { src: 'images/travel-17.jpg', r: 1.4970, title: 'Wooden bridge', genre: 'Travel', alt: 'A wooden arched bridge in a mossy garden under tall trees' },
+    { src: 'images/travel-18.jpg', r: 1.4970, title: 'Cranes on the pond', genre: 'Travel', alt: 'Two bronze crane statues on stones at the edge of a garden pond' },
+    { src: 'images/travel-19.jpg', r: 1.4970, title: 'Sand garden', genre: 'Travel', alt: 'A raked sand garden with mossy stones inside a low wall' },
+    { src: 'images/travel-20.jpg', r: 1.4970, title: 'Japanese Garden entrance', genre: 'Travel', alt: 'The Portland Japanese Garden sign among trees on a rainy day' },
+    { src: 'images/nature-01.jpg', r: 0.6685, title: 'Mt. Hood and the paddlers', genre: 'Nature', alt: 'Snow-streaked Mt. Hood under a cloud over a forested lake with paddlers' },
+    { src: 'images/nature-02.jpg', r: 0.6685, title: 'Lakeside chairs, Mt. Hood', genre: 'Nature', alt: 'Two people in camp chairs by a lake looking at Mt. Hood and a yellow paddleboard' },
+    { src: 'images/nature-03.jpg', r: 1.4970, title: 'Graffiti hut on the trail', genre: 'Nature', alt: 'A mossy graffiti-covered stone hut beside a trail sign in the woods' },
+    { src: 'images/nature-04.jpg', r: 0.6680, title: 'White hyacinth', genre: 'Nature', alt: 'A single white hyacinth blooming in a bed of bark mulch' },
+    { src: 'images/nature-05.jpg', r: 1.4970, title: 'Red rhododendron', genre: 'Nature', alt: 'A crimson rhododendron bloom against dark green forest leaves' },
+    { src: 'images/nature-06.jpg', r: 0.6680, title: 'Red camellia', genre: 'Nature', alt: 'A red camellia in bloom among glossy green leaves' },
+    { src: 'images/nature-07.jpg', r: 1.4970, title: 'White camellia', genre: 'Nature', alt: 'A pale pink-white camellia surrounded by dark leaves' },
+    { src: 'images/nature-08.jpg', r: 0.6680, title: 'White camellia, upright', genre: 'Nature', alt: 'A pale camellia bloom with branches rising behind it' },
+    { src: 'images/nature-09.jpg', r: 1.4970, title: 'Camellia bud', genre: 'Nature', alt: 'A red camellia bud on a bright green branch with a soft background' },
+    { src: 'images/nature-10.jpg', r: 0.6680, title: 'Camellia in the light', genre: 'Nature', alt: 'A red camellia bud on a leafy branch against a pale blurred background' },
+    { src: 'images/nature-11.jpg', r: 0.6680, title: 'Camellia by the trunk', genre: 'Nature', alt: 'A red camellia blooming beside a tree trunk with sunlit leaves' },
+    { src: 'images/nature-12.jpg', r: 0.6680, title: 'The garden dinosaur', genre: 'Nature', alt: 'A blue-green dinosaur sculpture standing among trees in a garden' },
+    { src: 'images/nature-13.jpg', r: 0.6680, title: 'Leach Botanical Garden', genre: 'Nature', alt: 'The Leach Botanical Garden sign above planters of grasses' },
+    { src: 'images/nature-14.jpg', r: 1.4970, title: 'Old tanker truck', genre: 'Nature', alt: 'A weathered tanker truck parked on a lawn in front of evergreens' },
+    { src: 'images/nature-15.jpg', r: 1.4970, title: 'Garden gate', genre: 'Nature', alt: 'A wooden gate in a white wall of a Japanese garden after rain' },
+    { src: 'images/nature-16.jpg', r: 0.6680, title: 'Gate after rain', genre: 'Nature', alt: 'A wet stone courtyard leading to a wooden garden gate' },
+    { src: 'images/nature-17.jpg', r: 1.4970, title: 'Moss path from above', genre: 'Nature', alt: 'Wet paths winding through mossy ground seen past a tree trunk' },
+    { src: 'images/nature-18.jpg', r: 1.4970, title: 'Guardian lion', genre: 'Nature', alt: 'A stone guardian lion statue on a wet path beside bamboo' },
+    { src: 'images/nature-19.jpg', r: 0.6680, title: 'Bamboo water basin', genre: 'Nature', alt: 'A stone water basin with a bamboo spout among shrubs' },
+    { src: 'images/automobile-01.jpg', r: 0.6680, title: 'Plush passenger', genre: 'Motors & Wings', alt: 'A plush dog riding in a shopping cart at a car meet' },
+    { src: 'images/automobile-02.jpg', r: 1.5004, title: 'Ford GT', genre: 'Motors & Wings', alt: 'White Ford GT with blue stripes and its clamshell raised' },
+    { src: 'images/automobile-03.jpg', r: 0.6680, title: 'Ford GT, door open', genre: 'Motors & Wings', alt: 'Open door and raised rear clamshell of a white Ford GT' },
+    { src: 'images/automobile-04.jpg', r: 0.6680, title: 'Ford GT, rear suspension', genre: 'Motors & Wings', alt: 'Detail of the exposed rear suspension and engine bay of a Ford GT' },
+    { src: 'images/automobile-05.jpg', r: 1.5004, title: 'Mustang GT, garage', genre: 'Motors & Wings', alt: 'A black Mustang GT parked in a concrete garage with a crowd behind' },
+    { src: 'images/automobile-06.jpg', r: 1.4970, title: 'Hood up', genre: 'Motors & Wings', alt: 'A white vintage Japanese coupe with its hood open as two men look in' },
+    { src: 'images/automobile-07.jpg', r: 0.6665, title: 'Daihatsu Hijet', genre: 'Motors & Wings', alt: 'White 1997 Daihatsu Hijet kei truck with an import info placard' },
+    { src: 'images/automobile-08.jpg', r: 1.5004, title: 'Crown, head-on', genre: 'Motors & Wings', alt: 'Front view of a maroon Toyota Crown with chrome bumper and fog lamps' },
+    { src: 'images/automobile-09.jpg', r: 0.6665, title: 'Crown, three-quarter', genre: 'Motors & Wings', alt: 'Three-quarter view of a maroon vintage Toyota Crown sedan' },
+    { src: 'images/automobile-10.jpg', r: 1.5004, title: 'Evo, CHOOM', genre: 'Motors & Wings', alt: 'Red Mitsubishi Lancer Evolution from the front with a Japanese plate' },
+    { src: 'images/automobile-11.jpg', r: 1.5004, title: 'Slammed Celsior', genre: 'Motors & Wings', alt: 'Silver Toyota Celsior on polished lips with a Japanese plate' },
+    { src: 'images/automobile-12.jpg', r: 1.4970, title: 'Crown, plate 19-88', genre: 'Motors & Wings', alt: 'Front of a blue-grey Toyota Crown with a Japanese plate' },
+    { src: 'images/automobile-13.jpg', r: 0.6680, title: 'Kei truck cabin', genre: 'Motors & Wings', alt: 'Blue kei truck with a toy truck on the dash' },
+    { src: 'images/automobile-14.jpg', r: 1.4970, title: 'White MR2', genre: 'Motors & Wings', alt: 'A white first-generation Toyota MR2 parked in a garage' },
+    { src: 'images/automobile-15.jpg', r: 1.5004, title: 'GR Supra, Unexpected', genre: 'Motors & Wings', alt: 'White and red Toyota GR Supra with a wide aero kit' },
+    { src: 'images/automobile-16.jpg', r: 1.5004, title: 'White S2000', genre: 'Motors & Wings', alt: 'White Honda S2000 from the front, parked between two cars' },
+    { src: 'images/automobile-17.jpg', r: 1.4970, title: 'White GT3 RS, head-on', genre: 'Motors & Wings', alt: 'Front view of a white Porsche 911 GT3 RS in a parking lot' },
+    { src: 'images/automobile-18.jpg', r: 0.6680, title: 'White GT3 RS', genre: 'Motors & Wings', alt: 'Three-quarter view of a white Porsche 911 GT3 RS with yellow brake calipers' },
+    { src: 'images/automobile-19.jpg', r: 0.6685, title: 'Purple sparkle S13', genre: 'Motors & Wings', alt: 'A purple metallic-flake Nissan coupe with an anime livery, a hoodie and a Gengar plush on the hood' },
+    { src: 'images/automobile-20.jpg', r: 0.6685, title: 'Spoon S2000', genre: 'Motors & Wings', alt: 'A blue and yellow Spoon Sports liveried Honda S2000 with its hood up' },
+    { src: 'images/automobile-21.jpg', r: 1.4960, title: 'Grinch under the hood', genre: 'Motors & Wings', alt: 'A green Honda Civic with a furry green costume stuck in its front bumper' },
+    { src: 'images/automobile-22.jpg', r: 0.6685, title: 'RC drift grid', genre: 'Motors & Wings', alt: 'A row of RC drift cars with small flags on a taped course' },
+    { src: 'images/automobile-23.jpg', r: 1.4960, title: 'Miata engine bay', genre: 'Motors & Wings', alt: 'A stripped, tube-framed white roadster with a carbon-covered engine and stickers' },
+    { src: 'images/automobile-24.jpg', r: 1.4960, title: 'Patina Karmann Ghia', genre: 'Motors & Wings', alt: 'A weathered Volkswagen Karmann Ghia with peeling green and cream paint' },
+    { src: 'images/automobile-25.jpg', r: 1.4960, title: 'Turbo engine bay', genre: 'Motors & Wings', alt: 'A black coupe with its hood up showing a turbo setup and blue piping' },
+    { src: 'images/automobile-26.jpg', r: 1.4960, title: 'Silver S2000', genre: 'Motors & Wings', alt: 'A silver Honda S2000 on the show floor among other cars' },
+    { src: 'images/automobile-27.jpg', r: 1.4960, title: 'Red 180SX', genre: 'Motors & Wings', alt: 'A deep red Nissan 180SX in front of other red cars' },
+    { src: 'images/automobile-28.jpg', r: 1.4960, title: 'Air-ride trunk', genre: 'Motors & Wings', alt: 'A lit trunk display with air suspension tanks and a starry lid' },
+    { src: 'images/automobile-29.jpg', r: 1.4960, title: 'Lowrider on display', genre: 'Motors & Wings', alt: 'A yellow-green lowrider with its hood up on a raised carpeted platform' },
+    { src: 'images/automobile-30.jpg', r: 1.4960, title: 'Lowrider, wheels off', genre: 'Motors & Wings', alt: 'A show car sitting on engraved stands with its wheels removed' },
+    { src: 'images/automobile-31.jpg', r: 1.4960, title: 'Engraved wheel stand', genre: 'Motors & Wings', alt: 'A gold-capped hub on an engraved chrome stand under a lowrider' },
+    { src: 'images/automobile-32.jpg', r: 1.4960, title: 'Playboy Integra', genre: 'Motors & Wings', alt: 'The rear of a white Acura Integra with Playboy bunny graphics and a big wing' },
+    { src: 'images/automobile-33.jpg', r: 1.4960, title: 'Unspoken Society WRX', genre: 'Motors & Wings', alt: 'A silver Subaru WRX with its hood up, blue lighting and bandana-print details' },
+    { src: 'images/automobile-34.jpg', r: 1.4960, title: 'Paisley WRX', genre: 'Motors & Wings', alt: 'Side of a silver Subaru WRX wrapped in blue paisley graphics on polished wheels' },
+    { src: 'images/automobile-35.jpg', r: 1.4970, title: 'Skyline GT-R, rear', genre: 'Motors & Wings', alt: 'The rear of a grey Nissan Skyline R32 GT-R with an Oregon plate' },
+    { src: 'images/automobile-36.jpg', r: 1.4970, title: 'Skyline taillights', genre: 'Motors & Wings', alt: 'Close detail of the taillights and badge of a Skyline GT-R' },
+    { src: 'images/automobile-37.jpg', r: 1.4970, title: 'White GT-R', genre: 'Motors & Wings', alt: 'A white wide-body Nissan GT-R with red wheels and its hood raised under a tent' },
+    { src: 'images/automobile-38.jpg', r: 1.4970, title: 'Teal Integra', genre: 'Motors & Wings', alt: 'A teal Acura Integra with its hood up on the show floor' },
+    { src: 'images/automobile-39.jpg', r: 1.4970, title: 'Orange Corvette', genre: 'Motors & Wings', alt: 'An orange C8 Corvette with scissor doors raised and red underglow' },
+    { src: 'images/automobile-40.jpg', r: 1.4970, title: 'Corvette, rear view', genre: 'Motors & Wings', alt: 'The rear of an orange C8 Corvette with the engine cover open' },
+    { src: 'images/automobile-41.jpg', r: 1.4970, title: 'Group B rally car', genre: 'Motors & Wings', alt: 'A blue and white MG Metro 6R4 rally car with roof-mounted lights' },
+    { src: 'images/automobile-42.jpg', r: 1.4970, title: 'Blue lowrider', genre: 'Motors & Wings', alt: 'A blue lowrider convertible with its hood and trunk up and blue lighting' },
+    { src: 'images/automobile-43.jpg', r: 0.6680, title: 'Lowrider, three-wheel', genre: 'Motors & Wings', alt: 'A blue lowrider hopping on three wheels with glowing blue headlights' },
+    { src: 'images/automobile-44.jpg', r: 1.4970, title: 'Tube-frame build', genre: 'Motors & Wings', alt: 'A stripped white tube-frame car with an exposed engine on the show floor' },
+    { src: 'images/automobile-45.jpg', r: 1.4970, title: 'Tube-frame, front', genre: 'Motors & Wings', alt: 'The front of a stripped tube-frame roadster with a large intercooler' },
+    { src: 'images/automobile-46.jpg', r: 1.4970, title: 'Silver Huracan', genre: 'Motors & Wings', alt: 'A silver Lamborghini Huracan at a crowded indoor car show' },
+    { src: 'images/automobile-47.jpg', r: 1.4970, title: 'Wave-wrapped G37', genre: 'Motors & Wings', alt: 'A cream Infiniti coupe with a Japanese wave graphic and teal wheels' },
+    { src: 'images/automobile-48.jpg', r: 1.4970, title: 'Parked in the garage', genre: 'Motors & Wings', alt: 'A dark cruiser motorcycle parked beside a garage door at night' },
+    { src: 'images/art-01.jpg', r: 1.4970, title: 'Blown glass display', genre: 'Art', alt: 'Colorful blown-glass vases and orbs stacked on a metal display behind glass' },
+    { src: 'images/art-02.jpg', r: 1.4970, title: 'Porsche heritage wall', genre: 'Art', alt: 'A wall of framed vintage Porsche photographs seen through a glass partition' },
+    { src: 'images/art-03.jpg', r: 0.7500, title: 'Wild bouquet', genre: 'Art', alt: 'An expressive acrylic painting of sunflowers in a vase in bold blues, reds and yellows' },
+    { src: 'images/art-04.jpg', r: 0.7500, title: 'Coastal bluff, Carla Deal', genre: 'Art', alt: 'A painted coastal landscape with a windswept pine over a pink-and-blue beach' },
+    { src: 'images/art-05.jpg', r: 0.7500, title: 'Masked face', genre: 'Art', alt: 'A black-outlined abstract face with swirling hair over pastel watercolor washes' },
+    { src: 'images/art-06.jpg', r: 0.7500, title: 'Crowned in blue', genre: 'Art', alt: 'A pastel portrait of a short-haired figure in a blue crown against a red-orange ground' },
+    { src: 'images/art-07.jpg', r: 0.7500, title: "Moonlit ship, Matt O'Tousa", genre: 'Art', alt: 'A black-and-white painting of a sailing ship under a full moon on rough seas' },
+    { src: 'images/art-08.jpg', r: 0.7500, title: 'Rhino, Jordan Tarrant', genre: 'Art', alt: 'A vivid abstract painting of a rhinoceros head in teal, crimson and gold' },
+    { src: 'images/art-09.jpg', r: 0.7500, title: 'Poppy field', genre: 'Art', alt: 'A thickly textured painting of a red poppy field under a blue sky with one cloud' },
   ];
   // Wedding photos live in the Weddings section, not the archive. They are only listed here so the bar menu, picks and viewer know them.
   var WEDDING = [
@@ -792,7 +801,18 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   }
   function visible() {
     var out = [];
-    FRAMES.forEach(function (f, i) { if (current === 'All' || f.genre === current) out.push(i); });
+    if (current !== 'All') {
+      FRAMES.forEach(function (f, i) { if (f.genre === current) out.push(i); });
+      return out;
+    }
+    // "All" mixes the genres round-robin so neighbours differ
+    var by = {}, order = [];
+    FRAMES.forEach(function (f, i) { if (!by[f.genre]) { by[f.genre] = []; order.push(f.genre); } by[f.genre].push(i); });
+    var more = true;
+    for (var k = 0; more; k++) {
+      more = false;
+      order.forEach(function (g) { if (by[g][k] !== undefined) { out.push(by[g][k]); more = true; } });
+    }
     return out;
   }
 
@@ -815,10 +835,10 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
       var pencil = i % 2 === 0
         ? '<svg class="gp" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="30" rx="44" ry="25" transform="rotate(-3 50 30)"/></svg>'
         : '';
-      return '<div class="cs-f" role="button" tabindex="0" data-i="' + i + '" aria-label="Open ' + esc(f.title) + '">' +
+      return '<div class="cs-f" role="button" tabindex="0" data-i="' + i + '" style="--r:' + (f.r || 1.5) + '" aria-label="Open ' + esc(f.title) + '">' +
         '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || '') + '" loading="lazy">' + pencil +
         '<button type="button" class="heart" data-fav="' + esc(f.src) + '" aria-label="Add to my picks">\u2665</button>' +
-        '<span>' + (i < 9 ? '0' : '') + (i + 1) + ' \u00b7 ' + esc(f.title) + '</span><small>' + esc(f.genre) + '</small></div>';
+        '<span>' + esc(f.title) + '</span><small>' + esc(f.genre) + '</small></div>';
     }).join('');
     shownEl.textContent = idx.length;
     if (window.GF && GF.sync) GF.sync();
@@ -828,6 +848,8 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     current = GENRES.indexOf(g) > -1 ? g : 'All';
     renderChips();
     renderFrames();
+    framesEl.scrollLeft = 0;
+    if (typeof carState === 'function') carState();
   }
 
   chipsEl.addEventListener('click', function (e) {
@@ -839,6 +861,44 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     if (f && e.target === f && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); f.click(); }
   });
 
+  // carousel controls
+  var prevBtn = document.querySelector('.car-prev'), nextBtn = document.querySelector('.car-next');
+  function carState() {
+    var max = framesEl.scrollWidth - framesEl.clientWidth;
+    prevBtn.disabled = framesEl.scrollLeft < 8;
+    nextBtn.disabled = framesEl.scrollLeft > max - 8;
+  }
+  function carMove(dir) { framesEl.scrollBy({ left: dir * Math.max(240, framesEl.clientWidth * 0.8), behavior: 'smooth' }); }
+  prevBtn.addEventListener('click', function () { carMove(-1); });
+  nextBtn.addEventListener('click', function () { carMove(1); });
+  framesEl.addEventListener('scroll', carState, { passive: true });
+  window.addEventListener('resize', carState);
+  framesEl.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); carMove(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); carMove(-1); }
+  });
+  framesEl.addEventListener('load', carState, true);
+  // mouse drag to scroll (touch and trackpads already swipe natively)
+  (function () {
+    var down = false, moved = false, sx = 0, sl = 0;
+    framesEl.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('.heart')) return;
+      down = true; moved = false; sx = e.clientX; sl = framesEl.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - sx;
+      if (!moved && Math.abs(dx) > 6) { moved = true; framesEl.classList.add('drag'); }
+      if (moved) framesEl.scrollLeft = sl - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!down) return;
+      down = false;
+      if (moved) { framesEl.classList.remove('drag'); setTimeout(carState, 50); }
+    });
+    framesEl.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+  })();
+
   window.GF = window.GF || {};
   GF.frames = FRAMES;
   GF.library = FRAMES.concat(WEDDING);
@@ -846,6 +906,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   GF.filter = setGenre;
   renderChips();
   renderFrames();
+  carState();
 })();
 </script>
 <script>
