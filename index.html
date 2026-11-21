@@ -415,17 +415,19 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 .stg-cap{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
 .stg-cap span:last-child{color:var(--muted)}
 .flw{position:relative;width:100%;height:clamp(300px,60vh,540px);perspective:1400px;overflow:hidden}
-#archive[data-view=flow] .flw .cs-f{--fh:clamp(220px,46vh,420px);position:absolute;left:50%;top:50%;margin:0;padding:0!important;background:transparent!important;border-radius:4px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,.6)!important;transform:translate(-50%,-50%) translateX(calc(var(--o) * 55% + var(--sg) * 40%)) rotateY(calc(var(--sg) * -40deg)) scale(calc(1 - var(--ao) * .1))!important;transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .55s;z-index:calc(10 - var(--ao));opacity:calc(1 - var(--ao) * .22)}
+#archive[data-view=flow] .flw .cs-f{--fh:clamp(220px,46vh,420px);position:absolute;left:50%;top:50%;margin:0;padding:12px 12px 46px!important;background:#FAF5E9!important;color:#3A2A18!important;border-radius:3px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,.6)!important;transform:translate(-50%,-50%) translateX(calc(var(--o) * 55% + var(--sg) * 40%)) rotateY(calc(var(--sg) * -40deg)) scale(calc(1 - var(--ao) * .1))!important;transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .55s;z-index:calc(10 - var(--ao));opacity:calc(1 - var(--ao) * .22)}
 #archive[data-view=flow] .flw .cs-f[data-o="0"]{cursor:zoom-in}
 #archive[data-view=flow] .flw .cs-f.far{display:none!important}
 #archive[data-view=flow] .flw .cs-f::before{display:none!important}
-#archive[data-view=flow] .flw .cs-f img{display:block;width:min(calc(var(--fh) * var(--r)),74vw);height:auto;aspect-ratio:var(--r);object-fit:cover;border-radius:4px}
-#archive[data-view=flow] .flw .cs-f span,#archive[data-view=flow] .flw .cs-f small{display:none}
+#archive[data-view=flow] .flw .cs-f img{display:block;width:min(calc(var(--fh) * var(--r)),74vw);height:auto;aspect-ratio:var(--r);object-fit:cover;border-radius:1px}
+#archive[data-view=flow] .flw .cs-f small{display:none}
+#archive[data-view=flow] .flw .cs-f span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 10px}
 #archive[data-view=flow] .flw .cs-f:not([data-o="0"]) .heart{display:none}
-#archive[data-view=flow] .flw .cs-f .heart{top:10px!important;right:10px!important}
+#archive[data-view=flow] .flw .cs-f .heart{top:20px!important;right:20px!important}
 @media(max-width:700px){
 #archive[data-view=flow] .cs{padding:12px!important}
-.flw{height:clamp(280px,52vh,420px)}
+.flw{height:clamp(300px,54vh,440px)}
+#archive[data-view=flow] .flw .cs-f{--fh:clamp(200px,38vh,330px)}
 }
 /* Map: teal, the complement of the red theme (dark set) */
 #map-root .map{background:radial-gradient(circle at 50% 40%,#0B343B,#031318);border-color:rgba(63,167,155,.35)}
