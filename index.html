@@ -428,6 +428,8 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 .stg-cap span:last-child{color:var(--muted)}
 .flw{position:relative;width:100%;height:clamp(300px,60vh,540px);perspective:1400px;overflow:hidden;touch-action:pan-y;-webkit-user-select:none;user-select:none}
 .flw.drag .cs-f{transition:none!important}
+.flw{cursor:grab}.flw.drag{cursor:grabbing}
+.flw img{-webkit-user-drag:none}
 #archive[data-view=flow] .flw .cs-f{--fh:clamp(220px,46vh,420px);position:absolute;left:50%;top:50%;margin:0;padding:12px 12px 46px!important;background:#FAF5E9!important;color:#3A2A18!important;border-radius:3px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,.6)!important;transform:translate(-50%,-50%) translateX(calc(var(--o) * 55% + var(--sg) * 40%)) rotateY(calc(var(--sg) * -40deg)) scale(calc(1 - var(--ao) * .1))!important;transition:transform .5s cubic-bezier(.22,.8,.24,1),opacity .5s;will-change:transform;backface-visibility:hidden;z-index:calc(10 - var(--ao));opacity:calc(1 - var(--ao) * .22)}
 #archive[data-view=flow] .flw .cs-f[data-o="0"]{cursor:zoom-in}
 #archive[data-view=flow] .flw .cs-f.far{display:none!important}
@@ -514,7 +516,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 </div>
 <div>
 <div class="ph tone2" style="width:100%;aspect-ratio:2048/1369;"><img src="images/hero.jpg" alt="Couple seated back to back on a stone wall under a floral arch, smiling at the camera" fetchpriority="high"></div>
-<p style="margin:10px 0 0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Frame 01 · The Taylors · Cathedral Park, Portland</p>
+<p style="margin:32px 0 0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Frame 01 · The Taylors · Cathedral Park, Portland</p>
 </div>
 </section>
 
@@ -921,27 +923,31 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     if (st) { stageGo(+st.getAttribute('data-st')); }
     else if (side && side.getAttribute('data-o') !== '0') { e.stopPropagation(); e.preventDefault(); stageIdx += +side.getAttribute('data-o'); renderFrames(); }
   });
-  // touch: the photos follow your finger, then glide to the nearest one (a quick flick can skip a few)
+  // drag: the photos follow your finger, mouse or trackpad, then glide to the nearest one (a quick flick can skip a few)
   (function () {
-    var tx = null, ty = 0, lastX = 0, lastT = 0, vel = 0, lock = null, fl = null, moved = false;
+    var tx = null, ty = 0, lastX = 0, lastT = 0, vel = 0, lock = null, fl = null, moved = false, mouse = false;
     function step() { return Math.max(110, fl.clientWidth * 0.34); }
-    framesEl.addEventListener('touchstart', function (e) {
-      fl = e.target.closest('.flw');
-      if (!fl || e.touches.length !== 1) { tx = null; return; }
-      tx = e.touches[0].clientX; ty = e.touches[0].clientY; lastX = tx; lastT = e.timeStamp; vel = 0; lock = null; moved = false;
-    }, { passive: true });
-    framesEl.addEventListener('touchmove', function (e) {
+    function begin(x, y, t, target, isMouse) {
+      fl = target.closest('.flw');
+      if (!fl) { tx = null; return false; }
+      tx = x; ty = y; lastX = x; lastT = t; vel = 0; lock = null; moved = false; mouse = isMouse;
+      return true;
+    }
+    function move(x, y, t) {
       if (tx === null) return;
-      var t = e.touches[0], dx = t.clientX - tx, dy = t.clientY - ty;
-      if (lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      var dx = x - tx, dy = y - ty;
+      if (lock === null) {
+        if (mouse) { if (Math.abs(dx) > 5) lock = 'x'; }
+        else if (Math.abs(dx) > 8 || Math.abs(dy) > 8) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      }
       if (lock !== 'x') return;
       moved = true; fl.classList.add('drag');
-      vel = (t.clientX - lastX) / Math.max(1, e.timeStamp - lastT); lastX = t.clientX; lastT = e.timeStamp;
+      vel = (x - lastX) / Math.max(1, t - lastT); lastX = x; lastT = t;
       flowLayout(fl, dx / step());
-    }, { passive: true });
-    function end(e) {
+    }
+    function finish(x) {
       if (tx === null) return;
-      var dx = e.changedTouches ? e.changedTouches[0].clientX - tx : 0;
+      var dx = x - tx;
       tx = null;
       if (!moved || !fl) return;
       var steps = -Math.round((dx + vel * 160) / step());
@@ -951,8 +957,39 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
       renderFrames();
       setTimeout(function () { moved = false; }, 350);
     }
-    framesEl.addEventListener('touchend', end, { passive: true });
-    framesEl.addEventListener('touchcancel', end, { passive: true });
+    // touch
+    framesEl.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { tx = null; return; }
+      begin(e.touches[0].clientX, e.touches[0].clientY, e.timeStamp, e.target, false);
+    }, { passive: true });
+    framesEl.addEventListener('touchmove', function (e) { move(e.touches[0].clientX, e.touches[0].clientY, e.timeStamp); }, { passive: true });
+    function tend(e) { finish(e.changedTouches ? e.changedTouches[0].clientX : tx); }
+    framesEl.addEventListener('touchend', tend, { passive: true });
+    framesEl.addEventListener('touchcancel', tend, { passive: true });
+    // mouse
+    framesEl.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('.heart,.car-btn')) return;
+      begin(e.clientX, e.clientY, e.timeStamp, e.target, true);
+    });
+    window.addEventListener('pointermove', function (e) { if (tx !== null && mouse && e.pointerType === 'mouse') move(e.clientX, e.clientY, e.timeStamp); });
+    window.addEventListener('pointerup', function (e) { if (tx !== null && mouse && e.pointerType === 'mouse') finish(e.clientX); });
+    framesEl.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    // trackpad / horizontal wheel
+    var wx = 0, wt = null;
+    framesEl.addEventListener('wheel', function (e) {
+      var f = e.target.closest('.flw');
+      if (!f || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      fl = f; wx += e.deltaX;
+      fl.classList.add('drag');
+      flowLayout(fl, -wx / step());
+      clearTimeout(wt);
+      wt = setTimeout(function () {
+        var steps = Math.max(-4, Math.min(4, Math.round(wx / step())));
+        wx = 0; fl.classList.remove('drag');
+        stageIdx += steps; renderFrames();
+      }, 110);
+    }, { passive: false });
     framesEl.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); } }, true);
   })();
 
