@@ -404,6 +404,29 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 #archive .cs-f span{left:0!important;right:0;bottom:14px!important;text-align:center;font:700 11px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#3A2A18}
 #archive .cs-f small{display:none}
 #archive .cs-f .heart{top:22px!important;right:22px!important}
+
+/* Archive: cover flow */
+#archive .car>.car-btn{display:none}
+#archive[data-view=flow] .cs{display:block!important;overflow:visible;scroll-snap-type:none;padding:20px 20px 24px!important}
+.stg{display:flex;flex-direction:column;gap:14px}
+.stg-main{position:relative;display:flex;align-items:center;justify-content:center}
+.stg-main .car-btn{z-index:20}
+.stg-main .stg-prev{left:0}.stg-main .stg-next{right:0}
+.stg-cap{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font:700 12px 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
+.stg-cap span:last-child{color:var(--muted)}
+.flw{position:relative;width:100%;height:clamp(300px,60vh,540px);perspective:1400px;overflow:hidden}
+#archive[data-view=flow] .flw .cs-f{--fh:clamp(220px,46vh,420px);position:absolute;left:50%;top:50%;margin:0;padding:0!important;background:transparent!important;border-radius:4px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,.6)!important;transform:translate(-50%,-50%) translateX(calc(var(--o) * 55% + var(--sg) * 40%)) rotateY(calc(var(--sg) * -40deg)) scale(calc(1 - var(--ao) * .1))!important;transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .55s;z-index:calc(10 - var(--ao));opacity:calc(1 - var(--ao) * .22)}
+#archive[data-view=flow] .flw .cs-f[data-o="0"]{cursor:zoom-in}
+#archive[data-view=flow] .flw .cs-f.far{display:none!important}
+#archive[data-view=flow] .flw .cs-f::before{display:none!important}
+#archive[data-view=flow] .flw .cs-f img{display:block;width:min(calc(var(--fh) * var(--r)),74vw);height:auto;aspect-ratio:var(--r);object-fit:cover;border-radius:4px}
+#archive[data-view=flow] .flw .cs-f span,#archive[data-view=flow] .flw .cs-f small{display:none}
+#archive[data-view=flow] .flw .cs-f:not([data-o="0"]) .heart{display:none}
+#archive[data-view=flow] .flw .cs-f .heart{top:10px!important;right:10px!important}
+@media(max-width:700px){
+#archive[data-view=flow] .cs{padding:12px!important}
+.flw{height:clamp(280px,52vh,420px)}
+}
 /* Map: teal, the complement of the red theme (dark set) */
 #map-root .map{background:radial-gradient(circle at 50% 40%,#0B343B,#031318);border-color:rgba(63,167,155,.35)}
 #map-root .land{fill:#115058;stroke:#3FA79B}
@@ -558,7 +581,7 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
 </div>
 <div id="chips" role="group" aria-label="Filter archive by genre" style="display:flex;flex-wrap:wrap;gap:8px"></div>
 </div>
-<div class="car"><button type="button" class="car-btn car-prev" aria-label="Previous photos">&#8249;</button><div id="frames" class="cs" tabindex="0" role="region" aria-label="Archive photos. Scroll sideways or use the arrow keys."></div><button type="button" class="car-btn car-next" aria-label="Next photos">&#8250;</button></div>
+<div class="car"><div id="frames" class="cs" tabindex="0" role="region" aria-label="Archive photos. Use the arrow keys to browse."></div></div>
 <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
 <p style="margin:0;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Showing <span id="shown">6</span> of <span id="total">6</span> frames</p>
 <a class="btn" href="#archive">Browse the full archive →</a>
@@ -822,34 +845,72 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     }).join('');
   }
 
-  // each frame is a strip of film; every other one gets a grease-pencil circle, like a picked shot
+  // cover flow: the centre photo is large, neighbours tilt away on both sides
+  var archiveEl = document.getElementById('archive');
+  var stageIdx = 0;
+  var BTN_PREV = '<button type="button" class="car-btn stg-prev" data-st="-1" aria-label="Previous photo">‹</button>';
+  var BTN_NEXT = '<button type="button" class="car-btn stg-next" data-st="1" aria-label="Next photo">›</button>';
+
+  function cardHTML(i) {
+    var f = FRAMES[i];
+    return '<div class="cs-f" role="button" tabindex="0" data-i="' + i + '" style="--r:' + (f.r || 1.5) + '" aria-label="Open ' + esc(f.title) + '">' +
+      '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || '') + '" loading="lazy">' +
+      '<button type="button" class="heart" data-fav="' + esc(f.src) + '" aria-label="Add to my picks">♥</button>' +
+      '<span>' + esc(f.title) + '</span><small>' + esc(f.genre) + '</small></div>';
+  }
+
   function renderFrames() {
     var idx = visible();
+    archiveEl.setAttribute('data-view', 'flow');
     if (!idx.length) {
+      framesEl.removeAttribute('data-fkey');
       framesEl.innerHTML = '<p style="margin:0;padding:48px 0;text-align:center;font-family:\'Space Mono\',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">' + (current === 'All' ? 'New frames are going up on the board soon.' : esc(current) + ' frames are going up on the board soon.') + '</p>';
       shownEl.textContent = 0;
       return;
     }
-    framesEl.innerHTML = idx.map(function (i) {
-      var f = FRAMES[i];
-      var pencil = i % 2 === 0
-        ? '<svg class="gp" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="30" rx="44" ry="25" transform="rotate(-3 50 30)"/></svg>'
-        : '';
-      return '<div class="cs-f" role="button" tabindex="0" data-i="' + i + '" style="--r:' + (f.r || 1.5) + '" aria-label="Open ' + esc(f.title) + '">' +
-        '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || '') + '" loading="lazy">' + pencil +
-        '<button type="button" class="heart" data-fav="' + esc(f.src) + '" aria-label="Add to my picks">\u2665</button>' +
-        '<span>' + esc(f.title) + '</span><small>' + esc(f.genre) + '</small></div>';
-    }).join('');
-    shownEl.textContent = idx.length;
+    var n = idx.length, key = current + '|' + n;
+    stageIdx = Math.max(0, Math.min(n - 1, stageIdx));
+    var fl = framesEl.querySelector('.flw');
+    if (!fl || framesEl.getAttribute('data-fkey') !== key) {
+      framesEl.setAttribute('data-fkey', key);
+      framesEl.innerHTML = '<div class="stg"><div class="stg-main">' + BTN_PREV + '<div class="flw">' + idx.map(cardHTML).join('') + '</div>' + BTN_NEXT + '</div><div class="stg-cap"><span></span><span></span></div></div>';
+      fl = framesEl.querySelector('.flw');
+    }
+    Array.prototype.forEach.call(fl.children, function (c, k) {
+      var o = k - stageIdx, ao = Math.abs(o);
+      c.style.setProperty('--o', o); c.style.setProperty('--ao', ao); c.style.setProperty('--sg', o > 0 ? 1 : o < 0 ? -1 : 0);
+      c.setAttribute('data-o', o);
+      c.classList.toggle('far', ao > 3);
+    });
+    var f = FRAMES[idx[stageIdx]], caps = framesEl.querySelectorAll('.stg-cap span');
+    caps[0].textContent = f.title; caps[1].textContent = f.genre + ' · ' + (stageIdx + 1) + ' / ' + n;
+    shownEl.textContent = n;
     if (window.GF && GF.sync) GF.sync();
   }
 
+  function stageGo(d) { stageIdx += d; renderFrames(); }
+  framesEl.addEventListener('click', function (e) {
+    var st = e.target.closest('[data-st]');
+    var side = !e.target.closest('.heart') ? e.target.closest('.cs-f') : null;
+    if (st) { stageGo(+st.getAttribute('data-st')); }
+    else if (side && side.getAttribute('data-o') !== '0') { e.stopPropagation(); e.preventDefault(); stageIdx += +side.getAttribute('data-o'); renderFrames(); }
+  });
+  // swipe left/right on the photos
+  (function () {
+    var x0 = null;
+    framesEl.addEventListener('touchstart', function (e) { x0 = e.target.closest('.stg-main') ? e.touches[0].clientX : null; }, { passive: true });
+    framesEl.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) stageGo(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  })();
+
   function setGenre(g) {
     current = GENRES.indexOf(g) > -1 ? g : 'All';
+    stageIdx = 0;
     renderChips();
     renderFrames();
-    framesEl.scrollLeft = 0;
-    if (typeof carState === 'function') carState();
   }
 
   chipsEl.addEventListener('click', function (e) {
@@ -861,43 +922,12 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
     if (f && e.target === f && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); f.click(); }
   });
 
-  // carousel controls
-  var prevBtn = document.querySelector('.car-prev'), nextBtn = document.querySelector('.car-next');
-  function carState() {
-    var max = framesEl.scrollWidth - framesEl.clientWidth;
-    prevBtn.disabled = framesEl.scrollLeft < 8;
-    nextBtn.disabled = framesEl.scrollLeft > max - 8;
-  }
-  function carMove(dir) { framesEl.scrollBy({ left: dir * Math.max(240, framesEl.clientWidth * 0.8), behavior: 'smooth' }); }
-  prevBtn.addEventListener('click', function () { carMove(-1); });
-  nextBtn.addEventListener('click', function () { carMove(1); });
-  framesEl.addEventListener('scroll', carState, { passive: true });
-  window.addEventListener('resize', carState);
   framesEl.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight') { e.preventDefault(); carMove(1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); carMove(-1); }
+    var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    stageGo(d);
   });
-  framesEl.addEventListener('load', carState, true);
-  // mouse drag to scroll (touch and trackpads already swipe natively)
-  (function () {
-    var down = false, moved = false, sx = 0, sl = 0;
-    framesEl.addEventListener('pointerdown', function (e) {
-      if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('.heart')) return;
-      down = true; moved = false; sx = e.clientX; sl = framesEl.scrollLeft;
-    });
-    window.addEventListener('pointermove', function (e) {
-      if (!down) return;
-      var dx = e.clientX - sx;
-      if (!moved && Math.abs(dx) > 6) { moved = true; framesEl.classList.add('drag'); }
-      if (moved) framesEl.scrollLeft = sl - dx;
-    });
-    window.addEventListener('pointerup', function () {
-      if (!down) return;
-      down = false;
-      if (moved) { framesEl.classList.remove('drag'); setTimeout(carState, 50); }
-    });
-    framesEl.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
-  })();
 
   window.GF = window.GF || {};
   GF.frames = FRAMES;
@@ -906,7 +936,6 @@ body::before{content:"";position:fixed;inset:-20%;pointer-events:none;z-index:54
   GF.filter = setGenre;
   renderChips();
   renderFrames();
-  carState();
 })();
 </script>
 <script>
